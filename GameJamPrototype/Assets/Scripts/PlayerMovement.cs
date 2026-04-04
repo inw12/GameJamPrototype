@@ -1,4 +1,8 @@
 using UnityEngine;
+
+[RequireComponent(typeof(PlayerControls))]
+public class PlayerMovement : MonoBehaviour
+{
 public enum MovementState
 {
     Idle    = 0,
@@ -7,17 +11,13 @@ public enum MovementState
 }
 public class PlayerMovement : MonoBehaviour
 {
-    [Header("Inputs")]
-    private PlayerInputs inputs;
-    public Vector2 MovePressed => inputs.General.Move.ReadValue<Vector2>();
-    public bool JumpPressed => inputs.General.Jump.IsPressed();
-    public bool SprintPressed => inputs.General.Sprint.IsPressed();
 
     [Header("Move")]
     [SerializeField] private float Speed; 
     [SerializeField] private float SprintSpeed; 
     [SerializeField] private float Acceleration; 
     private Rigidbody2D rb;
+    private PlayerControls inputs;
 
     [Header("Gravity")]
     [SerializeField] private float GroundRayLength;
@@ -27,6 +27,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Sprite")]
     [SerializeField] private SpriteRenderer sprite;
 
+    [Header("Debug")]
+    public bool Debug;
     [Header("Animation Control")]
     [SerializeField] private PlayerAnimationController animationController;
     public bool weaponEquipped;    // weapon equipped check
@@ -34,15 +36,10 @@ public class PlayerMovement : MonoBehaviour
     // state machine
     private MovementState state;
 
-    void Awake()
-    {
-        inputs = new PlayerInputs();
-        inputs.Enable();
-    }
-
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        inputs = PlayerControls.Instance;
 
         state = MovementState.Idle;
 
@@ -88,18 +85,20 @@ public class PlayerMovement : MonoBehaviour
         // Sprite Flipping
         if (MovePressed.x > 0f)
             sprite.flipX = true;
-        if (MovePressed.x < 0f)
+        if (inputs.MovePressed.x < 0f)
             sprite.flipX = false;
     }
 
     void OnDrawGizmos()
     {
+        if (!Debug) return;
         Gizmos.color = Color.red;
         Gizmos.DrawRay(transform.position, Vector2.down * GroundRayLength);
     }
 
     void OnGUI()
     {
-        GUILayout.Label($"Move: {MovePressed}");
+        if (!Debug) return;
+        GUILayout.Label($"Move: {inputs.MovePressed}");
     }
 }
