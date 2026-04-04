@@ -136,6 +136,15 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Sprint"",
+                    ""type"": ""Button"",
+                    ""id"": ""a1fd1fd4-f47f-48b4-a069-9d0b3ee563b6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -237,6 +246,17 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""action"": ""Mouse1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""67628244-0bfe-4e85-9925-ef6690f790e2"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -250,6 +270,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         m_General_Interact = m_General.FindAction("Interact", throwIfNotFound: true);
         m_General_Mouse = m_General.FindAction("Mouse", throwIfNotFound: true);
         m_General_Mouse1 = m_General.FindAction("Mouse1", throwIfNotFound: true);
+        m_General_Sprint = m_General.FindAction("Sprint", throwIfNotFound: true);
     }
 
     ~@PlayerInputs()
@@ -335,6 +356,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_General_Interact;
     private readonly InputAction m_General_Mouse;
     private readonly InputAction m_General_Mouse1;
+    private readonly InputAction m_General_Sprint;
     /// <summary>
     /// Provides access to input actions defined in input action map "General".
     /// </summary>
@@ -366,6 +388,10 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "General/Mouse1".
         /// </summary>
         public InputAction @Mouse1 => m_Wrapper.m_General_Mouse1;
+        /// <summary>
+        /// Provides access to the underlying input action "General/Sprint".
+        /// </summary>
+        public InputAction @Sprint => m_Wrapper.m_General_Sprint;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -407,6 +433,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @Mouse1.started += instance.OnMouse1;
             @Mouse1.performed += instance.OnMouse1;
             @Mouse1.canceled += instance.OnMouse1;
+            @Sprint.started += instance.OnSprint;
+            @Sprint.performed += instance.OnSprint;
+            @Sprint.canceled += instance.OnSprint;
         }
 
         /// <summary>
@@ -433,6 +462,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @Mouse1.started -= instance.OnMouse1;
             @Mouse1.performed -= instance.OnMouse1;
             @Mouse1.canceled -= instance.OnMouse1;
+            @Sprint.started -= instance.OnSprint;
+            @Sprint.performed -= instance.OnSprint;
+            @Sprint.canceled -= instance.OnSprint;
         }
 
         /// <summary>
@@ -508,5 +540,12 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMouse1(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Sprint" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSprint(InputAction.CallbackContext context);
     }
 }

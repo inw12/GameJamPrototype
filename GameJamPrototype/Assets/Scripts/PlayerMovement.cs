@@ -1,14 +1,12 @@
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerControls))]
-public class PlayerMovement : MonoBehaviour
-{
 public enum MovementState
 {
     Idle    = 0,
     Walk    = 1,
     Sprint  = 2
 }
+[RequireComponent(typeof(PlayerControls))]
 public class PlayerMovement : MonoBehaviour
 {
 
@@ -55,11 +53,11 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         // Apply Movement
-        var targetSpeed = SprintPressed ? SprintSpeed : Speed;
-        state = SprintPressed ? MovementState.Sprint : MovementState.Walk;
+        var targetSpeed = inputs.SprintPressed ? SprintSpeed : Speed;
+        state = inputs.SprintPressed ? MovementState.Sprint : MovementState.Walk;
         rb.linearVelocity = new Vector2
         (
-            MovePressed.x * targetSpeed, 
+            inputs.MovePressed.x * targetSpeed, 
             rb.linearVelocity.y
         );
     }
@@ -80,10 +78,10 @@ public class PlayerMovement : MonoBehaviour
         IsGrounded = Physics2D.Raycast(transform.position, Vector2.down, GroundRayLength, groundLayer);
 
         // Update State Machine
-        state = MovePressed.sqrMagnitude == 0f ? MovementState.Idle : state;
+        state = inputs.MovePressed.sqrMagnitude == 0f ? MovementState.Idle : state;
 
         // Sprite Flipping
-        if (MovePressed.x > 0f)
+        if (inputs.MovePressed.x > 0f)
             sprite.flipX = true;
         if (inputs.MovePressed.x < 0f)
             sprite.flipX = false;
