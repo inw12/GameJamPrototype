@@ -3,9 +3,18 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerControls))]
 public class PlayerMovement : MonoBehaviour
 {
+public enum MovementState
+{
+    Idle    = 0,
+    Walk    = 1,
+    Sprint  = 2
+}
+public class PlayerMovement : MonoBehaviour
+{
 
     [Header("Move")]
     [SerializeField] private float Speed; 
+    [SerializeField] private float SprintSpeed; 
     [SerializeField] private float Acceleration; 
     private Rigidbody2D rb;
     private PlayerControls inputs;
@@ -20,11 +29,21 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Debug")]
     public bool Debug;
+    [Header("Animation Control")]
+    [SerializeField] private PlayerAnimationController animationController;
+    public bool weaponEquipped;    // weapon equipped check
+
+    // state machine
+    private MovementState state;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         inputs = PlayerControls.Instance;
+
+        state = MovementState.Idle;
+
+        animationController.Initialize();
     }
 
     // Update is called once per frame
@@ -35,7 +54,24 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.linearVelocity = new Vector2(inputs.MovePressed.x * Speed, rb.linearVelocity.y);
+        // Apply Movement
+        var targetSpeed = SprintPressed ? SprintSpeed : Speed;
+        state = SprintPressed ? MovementState.Sprint : MovementState.Walk;
+        rb.linearVelocity = new Vector2
+        (
+            MovePressed.x * targetSpeed, 
+            rb.linearVelocity.y
+        );
+    }
+
+    void LateUpdate()
+    {
+        var animParameters = new PlayerAnimatorParameters
+        {
+            MovementAction = (int)state,
+            WeaponEquipped = weaponEquipped
+        };
+        animationController.UpdateAnimator(animParameters);
     }
 
     void UpdateMove()
@@ -43,7 +79,11 @@ public class PlayerMovement : MonoBehaviour
         // Ground 
         IsGrounded = Physics2D.Raycast(transform.position, Vector2.down, GroundRayLength, groundLayer);
 
-        if (inputs.MovePressed.x > 0f)
+        // Update State Machine
+        state = MovePressed.sqrMagnitude == 0f ? MovementState.Idle : state;
+
+        // Sprite Flipping
+        if (MovePressed.x > 0f)
             sprite.flipX = true;
         if (inputs.MovePressed.x < 0f)
             sprite.flipX = false;
