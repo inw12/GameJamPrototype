@@ -1,14 +1,21 @@
 using UnityEngine;
-
+public enum MovementState
+{
+    Idle    = 0,
+    Walk    = 1,
+    Sprint  = 2
+}
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Inputs")]
     private PlayerInputs inputs;
     public Vector2 MovePressed => inputs.General.Move.ReadValue<Vector2>();
     public bool JumpPressed => inputs.General.Jump.IsPressed();
+    public bool SprintPressed => inputs.General.Sprint.IsPressed();
 
     [Header("Move")]
     [SerializeField] private float Speed; 
+    [SerializeField] private float SprintSpeed; 
     [SerializeField] private float Acceleration; 
     private Rigidbody2D rb;
 
@@ -20,6 +27,13 @@ public class PlayerMovement : MonoBehaviour
     [Header("Sprite")]
     [SerializeField] private SpriteRenderer sprite;
 
+    [Header("Animation Control")]
+    [SerializeField] private PlayerAnimationController animationController;
+    public bool weaponEquipped;    // weapon equipped check
+
+    // state machine
+    private MovementState state;
+
     void Awake()
     {
         inputs = new PlayerInputs();
@@ -29,6 +43,10 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        state = MovementState.Idle;
+
+        animationController.Initialize();
     }
 
     // Update is called once per frame
@@ -39,7 +57,24 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.linearVelocity = new Vector2(MovePressed.x * Speed, rb.linearVelocity.y);
+        // Apply Movement
+        var targetSpeed = SprintPressed ? SprintSpeed : Speed;
+        state = SprintPressed ? MovementState.Sprint : MovementState.Walk;
+        rb.linearVelocity = new Vector2
+        (
+            MovePressed.x * targetSpeed, 
+            rb.linearVelocity.y
+        );
+    }
+
+    void LateUpdate()
+    {
+        var animParameters = new PlayerAnimatorParameters
+        {
+            MovementAction = (int)state,
+            WeaponEquipped = weaponEquipped
+        };
+        animationController.UpdateAnimator(animParameters);
     }
 
     void UpdateMove()
@@ -47,6 +82,10 @@ public class PlayerMovement : MonoBehaviour
         // Ground 
         IsGrounded = Physics2D.Raycast(transform.position, Vector2.down, GroundRayLength, groundLayer);
 
+        // Update State Machine
+        state = MovePressed.sqrMagnitude == 0f ? MovementState.Idle : state;
+
+        // Sprite Flipping
         if (MovePressed.x > 0f)
             sprite.flipX = true;
         if (MovePressed.x < 0f)
