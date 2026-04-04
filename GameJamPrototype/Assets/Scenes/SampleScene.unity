@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 29551860}
   - component: {fileID: 29551859}
   - component: {fileID: 29551862}
+  - component: {fileID: 29551864}
   m_Layer: 0
   m_Name: Root
   m_TagString: Untagged
@@ -303,6 +304,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &29551864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 29551858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d3287d78aacf42848580b937cd4cbec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RunTime::PlayerAnimationController
 --- !u!1 &68655006
 GameObject:
   m_ObjectHideFlags: 0
@@ -719,12 +732,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7abd0763980c9204cb616a2e131081c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: RunTime::PlayerMovement
-  Speed: 7
-  SprintSpeed: 14
+  Speed: 5
+  SprintSpeed: 10
   Acceleration: 1
   GroundRayLength: 0.7
   IsGrounded: 0
   sprite: {fileID: 29551860}
+  animationController: {fileID: 29551864}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

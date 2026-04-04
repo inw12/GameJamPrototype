@@ -1,5 +1,10 @@
 using UnityEngine;
-
+public enum MovementState
+{
+    Idle    = 0,
+    Walk    = 1,
+    Sprint  = 2
+}
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Inputs")]
@@ -22,6 +27,13 @@ public class PlayerMovement : MonoBehaviour
     [Header("Sprite")]
     [SerializeField] private SpriteRenderer sprite;
 
+    [Header("Animation Control")]
+    [SerializeField] private PlayerAnimationController animationController;
+
+
+    // state machine
+    private MovementState state;
+
     void Awake()
     {
         inputs = new PlayerInputs();
@@ -31,6 +43,10 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        state = MovementState.Idle;
+
+        animationController.Initialize();
     }
 
     // Update is called once per frame
@@ -41,7 +57,9 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        // Apply Movement
         var targetSpeed = SprintPressed ? SprintSpeed : Speed;
+        state = SprintPressed ? MovementState.Sprint : MovementState.Walk;
         rb.linearVelocity = new Vector2
         (
             MovePressed.x * targetSpeed, 
@@ -49,11 +67,24 @@ public class PlayerMovement : MonoBehaviour
         );
     }
 
+    void LateUpdate()
+    {
+        var animParameters = new PlayerAnimatorParameters
+        {
+            MovementAction = (int)state
+        };
+        animationController.UpdateAnimator(animParameters);
+    }
+
     void UpdateMove()
     {   
         // Ground 
         IsGrounded = Physics2D.Raycast(transform.position, Vector2.down, GroundRayLength, groundLayer);
 
+        // Update State Machine
+        state = MovePressed.sqrMagnitude == 0f ? MovementState.Idle : state;
+
+        // Sprite Flipping
         if (MovePressed.x > 0f)
             sprite.flipX = true;
         if (MovePressed.x < 0f)
