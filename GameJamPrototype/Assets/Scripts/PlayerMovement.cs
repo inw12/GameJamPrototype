@@ -6,9 +6,11 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInputs inputs;
     public Vector2 MovePressed => inputs.General.Move.ReadValue<Vector2>();
     public bool JumpPressed => inputs.General.Jump.IsPressed();
+    public bool SprintPressed => inputs.General.Sprint.IsPressed();
 
     [Header("Move")]
     [SerializeField] private float Speed; 
+    [SerializeField] private float SprintSpeed; 
     [SerializeField] private float Acceleration; 
     private Rigidbody2D rb;
 
@@ -39,7 +41,12 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.linearVelocity = new Vector2(MovePressed.x * Speed, rb.linearVelocity.y);
+        var targetSpeed = SprintPressed ? SprintSpeed : Speed;
+        rb.linearVelocity = new Vector2
+        (
+            MovePressed.x * targetSpeed, 
+            rb.linearVelocity.y
+        );
     }
 
     void UpdateMove()
