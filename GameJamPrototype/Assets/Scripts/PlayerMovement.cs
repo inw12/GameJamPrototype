@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private LayerMask groundLayer => LayerMask.GetMask("Ground");
 
     [Header("Sprite")]
-    [SerializeField] private SpriteRenderer sprite;
+    [SerializeField] private SpriteRenderer[] sprites;
 
     [Header("Debug")]
     public bool Debug;
@@ -81,10 +81,20 @@ public class PlayerMovement : MonoBehaviour
         state = inputs.MovePressed.sqrMagnitude == 0f ? MovementState.Idle : state;
 
         // Sprite Flipping
-        if (inputs.MovePressed.x > 0f)
-            sprite.flipX = true;
-        if (inputs.MovePressed.x < 0f)
-            sprite.flipX = false;
+        if (inputs.MovePressed.x > 0f && !sprites[0].flipX)
+        {
+            foreach (var s in sprites)
+            {
+                s.flipX = true;
+            }
+        }
+        if (inputs.MovePressed.x < 0f && sprites[0].flipX)
+        {
+            foreach (var s in sprites)
+            {
+                s.flipX = false;
+            }
+        }
     }
 
     void OnDrawGizmos()
