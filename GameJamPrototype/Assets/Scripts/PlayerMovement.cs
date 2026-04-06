@@ -9,7 +9,6 @@ public enum MovementState
 [RequireComponent(typeof(PlayerControls))]
 public class PlayerMovement : MonoBehaviour
 {
-
     [Header("Move")]
     [SerializeField] private float Speed; 
     [SerializeField] private float SprintSpeed; 
