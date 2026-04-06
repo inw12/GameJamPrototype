@@ -2,24 +2,65 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
-    [SerializeField] private Camera prefab;
-    [SerializeField] private Vector2 offset;
+    private Vector2 MousePosition => PlayerControls.Instance.Mouse;
+    [SerializeField] private Camera Prefab;
+    [SerializeField] private Vector2 Offset;
+    [SerializeField] private float CameraSmooth;
+    [Range(0f, 1f)]
+    [SerializeField] private float ViewPortScrollRange;
+    [SerializeField] private float CameraMaxRange;
+    [SerializeField] private float CameraScrollSpeed;
     private Camera camera;
+    private Vector3 cameraPos, targetPos;
 
+    [Header("Debug")]
+    [SerializeField] private bool ShowDebug = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        camera = Instantiate(prefab);
+        camera = Instantiate(Prefab);
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         UpdateCamera();
     }
 
+    void FixedUpdate()
+    {
+        camera.transform.position = cameraPos;
+    }
+
     void UpdateCamera()
     {
-        camera.transform.position = transform.position + new Vector3(offset.x, offset.y, 0f);
+        Vector3 mouseViewPos = camera.ScreenToViewportPoint(MousePosition);
+
+        Vector3 playerPos = transform.position + new Vector3(Offset.x, Offset.y, 0f);
+        
+
+        // If within scroll range
+        if (mouseViewPos.x < 1f - ViewPortScrollRange && mouseViewPos.x > ViewPortScrollRange)
+        {
+            targetPos = playerPos;
+        }
+        else
+        {
+            if (mouseViewPos.x >= 1f - ViewPortScrollRange)
+                targetPos = playerPos + CameraMaxRange * Vector3.right;
+            else
+                targetPos = playerPos - CameraMaxRange * Vector3.right;
+  
+        }
+
+        cameraPos = Vector3.Lerp(cameraPos, targetPos, CameraSmooth * Time.deltaTime);
+    }
+
+    void OnDrawGizmos()
+    {
+        if (!ShowDebug) return;
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(transform.position, new Vector3(CameraMaxRange * 2, 1f, transform.position.z));
     }
 }
