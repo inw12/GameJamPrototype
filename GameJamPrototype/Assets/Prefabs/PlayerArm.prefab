@@ -48,9 +48,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: RunTime::PlayerLimb
   upperSegment: {fileID: 2711532154474061698}
   lowerSegment: {fileID: 2524083389533743515}
-  launchForce: 5
-  launchTorque: 10
-  jointFlailTorque: 5
   timeToDespawn: 2
   despawnDuration: 1
 --- !u!1 &7237405176936360209
@@ -191,7 +188,7 @@ CapsuleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 384
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -228,7 +225,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.0067022443, y: 0.1776104}
-  m_ConnectedAnchor: {x: 0.009297729, y: -0.16438961}
+  m_ConnectedAnchor: {x: 0.0092977565, y: -0.16438961}
   m_UseConnectedAnchor: 1
   m_UseMotor: 0
   m_Motor:
@@ -387,7 +384,7 @@ CapsuleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 384
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2

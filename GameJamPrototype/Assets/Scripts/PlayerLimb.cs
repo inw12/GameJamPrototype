@@ -7,38 +7,25 @@ public class PlayerLimb : MonoBehaviour
     [SerializeField] private PlayerLimbSegment lowerSegment;
 
     [Header("Launch Settings")]
-    [SerializeField] private float launchForce      = 5f;
-    [SerializeField] private float launchTorque     = 10f;
-    [SerializeField] private float jointFlailTorque = 5f;
+    private float _launchForce;
+    private float _launchTorque;
+    private float _jointFlailTorque;
 
     [Header("Despawn Settings")]
     [SerializeField] private float timeToDespawn    = 2f;
     [SerializeField] private float despawnDuration  = 1f;
 
-    public void Launch(Vector2 direction, float speedMultiplier = 1f)
+    public void Initialize(float force, float torque, float jointTorque, Vector2 launchDirection)
     {
-        var targetVelocity = launchForce * speedMultiplier * direction.normalized;
+        _launchForce = force;
+        _launchTorque = torque;
+        _jointFlailTorque = jointTorque;
 
-        upperSegment.ApplyImpulse(targetVelocity, launchTorque);
-        lowerSegment.ApplyImpulse(targetVelocity, -jointFlailTorque);
+        upperSegment.Initialize();
+        lowerSegment.Initialize();
 
-        StartCoroutine(Despawn());
-    }
-
-    private IEnumerator Despawn()
-    {
-        yield return new WaitForSeconds(timeToDespawn);
-
-        float elapsed = 0f;
-        while (elapsed < despawnDuration)
-        {
-            float alpha = Mathf.Lerp(1f, 0f, elapsed / despawnDuration);
-            upperSegment.SetAlpha(alpha);
-            lowerSegment.SetAlpha(alpha);
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-
-        Destroy(gameObject);
+        var targetVelocity = _launchForce * launchDirection.normalized;
+        upperSegment.ApplyImpulse(targetVelocity, _launchTorque);
+        lowerSegment.ApplyImpulse(targetVelocity, -_jointFlailTorque);
     }
 }
