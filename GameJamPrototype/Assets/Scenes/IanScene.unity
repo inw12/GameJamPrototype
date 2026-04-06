@@ -997,6 +997,7 @@ GameObject:
   - component: {fileID: 504868316}
   - component: {fileID: 519420030}
   - component: {fileID: 519420031}
+  - component: {fileID: 519420032}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1211,6 +1212,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: RunTime::Damageable
   CurrentState: 0
   Health: 100
+--- !u!114 &519420032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 504868314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d7f6959efe04452a9e0ba3966b00635, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RunTime::PlayerWeapon
+  currentWeapon: {fileID: 11400000, guid: e2ccec4d0792a49fc950770e01a9d184, type: 2}
 --- !u!1 &707247562
 GameObject:
   m_ObjectHideFlags: 0
