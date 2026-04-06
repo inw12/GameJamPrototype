@@ -1,40 +1,73 @@
 using UnityEngine;
 public class PlayerDismemberment : MonoBehaviour
 {
-    [SerializeField] private GameObject[] bodyParts;
-    /// [0]: Back Arm
-    /// [1]: Front Arm
-    /// [2]: Back Leg
-    /// [3]: Front Leg
+    [SerializeField] private GameObject frontArm;
+    [SerializeField] private GameObject backArm;
+    [SerializeField] private GameObject frontLeg;
+    [SerializeField] private GameObject backLeg;
+    [Space]
+    public bool frontArmAttached = true;
+    public bool backArmAttached = true;
+    public bool frontLegAttached = true;
+    public bool backLegAttached = true;
 
-    [Header("Limb Launch Settings")]
-    [SerializeField] private GameObject arm;
-    [SerializeField] private Transform armSpawn;
+    private bool _frontArmSevered;
+    private bool _backArmSevered;
+    private bool _frontLegSevered;
+    private bool _backLegSevered;
+
+    [Header("Dismemberment Settings")]
+    [SerializeField] private GameObject armPrefab;
+    [SerializeField] private GameObject legPrefab;
+    [Space]
     [SerializeField] private float launchForce      = 10f;
     [SerializeField] private float launchTorque     = 30f;
     [SerializeField] private float jointFlailTorque = 15f;
-    private bool _armLaunched;
-
-    [Space]
-    public bool backArm;
-    public bool frontArm;
-    public bool backLeg;
-    public bool frontLeg;
 
     void Update()
     {
-        bodyParts[0].SetActive(!backArm);
-        bodyParts[1].SetActive(!frontArm);
-        bodyParts[2].SetActive(!backLeg);
-        bodyParts[3].SetActive(!frontLeg);
+        frontArm.SetActive(frontArmAttached);
+        backArm.SetActive(backArmAttached);
+        frontLeg.SetActive(frontLegAttached);
+        backLeg.SetActive(backLegAttached);
 
-        if (!_armLaunched && (backArm || frontArm))
+        if (!_frontArmSevered && !frontArmAttached)
         {
-            _armLaunched = true;
-            var p = Instantiate(arm, armSpawn.position, Quaternion.identity);
-            if (p.TryGetComponent(out PlayerLimb limb))
+            _frontArmSevered = true;
+            var v = Instantiate(armPrefab, frontArm.transform.position, Quaternion.identity);
+            if (v.TryGetComponent(out PlayerLimb limb))
             {
-                limb.Initialize(launchForce, launchTorque, jointFlailTorque, Random.insideUnitCircle * 0.2f);
+                limb.Initialize(launchForce, launchTorque, jointFlailTorque, Random.insideUnitCircle);
+            }
+        }
+
+        if (!_backArmSevered && !backArmAttached)
+        {
+            _backArmSevered = true;
+            var v = Instantiate(armPrefab, backArm.transform.position, Quaternion.identity);
+            if (v.TryGetComponent(out PlayerLimb limb))
+            {
+                limb.Initialize(launchForce, launchTorque, jointFlailTorque, Random.insideUnitCircle);
+            }
+        }
+
+        if (!_frontLegSevered && !frontLegAttached)
+        {
+            _frontLegSevered = true;
+            var v = Instantiate(legPrefab, frontLeg.transform.position, Quaternion.identity);
+            if (v.TryGetComponent(out PlayerLimb limb))
+            {
+                limb.Initialize(launchForce, launchTorque, jointFlailTorque, Random.insideUnitCircle);
+            }
+        }
+
+        if (!_backLegSevered && !backLegAttached)
+        {
+            _backLegSevered = true;
+            var v = Instantiate(legPrefab, backLeg.transform.position, Quaternion.identity);
+            if (v.TryGetComponent(out PlayerLimb limb))
+            {
+                limb.Initialize(launchForce, launchTorque, jointFlailTorque, Random.insideUnitCircle);
             }
         }
     }
