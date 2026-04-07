@@ -253,7 +253,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_MaskInteraction: 0
   m_Sprite: {fileID: 5865078278364869351, guid: 0717468a98adc4d4390c3b677a065c8f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -617,7 +617,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7388399842426930641, guid: 0717468a98adc4d4390c3b677a065c8f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1213,6 +1213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: RunTime::PlayerWeapon
   currentWeapon: {fileID: 6805761842341076841, guid: 24c5f12f811a044689c5ab3088dc78b1, type: 3}
   attachTo: {fileID: 710096624}
+  playerMovement: {fileID: 504868318}
   animationController: {fileID: 707247564}
   armAim: {fileID: 707247567}
 --- !u!1 &707247562

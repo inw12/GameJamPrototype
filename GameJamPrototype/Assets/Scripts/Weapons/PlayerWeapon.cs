@@ -4,6 +4,7 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField] private GameObject currentWeapon;
     [SerializeField] private Transform attachTo;
     [Space]
+    [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerAnimationController animationController;
     [SerializeField] private ArmAim armAim;
 
@@ -40,14 +41,17 @@ public class PlayerWeapon : MonoBehaviour
 
     void LateUpdate()
     {
-        // update weapon positioning
+        // update weapon position/rotation
         if (_weaponObjectInstance)
         {
+            // position
             _weaponObjectInstance.transform.position = attachTo.position;        
 
-            //var targetPosition = PlayerControls.Instance.GetMouseWorldPosition();
-            //var angle = Mathf.Atan2(targetPosition.x, targetPosition.y) * Mathf.Rad2Deg;
-            //_weaponObjectInstance.transform.rotation = Quaternion.Euler(0f, 0f, angle);
+            // rotation
+            var targetPosition = PlayerControls.Instance.GetMouseWorldPosition();
+            var angle = Mathf.Atan2(targetPosition.y - attachTo.position.y, targetPosition.x - attachTo.position.x) * Mathf.Rad2Deg;
+            angle = playerMovement.IsFacingRight() ? angle : angle + 180f;
+            _weaponObjectInstance.transform.rotation = Quaternion.Euler(0f, 0f, angle);
         }
         
         // update weapon arms (if active)
