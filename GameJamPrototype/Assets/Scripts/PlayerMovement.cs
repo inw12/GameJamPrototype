@@ -21,17 +21,16 @@ public class PlayerMovement : MonoBehaviour
     public bool IsGrounded = false;
     private LayerMask groundLayer => LayerMask.GetMask("Ground");
 
-    [Header("Sprite")]
-    [SerializeField] private SpriteRenderer[] sprites;
-
     [Header("Debug")]
     public bool Debug;
     [Header("Animation Control")]
     [SerializeField] private PlayerAnimationController animationController;
-    public bool weaponEquipped;    // weapon equipped check
 
     // state machine
     private MovementState state;
+
+    // character flipping
+    private bool facingRight;
 
     void Start()
     {
@@ -66,7 +65,6 @@ public class PlayerMovement : MonoBehaviour
         var animParameters = new PlayerAnimatorParameters
         {
             MovementAction = (int)state,
-            WeaponEquipped = weaponEquipped
         };
         animationController.UpdateAnimator(animParameters);
     }
@@ -79,21 +77,10 @@ public class PlayerMovement : MonoBehaviour
         // Update State Machine
         state = inputs.MovePressed.sqrMagnitude == 0f ? MovementState.Idle : state;
 
-        // Sprite Flipping
-        if (inputs.MovePressed.x > 0f && !sprites[0].flipX)
-        {
-            foreach (var s in sprites)
-            {
-                s.flipX = true;
-            }
-        }
-        if (inputs.MovePressed.x < 0f && sprites[0].flipX)
-        {
-            foreach (var s in sprites)
-            {
-                s.flipX = false;
-            }
-        }
+        // Character Left/Right Flipping
+        var x = inputs.GetMouseWorldPosition().x > transform.position.x ? 1f : -1f;
+        if (x > 0f && !facingRight) FlipCharacter();
+        if (x < 0f && facingRight) FlipCharacter();
     }
 
     void OnDrawGizmos()
@@ -108,4 +95,14 @@ public class PlayerMovement : MonoBehaviour
         if (!Debug) return;
         GUILayout.Label($"Move: {inputs.MovePressed}");
     }
+
+    private void FlipCharacter()
+    {
+        facingRight = !facingRight;
+        var scale = transform.localScale;
+        scale.x *= -1f;
+        transform.localScale = scale;
+    }
+
+    public bool IsFacingRight() => facingRight;
 }
