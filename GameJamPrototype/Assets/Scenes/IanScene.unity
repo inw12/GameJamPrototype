@@ -1112,19 +1112,6 @@ MonoBehaviour:
   Acceleration: 1
   GroundRayLength: 0.7
   IsGrounded: 0
-  sprites:
-  - {fileID: 1253659742}
-  - {fileID: 500218176}
-  - {fileID: 1912807775}
-  - {fileID: 1061896024}
-  - {fileID: 185227957}
-  - {fileID: 144572894}
-  - {fileID: 1484315736}
-  - {fileID: 1806658436}
-  - {fileID: 955385227}
-  - {fileID: 1270592365}
-  - {fileID: 1226874824}
-  - {fileID: 174858216}
   Debug: 0
   animationController: {fileID: 707247564}
 --- !u!114 &504868319
@@ -1279,7 +1266,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d3287d78aacf42848580b937cd4cbec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: RunTime::PlayerAnimationController
-  weaponEquipped: 1
 --- !u!95 &707247565
 Animator:
   serializedVersion: 7

@@ -12,19 +12,22 @@ public class PlayerWeapon : MonoBehaviour
     {
         if (currentWeapon)
         {
-            _weaponObjectInstance = Instantiate(currentWeapon, attachTo.position, Quaternion.identity);
+            _weaponObjectInstance = Instantiate(currentWeapon, transform);
+            _weaponObjectInstance.transform.SetPositionAndRotation(attachTo.position, currentWeapon.transform.rotation);
         }
     }
 
     void Update()
     {
-        
+
     }
 
     // Used to update transform of weapon sprite
     void LateUpdate()
     {
-        _weaponObjectInstance.transform.position = attachTo.position;
+        if (_weaponObjectInstance) _weaponObjectInstance.transform.position = attachTo.position;
+
+        animationController.UpdateAnimator(currentWeapon);
     }
 
     public void SwitchWeapon(Weapon weapon)

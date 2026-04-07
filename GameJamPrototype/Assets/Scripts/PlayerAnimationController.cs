@@ -6,7 +6,6 @@ public struct PlayerAnimatorParameters
 [RequireComponent(typeof(Animator))]
 public class PlayerAnimationController : MonoBehaviour
 {
-    public bool weaponEquipped;
     private Animator animator;
 
     public void Initialize()
@@ -14,9 +13,15 @@ public class PlayerAnimationController : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    // Movement Animations
     public void UpdateAnimator(PlayerAnimatorParameters parameters)
     {
         animator.SetInteger("MovementAction", parameters.MovementAction);
+    }
+
+    // Arm Weapon Animations
+    public void UpdateAnimator(bool weaponEquipped)
+    {
         animator.SetBool("WeaponEquipped", weaponEquipped);
 
         // Arm animation layer management
