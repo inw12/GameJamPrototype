@@ -9,6 +9,8 @@ public class PlayerWeapon : MonoBehaviour
     private GameObject _weaponObjectInstance;
     private Weapon _weapon;
 
+    private Vector2 _mousePos;
+
     void Start()
     {
         if (currentWeapon)
@@ -21,7 +23,28 @@ public class PlayerWeapon : MonoBehaviour
 
     void Update()
     {
+        // Read input for attack
+        if (PlayerControls.Instance)
+        {
+            var input = PlayerControls.Instance;
 
+            // Get mouse position
+            Vector3 screenPos = input.Mouse;
+            screenPos.z = -Camera.main.transform.position.z;
+            _mousePos = Camera.main.ScreenToWorldPoint(screenPos);
+
+            // Read attack input
+            if (input.Mouse1)
+            {
+                _weapon.Attack(_mousePos);
+            }
+        }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(_mousePos, 0.25f);
     }
 
     // update weapon positioning

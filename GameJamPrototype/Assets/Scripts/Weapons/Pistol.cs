@@ -4,16 +4,22 @@ public class Pistol : RangedWeapon
 {
     [SerializeField] private Transform bulletSpawn;
 
-    public void Initialize()
+    void Start()
     {
         _pool = GetComponent<ProjectilePool>();
         _fireTimer = fireRate;
     }
 
-    public override void Attack(Vector2 direction)
+    void Update()
+    {
+        _fireTimer += Time.deltaTime;
+    }
+
+    public override void Attack(Vector2 mousePos)
     {
         if (_fireTimer >= fireRate)
         {
+            var direction = ((Vector3)mousePos - bulletSpawn.position).normalized;
             var projectile = new ProjectileContext
             {
                 ObjectPool  = _pool,

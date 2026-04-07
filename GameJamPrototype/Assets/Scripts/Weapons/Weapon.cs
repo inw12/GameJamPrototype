@@ -6,7 +6,7 @@ public abstract class Weapon : MonoBehaviour
 {
     [SerializeField] protected LayerMask targetLayer;
 
-    public virtual void Attack(Vector2 direction) {}
+    public virtual void Attack(Vector2 mousePos) {}
 }
 
 // * Ranged Weapons
