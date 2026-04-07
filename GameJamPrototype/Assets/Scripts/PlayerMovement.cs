@@ -28,6 +28,9 @@ public class PlayerMovement : MonoBehaviour
 
     // state machine
     private MovementState state;
+
+    // character flipping
+    private bool mouseRight;
     private bool facingRight;
 
     void Start()
@@ -76,8 +79,9 @@ public class PlayerMovement : MonoBehaviour
         state = inputs.MovePressed.sqrMagnitude == 0f ? MovementState.Idle : state;
 
         // Character Left/Right Flipping
-        if (inputs.MovePressed.x > 0f && !facingRight) FlipCharacter();
-        if (inputs.MovePressed.x < 0f && facingRight) FlipCharacter();
+        var x = inputs.GetMouseWorldPosition().x > transform.position.x ? 1f : -1f;
+        if (x > 0f && !facingRight) FlipCharacter();
+        if (x < 0f && facingRight) FlipCharacter();
     }
 
     void OnDrawGizmos()

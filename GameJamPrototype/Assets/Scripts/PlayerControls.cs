@@ -17,4 +17,12 @@ public class PlayerControls : MonoBehaviour
                 inputs = new PlayerInputs();
                 inputs.Enable();
         }
+
+        // returns mouse position as world position
+        public Vector2 GetMouseWorldPosition()
+        {
+                Vector3 screenPos = Mouse;
+                screenPos.z = -Camera.main.transform.position.z;
+                return Camera.main.ScreenToWorldPoint(screenPos);
+        }       
 }
