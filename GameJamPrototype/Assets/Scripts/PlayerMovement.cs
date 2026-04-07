@@ -28,7 +28,6 @@ public class PlayerMovement : MonoBehaviour
     public bool Debug;
     [Header("Animation Control")]
     [SerializeField] private PlayerAnimationController animationController;
-    public bool weaponEquipped;    // weapon equipped check
 
     // state machine
     private MovementState state;
@@ -66,7 +65,6 @@ public class PlayerMovement : MonoBehaviour
         var animParameters = new PlayerAnimatorParameters
         {
             MovementAction = (int)state,
-            WeaponEquipped = weaponEquipped
         };
         animationController.UpdateAnimator(animParameters);
     }

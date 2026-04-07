@@ -2,11 +2,11 @@ using UnityEngine;
 public struct PlayerAnimatorParameters
 {
     public int  MovementAction;
-    public bool WeaponEquipped;
 }
 [RequireComponent(typeof(Animator))]
 public class PlayerAnimationController : MonoBehaviour
 {
+    public bool weaponEquipped;
     private Animator animator;
 
     public void Initialize()
@@ -17,11 +17,16 @@ public class PlayerAnimationController : MonoBehaviour
     public void UpdateAnimator(PlayerAnimatorParameters parameters)
     {
         animator.SetInteger("MovementAction", parameters.MovementAction);
-        animator.SetBool("WeaponEquipped", parameters.WeaponEquipped);
+        animator.SetBool("WeaponEquipped", weaponEquipped);
 
         // Arm animation layer management
-        var layer = animator.GetLayerIndex("Arms");
+        var armLayer = animator.GetLayerIndex("Arms");
+        var pistolArmLayer = animator.GetLayerIndex("PistolArms");
+
         var armLayerWeight = animator.GetBool("WeaponEquipped") ? 0f : 1f;
-        animator.SetLayerWeight(layer, armLayerWeight);
+        var pistolLayerWeight = animator.GetBool("WeaponEquipped") ? 1f : 0f;
+
+        animator.SetLayerWeight(armLayer, armLayerWeight);
+        animator.SetLayerWeight(pistolArmLayer, pistolLayerWeight);
     }
 }
