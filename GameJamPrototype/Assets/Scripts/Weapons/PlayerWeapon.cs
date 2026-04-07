@@ -7,6 +7,7 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField] private PlayerAnimationController animationController;
 
     private GameObject _weaponObjectInstance;
+    private Weapon _weapon;
 
     void Start()
     {
@@ -14,6 +15,7 @@ public class PlayerWeapon : MonoBehaviour
         {
             _weaponObjectInstance = Instantiate(currentWeapon, transform);
             _weaponObjectInstance.transform.SetPositionAndRotation(attachTo.position, currentWeapon.transform.rotation);
+            _weapon = _weaponObjectInstance.GetComponent<Weapon>();
         }
     }
 
@@ -22,7 +24,7 @@ public class PlayerWeapon : MonoBehaviour
 
     }
 
-    // Used to update transform of weapon sprite
+    // update weapon positioning
     void LateUpdate()
     {
         if (_weaponObjectInstance) _weaponObjectInstance.transform.position = attachTo.position;

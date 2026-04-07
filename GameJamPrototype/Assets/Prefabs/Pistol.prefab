@@ -40,6 +40,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4252547307336924942}
+  - component: {fileID: 5660836694699955981}
+  - component: {fileID: 4839028276537621450}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Untagged
@@ -64,6 +66,39 @@ Transform:
   - {fileID: 1708803629611794118}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5660836694699955981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6805761842341076841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ebc2767500904036bb10f76b63dbcc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RunTime::Pistol
+  damage: 5
+  fireRate: 0.33
+  maxAmmo: 24
+  bulletSpeed: 100
+  isFullAuto: 0
+  isTwoHanded: 0
+--- !u!114 &4839028276537621450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6805761842341076841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5883b1de57af047dc949e59b3772d707, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RunTime::ProjectilePool
+  projectile: {fileID: 147573827453895865, guid: d33e9503db83649b893e75de2934d59f, type: 3}
+  defaultCapacity: 25
+  maxCapacity: 100
 --- !u!1 &8468214871303644097
 GameObject:
   m_ObjectHideFlags: 0

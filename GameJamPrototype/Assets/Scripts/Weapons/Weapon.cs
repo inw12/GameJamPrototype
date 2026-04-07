@@ -1,21 +1,43 @@
 using UnityEngine;
+
+#region *-- Weapon Classes ------------------------------*
+// * Base Class
 public abstract class Weapon : MonoBehaviour
 {
-    [Header("Stats")]
-    public float damage;
-    public float fireRate;
-    public float maxAmmo;
-    public bool isFullAuto;
+    [SerializeField] protected LayerMask targetLayer;
 
-    // stat management
-    protected float _fireTimer;
-
-    public abstract void Attack(WeaponAttackContext context);
+    public virtual void Attack(Vector2 direction) {}
 }
-public class WeaponAttackContext
+
+// * Ranged Weapons
+public class RangedWeapon : Weapon
 {
-    public Vector2      Origin;
-    public Vector2      Direction;
-    public LayerMask    HitMask;
-    public bool         FacingRight;
+    [Header("Basic Stats")]
+    [SerializeField] protected float damage;
+    [SerializeField] protected float fireRate;
+    [SerializeField] protected float maxAmmo;
+    [SerializeField] protected float bulletSpeed;
+    [SerializeField] protected bool isFullAuto;
+    [SerializeField] protected bool isTwoHanded;
+    protected ProjectilePool _pool;
+    protected float _fireTimer;
 }
+
+// * Melee Weapons
+public class MeleeWeapon : Weapon {}
+#endregion
+
+#region *-- Weapon Attack Context Structs ---------------*
+public struct ProjectileContext
+{
+    public ProjectilePool   ObjectPool;
+    public Vector2          Origin;
+    public Vector2          Direction;
+    public float            BulletSpeed;
+    public LayerMask        HitMask;
+}
+public struct MeleeAttackContext
+{
+    
+}
+#endregion

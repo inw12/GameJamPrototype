@@ -42,13 +42,13 @@ public class ProjectilePool : MonoBehaviour
 
     private void OnDestroyProjectile(GameObject item) => Destroy(item);
 
-    public void Get(WeaponAttackContext context)
+    public void Get(ProjectileContext context)
     {
         GameObject item = _pool.Get();
-        //if (item.TryGetComponent(out Projectile p))
-        //{
-        //    p.Initialize(this, context, spawn);
-        //}
+        if (item.TryGetComponent(out Projectile p))
+        {
+            p.Initialize(context);
+        }
     }
     
     public void Release(GameObject item) => _pool.Release(item);

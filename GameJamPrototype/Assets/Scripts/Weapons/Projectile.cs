@@ -7,41 +7,33 @@ public class Projectile : MonoBehaviour
     private float _distanceTraveled;
 
     // Stats
-    private WeaponAttackContext _context;
-    private float _speed;
+    private ProjectileContext _projectileContext;
 
-    // Object Pool
-    private ProjectilePool _pool;
-
-    public void Initialize(WeaponAttackContext context, float bulletSpeed, ProjectilePool pool)
+    public void Initialize(ProjectileContext context)
     {
-        _context = context;
-        _speed = bulletSpeed;
-        _pool = pool;
+        _projectileContext = context;
     }
 
     // Bullet Travel
     void FixedUpdate()
     {
-        // Update distance to travel this frame
-        _distanceThisFrame = _speed * Time.fixedDeltaTime;
-
-        // Travel forward
-        transform.position += (Vector3)(_context.Direction * _distanceThisFrame);
+        // movement
+        _distanceThisFrame = _projectileContext.BulletSpeed * Time.fixedDeltaTime;
+        transform.position += (Vector3)(_projectileContext.Direction * _distanceThisFrame);
         
-        // Return to object pool after travelling a certain distance;
+        // return to object pool after traveling max distance
         _distanceTraveled += _distanceThisFrame;
         if (_distanceTraveled >= maxRange)
         {
-            _pool.Release(gameObject);
+            _projectileContext.ObjectPool.Release(gameObject);
         }
     }
 
     // Collision Detection
     void Update()
     {
-        var distanceThisFrame = _speed * Time.deltaTime;
-        if (Physics.Raycast(transform.position, _context.Direction, out RaycastHit hitInfo, distanceThisFrame, _context.HitMask))
+        var distanceThisFrame = _projectileContext.BulletSpeed * Time.deltaTime;
+        if (Physics.Raycast(transform.position, _projectileContext.Direction, out RaycastHit hitInfo, distanceThisFrame, _projectileContext.HitMask))
         {
             /// *************************************
             /// *** Collision Implementation Here ***
