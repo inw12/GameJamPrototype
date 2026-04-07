@@ -10,6 +10,7 @@ public class PlayerWeapon : MonoBehaviour
 
     private GameObject _weaponObjectInstance;
     private Weapon _weapon;
+    private bool _weaponEquipped;
 
     void Start()
     {
@@ -19,8 +20,9 @@ public class PlayerWeapon : MonoBehaviour
             _weaponObjectInstance.transform.SetPositionAndRotation(attachTo.position, currentWeapon.transform.rotation);
             _weapon = _weaponObjectInstance.GetComponent<Weapon>();
 
-            animationController.UpdateAnimator(currentWeapon);
-            armAim.WeaponArmsActive(currentWeapon);
+            _weaponEquipped = CheckWeaponType(_weapon);
+            animationController.UpdateAnimator(_weaponEquipped);
+            armAim.WeaponArmsActive(_weaponEquipped);
         }
     }
 
@@ -45,13 +47,16 @@ public class PlayerWeapon : MonoBehaviour
         if (_weaponObjectInstance)
         {
             // position
-            _weaponObjectInstance.transform.position = attachTo.position;        
+            _weaponObjectInstance.transform.position = attachTo.position;     
 
-            // rotation
-            var targetPosition = PlayerControls.Instance.GetMouseWorldPosition();
-            var angle = Mathf.Atan2(targetPosition.y - attachTo.position.y, targetPosition.x - attachTo.position.x) * Mathf.Rad2Deg;
-            angle = playerMovement.IsFacingRight() ? angle : angle + 180f;
-            _weaponObjectInstance.transform.rotation = Quaternion.Euler(0f, 0f, angle);
+            if (_weaponEquipped)
+            {
+                // rotation
+                var targetPosition = PlayerControls.Instance.GetMouseWorldPosition();
+                var angle = Mathf.Atan2(targetPosition.y - attachTo.position.y, targetPosition.x - attachTo.position.x) * Mathf.Rad2Deg;
+                angle = playerMovement.IsFacingRight() ? angle : angle + 180f;
+                _weaponObjectInstance.transform.rotation = Quaternion.Euler(0f, 0f, angle);
+            }
         }
         
         // update weapon arms (if active)
@@ -61,5 +66,15 @@ public class PlayerWeapon : MonoBehaviour
     public void SwitchWeapon(Weapon weapon)
     {
 
+    }
+
+    private bool CheckWeaponType<T>(T weapon)
+    {
+        return weapon switch
+        {
+            RangedWeapon    => true,
+            MeleeWeapon     => false,
+            _               => false,
+        };
     }
 }

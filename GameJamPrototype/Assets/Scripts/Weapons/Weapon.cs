@@ -6,6 +6,7 @@ public abstract class Weapon : MonoBehaviour
 {
     [SerializeField] protected LayerMask targetLayer;
 
+    public virtual void Attack() {}
     public virtual void Attack(Vector2 mousePos) {}
 }
 
@@ -24,7 +25,13 @@ public class RangedWeapon : Weapon
 }
 
 // * Melee Weapons
-public class MeleeWeapon : Weapon {}
+public class MeleeWeapon : Weapon
+{
+    [Header("Basic Stats")]
+    [SerializeField] protected float damage;
+    [SerializeField] protected float attackSpeed;
+    protected float _attackTimer;
+}
 #endregion
 
 #region *-- Weapon Attack Context Structs ---------------*
