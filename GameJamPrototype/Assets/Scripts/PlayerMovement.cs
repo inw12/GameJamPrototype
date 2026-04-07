@@ -30,7 +30,6 @@ public class PlayerMovement : MonoBehaviour
     private MovementState state;
 
     // character flipping
-    private bool mouseRight;
     private bool facingRight;
 
     void Start()
@@ -104,4 +103,6 @@ public class PlayerMovement : MonoBehaviour
         scale.x *= -1f;
         transform.localScale = scale;
     }
+
+    public bool IsFacingRight() => facingRight;
 }

@@ -41,7 +41,14 @@ public class PlayerWeapon : MonoBehaviour
     void LateUpdate()
     {
         // update weapon positioning
-        if (_weaponObjectInstance) _weaponObjectInstance.transform.position = attachTo.position;        
+        if (_weaponObjectInstance)
+        {
+            _weaponObjectInstance.transform.position = attachTo.position;        
+
+            //var targetPosition = PlayerControls.Instance.GetMouseWorldPosition();
+            //var angle = Mathf.Atan2(targetPosition.x, targetPosition.y) * Mathf.Rad2Deg;
+            //_weaponObjectInstance.transform.rotation = Quaternion.Euler(0f, 0f, angle);
+        }
         
         // update weapon arms (if active)
         armAim.UpdateArms();

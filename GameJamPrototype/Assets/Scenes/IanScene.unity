@@ -1330,8 +1330,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65a4658567461420b9c4537666b7eb35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: RunTime::ArmAim
+  playerMovement: {fileID: 504868318}
   frontArmTarget: {fileID: 1222923573}
   backArmTarget: {fileID: 293747049}
+  rotationOffset: 200
 --- !u!1 &710096623
 GameObject:
   m_ObjectHideFlags: 0
