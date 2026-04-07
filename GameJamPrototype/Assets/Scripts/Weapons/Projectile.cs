@@ -12,6 +12,8 @@ public class Projectile : MonoBehaviour
     public void Initialize(ProjectileContext context)
     {
         _projectileContext = context;
+        transform.position = _projectileContext.Origin;
+        _distanceTraveled = 0f;
     }
 
     // Bullet Travel
