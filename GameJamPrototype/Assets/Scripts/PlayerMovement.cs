@@ -21,9 +21,6 @@ public class PlayerMovement : MonoBehaviour
     public bool IsGrounded = false;
     private LayerMask groundLayer => LayerMask.GetMask("Ground");
 
-    [Header("Sprite")]
-    [SerializeField] private SpriteRenderer[] sprites;
-
     [Header("Debug")]
     public bool Debug;
     [Header("Animation Control")]
@@ -31,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
 
     // state machine
     private MovementState state;
+    private bool facingRight;
 
     void Start()
     {
@@ -77,21 +75,9 @@ public class PlayerMovement : MonoBehaviour
         // Update State Machine
         state = inputs.MovePressed.sqrMagnitude == 0f ? MovementState.Idle : state;
 
-        // Sprite Flipping
-        if (inputs.MovePressed.x > 0f && !sprites[0].flipX)
-        {
-            foreach (var s in sprites)
-            {
-                s.flipX = true;
-            }
-        }
-        if (inputs.MovePressed.x < 0f && sprites[0].flipX)
-        {
-            foreach (var s in sprites)
-            {
-                s.flipX = false;
-            }
-        }
+        // Character Left/Right Flipping
+        if (inputs.MovePressed.x > 0f && !facingRight) FlipCharacter();
+        if (inputs.MovePressed.x < 0f && facingRight) FlipCharacter();
     }
 
     void OnDrawGizmos()
@@ -105,5 +91,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!Debug) return;
         GUILayout.Label($"Move: {inputs.MovePressed}");
+    }
+
+    private void FlipCharacter()
+    {
+        facingRight = !facingRight;
+        var scale = transform.localScale;
+        scale.x *= -1f;
+        transform.localScale = scale;
     }
 }
