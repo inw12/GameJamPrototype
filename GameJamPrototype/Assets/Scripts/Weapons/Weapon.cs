@@ -1,5 +1,5 @@
 using UnityEngine;
-public abstract class Weapon : ScriptableObject
+public abstract class Weapon : MonoBehaviour
 {
     [Header("Stats")]
     public float damage;
