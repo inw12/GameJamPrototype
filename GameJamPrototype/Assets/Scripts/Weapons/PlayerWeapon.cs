@@ -5,6 +5,7 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField] private Transform attachTo;
     [Space]
     [SerializeField] private PlayerAnimationController animationController;
+    [SerializeField] private ArmAim armAim;
 
     private GameObject _weaponObjectInstance;
     private Weapon _weapon;
@@ -16,6 +17,9 @@ public class PlayerWeapon : MonoBehaviour
             _weaponObjectInstance = Instantiate(currentWeapon, transform);
             _weaponObjectInstance.transform.SetPositionAndRotation(attachTo.position, currentWeapon.transform.rotation);
             _weapon = _weaponObjectInstance.GetComponent<Weapon>();
+
+            animationController.UpdateAnimator(currentWeapon);
+            armAim.WeaponArmsActive(currentWeapon);
         }
     }
 
@@ -34,12 +38,13 @@ public class PlayerWeapon : MonoBehaviour
         }
     }
 
-    // update weapon positioning
     void LateUpdate()
     {
-        if (_weaponObjectInstance) _weaponObjectInstance.transform.position = attachTo.position;
-
-        animationController.UpdateAnimator(currentWeapon);
+        // update weapon positioning
+        if (_weaponObjectInstance) _weaponObjectInstance.transform.position = attachTo.position;        
+        
+        // update weapon arms (if active)
+        armAim.UpdateArms();
     }
 
     public void SwitchWeapon(Weapon weapon)

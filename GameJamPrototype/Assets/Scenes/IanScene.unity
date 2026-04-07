@@ -1212,9 +1212,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: RunTime::PlayerWeapon
   currentWeapon: {fileID: 6805761842341076841, guid: 24c5f12f811a044689c5ab3088dc78b1, type: 3}
-  attachTo: {fileID: 1222923573}
+  attachTo: {fileID: 710096624}
   animationController: {fileID: 707247564}
-  projectilePool: {fileID: 0}
+  armAim: {fileID: 707247567}
 --- !u!1 &707247562
 GameObject:
   m_ObjectHideFlags: 0
@@ -1227,6 +1227,7 @@ GameObject:
   - component: {fileID: 707247565}
   - component: {fileID: 707247566}
   - component: {fileID: 707247564}
+  - component: {fileID: 707247567}
   m_Layer: 8
   m_Name: Root
   m_TagString: Untagged
@@ -1317,6 +1318,20 @@ MonoBehaviour:
     showGizmo: 1
   - color: {r: 0, g: 1, b: 0, a: 1}
     showGizmo: 1
+--- !u!114 &707247567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 707247562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65a4658567461420b9c4537666b7eb35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RunTime::ArmAim
+  frontArmTarget: {fileID: 1222923573}
+  backArmTarget: {fileID: 293747049}
 --- !u!1 &710096623
 GameObject:
   m_ObjectHideFlags: 0

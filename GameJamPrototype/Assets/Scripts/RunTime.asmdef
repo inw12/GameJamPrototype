@@ -2,7 +2,8 @@
     "name": "RunTime",
     "rootNamespace": "",
     "references": [
-        "GUID:75469ad4d38634e559750d17036d5f7c"
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:88f14d179e7c91c4eac28302d69f32e1"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
