@@ -1,22 +1,31 @@
 using System;
 using UnityEngine;
+using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour
+public class EnemyAI : MonoBehaviour
 {
     private Transform player;
     private enum BTState { Success, Failure, Running }
+
+    [Header("Stats")]
     [SerializeField] float detectionRange = 5f;
     [SerializeField] float attackRange = 1.5f;
     [SerializeField] float moveSpeed = 3f;
-    public event Action OnAttack;
+    public event Action<Vector2> OnAttack;
+
+
+    [Header("Weapons")]
+    [SerializeField] private Weapon weapon;
 
     [Header("Debug")]
     public bool ShowDebug = false;
-    private BTState _visible, _chase, _inAttackRange, _attack;
+    private BTState _visible, _chase, _inAttackRange, _attack, _aim;
 
     public virtual void Start()
     {
         player = GameManager.Instance.Player;
+
+        OnAttack += weapon.Attack;
     }
 
     public virtual void Update()
@@ -27,7 +36,7 @@ public class Enemy : MonoBehaviour
     // Tree
     BTState BTRoot() => Selector(
         Sequence(IsPlayerVisible, ChasePlayer),
-        Sequence(IsInAttackRange, Attack)
+        Sequence(IsInAttackRange, Aim, Attack)
     );
 
     BTState Selector(params Func<BTState>[] nodes)
@@ -73,8 +82,19 @@ public class Enemy : MonoBehaviour
     BTState Attack()
     {
         Debug.Log("Attacking player!");
-        OnAttack?.Invoke();
+
+        OnAttack?.Invoke(player.position);
         return _attack = BTState.Success;
+    }
+
+    BTState Aim()
+    {
+        var targetPosition = player.position;
+        var angle = Mathf.Atan2(weapon.transform.position.y - targetPosition.y, weapon.transform.position.x - targetPosition.x) * Mathf.Rad2Deg;
+        // angle = playerMovement.IsFacingRight() ? angle : angle + 180f;
+        weapon.transform.right = -(player.position - weapon.transform.position).normalized;
+
+        return _aim = BTState.Success;
     }
 
     void OnDrawGizmos()

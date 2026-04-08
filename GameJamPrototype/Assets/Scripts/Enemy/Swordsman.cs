@@ -1,8 +1,9 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Damageable))]
-public class Soldier : EnemyAI
+public class Swordsman : EnemyAI
 {
+
     public override void Start()
     {
         base.Start();

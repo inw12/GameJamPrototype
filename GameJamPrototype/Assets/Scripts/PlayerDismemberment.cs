@@ -1,15 +1,16 @@
 using UnityEngine;
 public class PlayerDismemberment : MonoBehaviour
 {
+    [Header("Limbs")]
     [SerializeField] private GameObject frontArm;
     [SerializeField] private GameObject backArm;
     [SerializeField] private GameObject frontLeg;
     [SerializeField] private GameObject backLeg;
     [Space]
-    public bool frontArmAttached = true;
     public bool backArmAttached = true;
-    public bool frontLegAttached = true;
+    public bool frontArmAttached = true;
     public bool backLegAttached = true;
+    public bool frontLegAttached = true;
 
     private bool _frontArmSevered;
     private bool _backArmSevered;
@@ -23,6 +24,26 @@ public class PlayerDismemberment : MonoBehaviour
     [SerializeField] private float launchForce      = 10f;
     [SerializeField] private float launchTorque     = 30f;
     [SerializeField] private float jointFlailTorque = 15f;
+
+
+    private Damageable damageService;
+
+    void Start()
+    {
+        damageService = GetComponent<Damageable>();
+        damageService.OnDamageTaken += OnDamageTaken;
+    }
+
+    void OnDamageTaken()
+    {
+        float health = damageService.GetCurrentHealth();
+
+        // First limb broken
+        if (health <= 75f)
+        {
+            backArmAttached = false;
+        }
+    }
 
     void Update()
     {

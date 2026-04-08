@@ -42,6 +42,7 @@ public struct ProjectileContext
     public Vector2          Direction;
     public float            BulletSpeed;
     public LayerMask        HitMask;
+    public float            Damage;
 }
 public struct MeleeAttackContext
 {
