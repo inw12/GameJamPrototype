@@ -3,8 +3,9 @@ using UnityEngine;
 
 public class Damageable : MonoBehaviour, IDamageable
 {
-    public enum DamageState { Alive, Dead }
-    public DamageState CurrentState;
+    private enum DamageState { Alive, Dead }
+    private DamageState CurrentState;
+    public bool IsDead => CurrentState == DamageState.Dead;
     public float Health;
     private float CurrentHealth;
     public event Action OnDeath; // On limbs, On enemies
@@ -20,6 +21,8 @@ public class Damageable : MonoBehaviour, IDamageable
 
     public void TakeDamage(float damage)
     {
+        if (CurrentState == DamageState.Dead) return;
+        
         CurrentHealth -= damage;
 
         Debug.Log($"{this.name} is taking {damage} damage.");

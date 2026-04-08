@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4091831681432874951}
   - component: {fileID: 4768865339715258276}
   m_Layer: 7
-  m_Name: PlayerArm
+  m_Name: PlayerUpperArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,6 +48,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: RunTime::PlayerLimb
   upperSegment: {fileID: 2711532154474061698}
   lowerSegment: {fileID: 2524083389533743515}
+  _launchForce: 5
+  _launchTorque: 25
+  _jointFlailTorque: 10
   timeToDespawn: 2
   despawnDuration: 1
 --- !u!1 &7237405176936360209
@@ -167,7 +170,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 768
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -363,7 +366,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 768
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0

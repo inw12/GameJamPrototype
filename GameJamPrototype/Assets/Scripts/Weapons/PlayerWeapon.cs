@@ -1,12 +1,15 @@
 using UnityEngine;
+
+[RequireComponent(typeof(PlayerMovement))]
 public class PlayerWeapon : MonoBehaviour
 {
     [SerializeField] private GameObject currentWeapon;
     [SerializeField] private Transform attachTo;
     [Space]
-    [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerAnimationController animationController;
-    [SerializeField] private ArmAim armAim;
+    [SerializeField] private Transform frontArmTarget;
+    [SerializeField] private Transform backArmTarget;
+    private PlayerMovement playerMovement;
 
     private GameObject _weaponObjectInstance;
     private Weapon _weapon;
@@ -14,6 +17,8 @@ public class PlayerWeapon : MonoBehaviour
 
     void Start()
     {
+        playerMovement = GetComponent<PlayerMovement>();
+
         if (currentWeapon)
         {
             _weaponObjectInstance = Instantiate(currentWeapon, transform);
@@ -22,7 +27,6 @@ public class PlayerWeapon : MonoBehaviour
 
             _weaponEquipped = CheckWeaponType(_weapon);
             animationController.UpdateAnimator(_weaponEquipped);
-            armAim.WeaponArmsActive(_weaponEquipped);
         }
     }
 
@@ -60,13 +64,25 @@ public class PlayerWeapon : MonoBehaviour
         }
         
         // update weapon arms (if active)
-        armAim.UpdateArms();
+        UpdateArms();
     }
 
-    public void SwitchWeapon(Weapon weapon)
+    
+    public void UpdateArms()
     {
+        if (_weaponEquipped)
+        {
+            // position
+            var mousePos = PlayerControls.Instance.GetMouseWorldPosition();
+            frontArmTarget.position = mousePos;
 
+            // rotation
+            var angle = Mathf.Atan2(mousePos.y - transform.position.y, mousePos.x - transform.position.x) * Mathf.Rad2Deg;
+            angle = playerMovement.IsFacingRight() ? angle + 180f : angle;
+            frontArmTarget.rotation = Quaternion.Euler(0f, 0f, angle);
+        }
     }
+
 
     private bool CheckWeaponType<T>(T weapon)
     {

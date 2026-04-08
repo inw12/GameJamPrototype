@@ -36,22 +36,21 @@ public class Projectile : MonoBehaviour
     {
         var distanceThisFrame = _projectileContext.BulletSpeed * Time.deltaTime;
 
-        DebugContext(_projectileContext);
-
+        //DebugContext(_projectileContext);
 
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, _projectileContext.Direction, distanceThisFrame, _projectileContext.HitMask);
         if (hitInfo.collider != null)
         {
-            Debug.Log(hitInfo.collider.name);
+            //Debug.Log(hitInfo.collider.name);
             bool success = hitInfo.collider.TryGetComponent(out Damageable target);
 
             if (success)
             {
                 Debug.Log($"Projectile hit {target.name}");
                 target.TakeDamage(_projectileContext.Damage);
-            }
 
-            return;
+                _projectileContext.ObjectPool.Release(gameObject);
+            }
         }
     }
 

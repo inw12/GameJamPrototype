@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 public class PlayerLimb : MonoBehaviour
 {
     [Header("Limb Segments")]
@@ -7,25 +6,27 @@ public class PlayerLimb : MonoBehaviour
     [SerializeField] private PlayerLimbSegment lowerSegment;
 
     [Header("Launch Settings")]
-    private float _launchForce;
-    private float _launchTorque;
-    private float _jointFlailTorque;
+    [SerializeField] private float _launchForce = 5f;
+    [SerializeField] private float _launchTorque = 25f;
+    [SerializeField] private float _jointFlailTorque = 10f;
 
     [Header("Despawn Settings")]
-    [SerializeField] private float timeToDespawn    = 2f;
-    [SerializeField] private float despawnDuration  = 1f;
+    [SerializeField] private float timeToDespawn = 2f;
+    [SerializeField] private float despawnDuration = 1f;
 
-    public void Initialize(float force, float torque, float jointTorque, Vector2 launchDirection)
+    public void Awake()
     {
-        _launchForce = force;
-        _launchTorque = torque;
-        _jointFlailTorque = jointTorque;
+        var targetVelocity = _launchForce * Random.insideUnitCircle;
+        if (upperSegment != null)
+        {
+            upperSegment.ApplyImpulse(targetVelocity, _launchTorque);
+            upperSegment.Initialize();
+        }
 
-        upperSegment.Initialize();
-        lowerSegment.Initialize();
-
-        var targetVelocity = _launchForce * launchDirection.normalized;
-        upperSegment.ApplyImpulse(targetVelocity, _launchTorque);
-        lowerSegment.ApplyImpulse(targetVelocity, -_jointFlailTorque);
+        if (lowerSegment != null)
+        {
+            lowerSegment.Initialize();
+            lowerSegment.ApplyImpulse(targetVelocity, -_jointFlailTorque);
+        }
     }
 }
