@@ -8,7 +8,7 @@ public class PlayerAnimationController : MonoBehaviour
 {
     private Animator animator;
 
-    public void Initialize()
+    void Awake()
     {
         animator = GetComponent<Animator>();
     }

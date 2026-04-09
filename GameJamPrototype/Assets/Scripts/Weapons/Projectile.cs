@@ -22,7 +22,7 @@ public class Projectile : MonoBehaviour
         // movement
         _distanceThisFrame = _projectileContext.BulletSpeed * Time.fixedDeltaTime;
         transform.position += (Vector3)(_projectileContext.Direction * _distanceThisFrame);
-        
+
         // return to object pool after traveling max distance
         _distanceTraveled += _distanceThisFrame;
         if (_distanceTraveled >= maxRange)
@@ -35,12 +35,31 @@ public class Projectile : MonoBehaviour
     void Update()
     {
         var distanceThisFrame = _projectileContext.BulletSpeed * Time.deltaTime;
-        if (Physics.Raycast(transform.position, _projectileContext.Direction, out RaycastHit hitInfo, distanceThisFrame, _projectileContext.HitMask))
+
+        //DebugContext(_projectileContext);
+
+        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, _projectileContext.Direction, distanceThisFrame, _projectileContext.HitMask);
+        if (hitInfo.collider != null)
         {
-            /// *************************************
-            /// *** Collision Implementation Here ***
-            /// *************************************
-            return;
+            //Debug.Log(hitInfo.collider.name);
+            bool success = hitInfo.collider.TryGetComponent(out Damageable target);
+
+            if (success)
+            {
+                Debug.Log($"Projectile hit {target.name}");
+                target.TakeDamage(_projectileContext.Damage);
+
+                _projectileContext.ObjectPool.Release(gameObject);
+            }
         }
+    }
+
+    public void DebugContext(ProjectileContext ctx)
+    {
+        Debug.Log($"Origin: {ctx.Origin}");
+        Debug.Log($"Direction: {ctx.Direction}");
+        Debug.Log($"BulletSpeed: {ctx.BulletSpeed}");
+        Debug.Log($"Damage: {ctx.Damage}");
+        Debug.Log($"HitMask: {LayerMask.LayerToName((int)Mathf.Log(ctx.HitMask.value, 2))}");
     }
 }

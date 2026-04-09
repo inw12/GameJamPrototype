@@ -26,7 +26,8 @@ public class Pistol : RangedWeapon
                 Origin      = bulletSpawn.position,
                 Direction   = direction,
                 BulletSpeed = bulletSpeed,
-                HitMask     = targetLayer                
+                HitMask     = targetLayer,
+                Damage = damage             
             };
             _pool.Get(projectile);
 

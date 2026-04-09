@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using UnityEngine;
 
 public enum MovementState
@@ -16,9 +17,11 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerControls inputs;
 
-    [Header("Gravity")]
+    [Header("Gravity/Ground/Jump")]
     [SerializeField] private float GroundRayLength;
+    [SerializeField] private float JumpForce;
     public bool IsGrounded = false;
+    private bool isJumping;
     private LayerMask groundLayer => LayerMask.GetMask("Ground");
 
     [Header("Debug")]
@@ -38,8 +41,6 @@ public class PlayerMovement : MonoBehaviour
         inputs = PlayerControls.Instance;
 
         state = MovementState.Idle;
-
-        animationController.Initialize();
     }
 
     // Update is called once per frame
@@ -55,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
         state = inputs.SprintPressed ? MovementState.Sprint : MovementState.Walk;
         rb.linearVelocity = new Vector2
         (
-            inputs.MovePressed.x * targetSpeed, 
+            inputs.MovePressed.x * targetSpeed,
             rb.linearVelocity.y
         );
     }
@@ -74,6 +75,9 @@ public class PlayerMovement : MonoBehaviour
         // Ground 
         IsGrounded = Physics2D.Raycast(transform.position, Vector2.down, GroundRayLength, groundLayer);
 
+        if (IsGrounded && rb.linearVelocity.y <= 0)
+            isJumping = false;
+
         // Update State Machine
         state = inputs.MovePressed.sqrMagnitude == 0f ? MovementState.Idle : state;
 
@@ -81,6 +85,12 @@ public class PlayerMovement : MonoBehaviour
         var x = inputs.GetMouseWorldPosition().x > transform.position.x ? 1f : -1f;
         if (x > 0f && !facingRight) FlipCharacter();
         if (x < 0f && facingRight) FlipCharacter();
+
+        if (inputs.JumpPressed && IsGrounded && !isJumping)
+        {
+            isJumping = true;
+            rb.AddForce(JumpForce * Vector3.up, ForceMode2D.Impulse);
+        }
     }
 
     void OnDrawGizmos()
