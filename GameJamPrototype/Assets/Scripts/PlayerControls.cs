@@ -10,6 +10,7 @@ public class PlayerControls : MonoBehaviour
         public bool Mouse1 => inputs.General.Mouse1.IsPressed();
         public bool InteractPressed => inputs.General.Interact.IsPressed();
         public bool SprintPressed => inputs.General.Sprint.IsPressed();
+        public bool StatusMenu => inputs.General.StatusMenu.IsPressed();
 
         void Awake()
         {

@@ -145,6 +145,15 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""StatusMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""e57a0c16-a235-4eee-a261-74a0fa1a7651"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -257,6 +266,17 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0d006466-e340-425e-9f66-c2c8637fa3de"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""StatusMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -271,6 +291,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         m_General_Mouse = m_General.FindAction("Mouse", throwIfNotFound: true);
         m_General_Mouse1 = m_General.FindAction("Mouse1", throwIfNotFound: true);
         m_General_Sprint = m_General.FindAction("Sprint", throwIfNotFound: true);
+        m_General_StatusMenu = m_General.FindAction("StatusMenu", throwIfNotFound: true);
     }
 
     ~@PlayerInputs()
@@ -357,6 +378,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_General_Mouse;
     private readonly InputAction m_General_Mouse1;
     private readonly InputAction m_General_Sprint;
+    private readonly InputAction m_General_StatusMenu;
     /// <summary>
     /// Provides access to input actions defined in input action map "General".
     /// </summary>
@@ -392,6 +414,10 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "General/Sprint".
         /// </summary>
         public InputAction @Sprint => m_Wrapper.m_General_Sprint;
+        /// <summary>
+        /// Provides access to the underlying input action "General/StatusMenu".
+        /// </summary>
+        public InputAction @StatusMenu => m_Wrapper.m_General_StatusMenu;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -436,6 +462,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @Sprint.started += instance.OnSprint;
             @Sprint.performed += instance.OnSprint;
             @Sprint.canceled += instance.OnSprint;
+            @StatusMenu.started += instance.OnStatusMenu;
+            @StatusMenu.performed += instance.OnStatusMenu;
+            @StatusMenu.canceled += instance.OnStatusMenu;
         }
 
         /// <summary>
@@ -465,6 +494,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @Sprint.started -= instance.OnSprint;
             @Sprint.performed -= instance.OnSprint;
             @Sprint.canceled -= instance.OnSprint;
+            @StatusMenu.started -= instance.OnStatusMenu;
+            @StatusMenu.performed -= instance.OnStatusMenu;
+            @StatusMenu.canceled -= instance.OnStatusMenu;
         }
 
         /// <summary>
@@ -547,5 +579,12 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnSprint(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "StatusMenu" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnStatusMenu(InputAction.CallbackContext context);
     }
 }
