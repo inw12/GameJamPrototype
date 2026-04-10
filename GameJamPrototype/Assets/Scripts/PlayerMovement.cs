@@ -122,7 +122,7 @@ public class PlayerMovement : MonoBehaviour
         platforms.colliderMask &= ~playerLayer;
         stairs.colliderMask &= ~playerLayer;
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.35f);
 
         platforms.colliderMask |= playerLayer;
         stairs.colliderMask |= playerLayer;
