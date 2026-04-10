@@ -1,5 +1,6 @@
-using System.Collections;
 using UnityEngine;
+using System.Collections;
+using System;
 public enum MovementState
 {
     Idle    = 0,
@@ -30,8 +31,8 @@ public class PlayerMovement : MonoBehaviour
 
     private bool dropDownTriggered; // down + jump input for falling through platforms
 
-    [Header("Debug")]
-    public bool Debug;
+    [Header("DebugLog")]
+    public bool DebugLog;
     [Header("Animation Control")]
     [SerializeField] private PlayerAnimationController animationController;
 
@@ -40,6 +41,8 @@ public class PlayerMovement : MonoBehaviour
 
     // character flipping
     private bool facingRight;
+
+    private RaycastHit2D groundHit;
 
     void Start()
     {
@@ -80,8 +83,8 @@ public class PlayerMovement : MonoBehaviour
     void UpdateMove()
     {   
         // Ground 
-        var groundLayer = GroundLayer | PlatformLayer;
-        RaycastHit2D groundHit = Physics2D.Raycast(transform.position, Vector2.down, GroundRayLength, groundLayer);
+        var groundLayer = dropDownTriggered ? GroundLayer : (LayerMask)(GroundLayer | PlatformLayer);
+        groundHit = Physics2D.Raycast(transform.position, Vector2.down, GroundRayLength, groundLayer);
         IsGrounded = groundHit;
 
         if (IsGrounded && rb.linearVelocity.y <= 0)
@@ -95,44 +98,47 @@ public class PlayerMovement : MonoBehaviour
         if (x > 0f && !facingRight) FlipCharacter();
         if (x < 0f && facingRight) FlipCharacter();
 
-        if (inputs.JumpPressed && IsGrounded && inputs.MovePressed.y < 0f && !dropDownTriggered)
+        // Jump Action
+        if (inputs.JumpPressed && IsGrounded && !isJumping)
         {
-            StartCoroutine(PlatformDropdown(groundHit));
-        }
-        else if (inputs.JumpPressed && IsGrounded && !isJumping)
-        {
-            isJumping = true;
-            rb.AddForce(JumpForce * Vector3.up, ForceMode2D.Impulse);
+            // drop through platform
+            if (inputs.MovePressed.y < 0f && !dropDownTriggered && groundHit.collider.TryGetComponent(out PlatformEffector2D p))
+            {
+                isJumping = true;
+                StartCoroutine(PlatformDropdown(p));
+            }
+            // jump up
+            else
+            {
+                isJumping = true;
+                rb.AddForce(JumpForce * Vector3.up, ForceMode2D.Impulse);
+            }
         }
     }
     
-    private IEnumerator PlatformDropdown(RaycastHit2D platform)
+    private IEnumerator PlatformDropdown(PlatformEffector2D platform)
     {
         dropDownTriggered = true;
-        var platformCollider = platform.collider.GetComponent<BoxCollider2D>();
-        platformCollider.enabled = false;
+        var playerLayer = 1 << gameObject.layer;
+        platform.colliderMask &= ~playerLayer;
 
         yield return new WaitForSeconds(0.5f);
 
-        platformCollider.enabled = true;
+        platform.colliderMask |= playerLayer;
         dropDownTriggered = false;
     }
 
     void OnDrawGizmos()
     {
-        if (!Debug) return;
+        if (!DebugLog) return;
         Gizmos.color = Color.red;
         Gizmos.DrawRay(transform.position, Vector2.down * GroundRayLength);
     }
 
     void OnGUI()
     {
-        if (!Debug) return;
+        if (!DebugLog) return;
         GUILayout.Label($"Move: {inputs.MovePressed}");
-        GUILayout.Label($"Jump Pressed: {inputs.JumpPressed}");
-        GUILayout.Label($"Is Grounded: {IsGrounded}");
-        GUILayout.Label($"Is Jumping: {isJumping}");
-        GUILayout.Label($"Dropdown Triggered: {dropDownTriggered}");
     }
 
     private void FlipCharacter()
