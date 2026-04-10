@@ -22,13 +22,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float GroundRayLength;
     [SerializeField] private float JumpForce;
     [SerializeField] private float GravityForce;
+    [SerializeField] private PlatformEffector2D platformEffector;
 
     private LayerMask GroundLayer => LayerMask.GetMask("Ground");
     private LayerMask PlatformLayer => LayerMask.GetMask("Platform");
 
     public bool IsGrounded = false;
     private bool isJumping;
-
     private bool dropDownTriggered; // down + jump input for falling through platforms
 
     [Header("DebugLog")]
@@ -41,8 +41,6 @@ public class PlayerMovement : MonoBehaviour
 
     // character flipping
     private bool facingRight;
-
-    private RaycastHit2D groundHit;
 
     void Start()
     {
@@ -84,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
     {   
         // Ground 
         var groundLayer = dropDownTriggered ? GroundLayer : (LayerMask)(GroundLayer | PlatformLayer);
-        groundHit = Physics2D.Raycast(transform.position, Vector2.down, GroundRayLength, groundLayer);
+        var groundHit = Physics2D.Raycast(transform.position, Vector2.down, GroundRayLength, groundLayer);
         IsGrounded = groundHit;
 
         if (IsGrounded && rb.linearVelocity.y <= 0)
@@ -105,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
             if (inputs.MovePressed.y < 0f && !dropDownTriggered && groundHit.collider.TryGetComponent(out PlatformEffector2D p))
             {
                 isJumping = true;
-                StartCoroutine(PlatformDropdown(p));
+                StartCoroutine(PlatformDropdown());
             }
             // jump up
             else
@@ -116,15 +114,15 @@ public class PlayerMovement : MonoBehaviour
         }
     }
     
-    private IEnumerator PlatformDropdown(PlatformEffector2D platform)
+    private IEnumerator PlatformDropdown()
     {
         dropDownTriggered = true;
         var playerLayer = 1 << gameObject.layer;
-        platform.colliderMask &= ~playerLayer;
+        platformEffector.colliderMask &= ~playerLayer;
 
         yield return new WaitForSeconds(0.5f);
 
-        platform.colliderMask |= playerLayer;
+        platformEffector.colliderMask |= playerLayer;
         dropDownTriggered = false;
     }
 
