@@ -4,10 +4,10 @@ using UnityEngine;
 public class PlayerLimbManager : MonoBehaviour
 {
     [SerializeField] private Limb FrontArm, BackArm, FrontLeg, BackLeg;
-    public enum ArmState { BothArms, OneArm, NoArms}
-    public enum LegState { BothLegs, OneLeg, NoLegs}
-    public ArmState CurrentArmState {private set; get;}    
-    public LegState CurrentLegState {private set; get;}
+    public enum ArmState { BothArms, OneArm, NoArms }
+    public enum LegState { BothLegs, OneLeg, NoLegs }
+    public ArmState CurrentArmState { private set; get; }
+    public LegState CurrentLegState { private set; get; }
 
     void Update()
     {
@@ -38,13 +38,11 @@ public class PlayerLimbManager : MonoBehaviour
         {
             CurrentLegState = LegState.BothLegs;
         }
-
-        
     }
 
     void OnGUI()
     {
         StringBuilder sb = new();
-        
+
     }
 }
