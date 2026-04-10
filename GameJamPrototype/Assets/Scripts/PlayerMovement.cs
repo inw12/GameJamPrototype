@@ -22,7 +22,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float GroundRayLength;
     [SerializeField] private float JumpForce;
     [SerializeField] private float GravityForce;
-    [SerializeField] private PlatformEffector2D platformEffector;
+    [SerializeField] private PlatformEffector2D platforms;
+    [SerializeField] private PlatformEffector2D stairs;
 
     private LayerMask GroundLayer => LayerMask.GetMask("Ground");
     private LayerMask PlatformLayer => LayerMask.GetMask("Platform");
@@ -118,11 +119,13 @@ public class PlayerMovement : MonoBehaviour
     {
         dropDownTriggered = true;
         var playerLayer = 1 << gameObject.layer;
-        platformEffector.colliderMask &= ~playerLayer;
+        platforms.colliderMask &= ~playerLayer;
+        stairs.colliderMask &= ~playerLayer;
 
         yield return new WaitForSeconds(0.5f);
 
-        platformEffector.colliderMask |= playerLayer;
+        platforms.colliderMask |= playerLayer;
+        stairs.colliderMask |= playerLayer;
         dropDownTriggered = false;
     }
 
