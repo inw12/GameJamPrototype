@@ -1,6 +1,5 @@
-using NUnit.Framework;
+using System.Collections;
 using UnityEngine;
-
 public enum MovementState
 {
     Idle    = 0,
@@ -8,6 +7,7 @@ public enum MovementState
     Sprint  = 2
 }
 [RequireComponent(typeof(PlayerControls))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Move")]
@@ -20,9 +20,15 @@ public class PlayerMovement : MonoBehaviour
     [Header("Gravity/Ground/Jump")]
     [SerializeField] private float GroundRayLength;
     [SerializeField] private float JumpForce;
+    [SerializeField] private float GravityForce;
+
+    private LayerMask GroundLayer => LayerMask.GetMask("Ground");
+    private LayerMask PlatformLayer => LayerMask.GetMask("Platform");
+
     public bool IsGrounded = false;
     private bool isJumping;
-    private LayerMask groundLayer => LayerMask.GetMask("Ground");
+
+    private bool dropDownTriggered; // down + jump input for falling through platforms
 
     [Header("Debug")]
     public bool Debug;
@@ -38,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        rb.gravityScale = GravityForce;
         inputs = PlayerControls.Instance;
 
         state = MovementState.Idle;
@@ -73,7 +80,9 @@ public class PlayerMovement : MonoBehaviour
     void UpdateMove()
     {   
         // Ground 
-        IsGrounded = Physics2D.Raycast(transform.position, Vector2.down, GroundRayLength, groundLayer);
+        var groundLayer = GroundLayer | PlatformLayer;
+        RaycastHit2D groundHit = Physics2D.Raycast(transform.position, Vector2.down, GroundRayLength, groundLayer);
+        IsGrounded = groundHit;
 
         if (IsGrounded && rb.linearVelocity.y <= 0)
             isJumping = false;
@@ -86,11 +95,27 @@ public class PlayerMovement : MonoBehaviour
         if (x > 0f && !facingRight) FlipCharacter();
         if (x < 0f && facingRight) FlipCharacter();
 
-        if (inputs.JumpPressed && IsGrounded && !isJumping)
+        if (inputs.JumpPressed && IsGrounded && inputs.MovePressed.y < 0f && !dropDownTriggered)
+        {
+            StartCoroutine(PlatformDropdown(groundHit));
+        }
+        else if (inputs.JumpPressed && IsGrounded && !isJumping)
         {
             isJumping = true;
             rb.AddForce(JumpForce * Vector3.up, ForceMode2D.Impulse);
         }
+    }
+    
+    private IEnumerator PlatformDropdown(RaycastHit2D platform)
+    {
+        dropDownTriggered = true;
+        var platformCollider = platform.collider.GetComponent<BoxCollider2D>();
+        platformCollider.enabled = false;
+
+        yield return new WaitForSeconds(0.5f);
+
+        platformCollider.enabled = true;
+        dropDownTriggered = false;
     }
 
     void OnDrawGizmos()
@@ -104,6 +129,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!Debug) return;
         GUILayout.Label($"Move: {inputs.MovePressed}");
+        GUILayout.Label($"Jump Pressed: {inputs.JumpPressed}");
+        GUILayout.Label($"Is Grounded: {IsGrounded}");
+        GUILayout.Label($"Is Jumping: {isJumping}");
+        GUILayout.Label($"Dropdown Triggered: {dropDownTriggered}");
     }
 
     private void FlipCharacter()
