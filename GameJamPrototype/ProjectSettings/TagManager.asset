@@ -13,10 +13,10 @@ TagManager:
   - UI
   - Ground
   - Limb
-  - Player
+  - PlayerHurtbox
   - Enemy
-  - 
-  - 
+  - Platform
+  - Player
   - 
   - 
   - 
