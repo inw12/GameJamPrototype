@@ -51,7 +51,7 @@ public class PlayerWeapon : MonoBehaviour
         if (_weaponObjectInstance)
         {
             // position
-            _weaponObjectInstance.transform.position = attachTo.position;     
+            _weaponObjectInstance.transform.position = attachTo.position;
 
             if (_weaponEquipped)
             {
@@ -62,12 +62,12 @@ public class PlayerWeapon : MonoBehaviour
                 _weaponObjectInstance.transform.rotation = Quaternion.Euler(0f, 0f, angle);
             }
         }
-        
+
         // update weapon arms (if active)
         UpdateArms();
     }
 
-    
+
     public void UpdateArms()
     {
         if (_weaponEquipped)
@@ -83,14 +83,13 @@ public class PlayerWeapon : MonoBehaviour
         }
     }
 
-
     private bool CheckWeaponType<T>(T weapon)
     {
         return weapon switch
         {
-            RangedWeapon    => true,
-            MeleeWeapon     => false,
-            _               => false,
+            RangedWeapon => true,
+            MeleeWeapon => false,
+            _ => false,
         };
     }
 }

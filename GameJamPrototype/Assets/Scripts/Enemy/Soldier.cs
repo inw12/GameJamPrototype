@@ -13,7 +13,6 @@ public class Soldier : EnemyAI
     [SerializeField] float attackRange = 1.5f;
     [SerializeField] float moveSpeed = 3f;
 
-
     [Header("Weapons")]
     [SerializeField] private Weapon weapon;
     [SerializeField] private float AimTime;

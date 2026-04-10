@@ -1,19 +1,18 @@
-using NUnit.Framework;
 using UnityEngine;
 
 public enum MovementState
 {
-    Idle    = 0,
-    Walk    = 1,
-    Sprint  = 2
+    Idle = 0,
+    Walk = 1,
+    Sprint = 2
 }
 [RequireComponent(typeof(PlayerControls))]
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Move")]
-    [SerializeField] private float Speed; 
-    [SerializeField] private float SprintSpeed; 
-    [SerializeField] private float Acceleration; 
+    [SerializeField] private float Speed;
+    [SerializeField] private float SprintSpeed;
+    [SerializeField] private float Acceleration;
     private Rigidbody2D rb;
     private PlayerControls inputs;
 
@@ -26,6 +25,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Debug")]
     public bool Debug;
+
     [Header("Animation Control")]
     [SerializeField] private PlayerAnimationController animationController;
 
@@ -71,7 +71,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void UpdateMove()
-    {   
+    {
         // Ground 
         IsGrounded = Physics2D.Raycast(transform.position, Vector2.down, GroundRayLength, groundLayer);
 
@@ -91,6 +91,11 @@ public class PlayerMovement : MonoBehaviour
             isJumping = true;
             rb.AddForce(JumpForce * Vector3.up, ForceMode2D.Impulse);
         }
+    }
+
+    private void OneLegMovement()
+    {
+
     }
 
     void OnDrawGizmos()
