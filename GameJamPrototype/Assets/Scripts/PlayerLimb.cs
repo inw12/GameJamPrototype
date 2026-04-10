@@ -19,8 +19,8 @@ public class PlayerLimb : MonoBehaviour
         var targetVelocity = _launchForce * Random.insideUnitCircle;
         if (upperSegment != null)
         {
-            upperSegment.ApplyImpulse(targetVelocity, _launchTorque);
             upperSegment.Initialize();
+            upperSegment.ApplyImpulse(targetVelocity, _launchTorque);
         }
 
         if (lowerSegment != null)

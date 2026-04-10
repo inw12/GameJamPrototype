@@ -3,18 +3,18 @@ using System.Collections;
 using System;
 public enum MovementState
 {
-    Idle    = 0,
-    Walk    = 1,
-    Sprint  = 2
+    Idle = 0,
+    Walk = 1,
+    Sprint = 2
 }
 [RequireComponent(typeof(PlayerControls))]
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Move")]
-    [SerializeField] private float Speed; 
-    [SerializeField] private float SprintSpeed; 
-    [SerializeField] private float Acceleration; 
+    [SerializeField] private float Speed;
+    [SerializeField] private float SprintSpeed;
+    [SerializeField] private float Acceleration;
     private Rigidbody2D rb;
     private PlayerControls inputs;
 
@@ -80,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void UpdateMove()
-    {   
+    {
         // Ground 
         var groundLayer = dropDownTriggered ? GroundLayer : (LayerMask)(GroundLayer | PlatformLayer);
         var groundHit = Physics2D.Raycast(transform.position, Vector2.down, GroundRayLength, groundLayer);
@@ -127,6 +127,11 @@ public class PlayerMovement : MonoBehaviour
         platforms.colliderMask |= playerLayer;
         stairs.colliderMask |= playerLayer;
         dropDownTriggered = false;
+    }
+
+    private void OneLegMovement()
+    {
+
     }
 
     void OnDrawGizmos()

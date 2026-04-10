@@ -18,14 +18,14 @@ public class Swordsman : EnemyAI
 
     private void Attack()
     {
-        
+
     }
 
     private void DealDamage(IDamageable player)
     {
         if (player == (IDamageable)GameManager.Instance.Player)
         {
-            
+
         }
     }
 }
