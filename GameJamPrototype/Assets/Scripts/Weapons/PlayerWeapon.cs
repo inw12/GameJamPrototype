@@ -60,7 +60,7 @@ public class PlayerWeapon : MonoBehaviour
                 // rotation
                 var targetPosition = PlayerControls.Instance.GetMouseWorldPosition();
                 var angle = Mathf.Atan2(targetPosition.y - attachTo.position.y, targetPosition.x - attachTo.position.x) * Mathf.Rad2Deg;
-                angle = playerMovement.IsFacingRight() ? angle : angle + 180f;
+                angle = playerMovement.IsFacingRight() ? angle + 180f : angle;
                 _weaponObjectInstance.transform.rotation = Quaternion.Euler(0f, 0f, angle);
             }
         }
@@ -76,12 +76,12 @@ public class PlayerWeapon : MonoBehaviour
         {
             // position
             var mousePos = PlayerControls.Instance.GetMouseWorldPosition();
-            frontArmTarget.position = mousePos;
+            backArmTarget.position = mousePos;
 
             // rotation
             var angle = Mathf.Atan2(mousePos.y - transform.position.y, mousePos.x - transform.position.x) * Mathf.Rad2Deg;
             angle = playerMovement.IsFacingRight() ? angle + 180f : angle;
-            frontArmTarget.rotation = Quaternion.Euler(0f, 0f, angle);
+            backArmTarget.rotation = Quaternion.Euler(0f, 0f, angle);
         }
     }
 

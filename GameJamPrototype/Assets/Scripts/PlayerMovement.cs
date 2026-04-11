@@ -94,8 +94,8 @@ public class PlayerMovement : MonoBehaviour
 
         // Character Left/Right Flipping
         var x = inputs.GetMouseWorldPosition().x > transform.position.x ? 1f : -1f;
-        if (x > 0f && !facingRight) FlipCharacter();
-        if (x < 0f && facingRight) FlipCharacter();
+        if (x > 0f && facingRight) FlipCharacter();
+        if (x < 0f && !facingRight) FlipCharacter();
 
         // Jump Action
         if (inputs.JumpPressed && IsGrounded && !isJumping)
