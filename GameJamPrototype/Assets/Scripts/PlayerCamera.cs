@@ -5,6 +5,7 @@ public class PlayerCamera : MonoBehaviour
     private Vector2 MousePosition => PlayerControls.Instance.Mouse;
     [SerializeField] private Camera Prefab;
     [SerializeField] private Vector2 Offset;
+    [SerializeField] private float Size;
     [SerializeField] private float CameraSmooth;
     [Range(0f, 1f)]
     [SerializeField] private float ViewPortScrollRange;
@@ -19,6 +20,7 @@ public class PlayerCamera : MonoBehaviour
     void Start()
     {
         camera = Instantiate(Prefab);
+        camera.orthographicSize = Size;
     }
 
     // Update is called once per frame
@@ -38,6 +40,7 @@ public class PlayerCamera : MonoBehaviour
 
         Vector3 playerPos = transform.position + new Vector3(Offset.x, Offset.y, 0f);
         
+        camera.orthographicSize = Size;
 
         // If within scroll range
         if (mouseViewPos.x < 1f - ViewPortScrollRange && mouseViewPos.x > ViewPortScrollRange)
