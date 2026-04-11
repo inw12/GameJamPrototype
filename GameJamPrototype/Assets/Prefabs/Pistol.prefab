@@ -84,7 +84,7 @@ MonoBehaviour:
   damage: 5
   fireRate: 0.33
   maxAmmo: 24
-  bulletSpeed: 30
+  bulletSpeed: 50
   isFullAuto: 0
   isTwoHanded: 0
   bulletSpawn: {fileID: 1708803629611794118}
