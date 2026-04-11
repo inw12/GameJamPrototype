@@ -1021,7 +1021,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db615d0e9c70c114681cd339d4341c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: RunTime::Damageable
-  CurrentState: 0
   Health: 100
 --- !u!114 &7488886088532189718
 MonoBehaviour:
@@ -1035,11 +1034,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d6cbd1ae6e9d8145ad9240b9bfb85c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: RunTime::Soldier
+  ShowDebug: 0
   detectionRange: 5
   attackRange: 1.5
   moveSpeed: 3
   weapon: {fileID: 3539992810712732244}
-  ShowDebug: 0
+  AimTime: 0
 --- !u!1 &8007870915590378308
 GameObject:
   m_ObjectHideFlags: 0
