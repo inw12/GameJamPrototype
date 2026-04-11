@@ -7,6 +7,8 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField] private Transform attachTo;
     [Space]
     [SerializeField] private PlayerAnimationController animationController;
+
+    [Header("IK Targets")]
     [SerializeField] private Transform frontArmTarget;
     [SerializeField] private Transform backArmTarget;
     private PlayerMovement playerMovement;

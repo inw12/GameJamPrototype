@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 20871772}
   - component: {fileID: 20871773}
   - component: {fileID: 20871774}
+  - component: {fileID: 20871775}
   m_Layer: 8
   m_Name: ArmUpper_Back
   m_TagString: Untagged
@@ -232,6 +233,22 @@ MonoBehaviour:
     m_Extent: {x: 0.93266416, y: 1.0494454, z: 0}
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
+--- !u!114 &20871775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20871771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d635e0a64e7472448d8535fed1dbc6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RunTime::Limb
+  LimbPrefab: {fileID: 0}
+  Anchor: {fileID: 20871772}
+  DamageService: {fileID: 616174031}
+  Dismembered: 0
 --- !u!1 &33252807
 GameObject:
   m_ObjectHideFlags: 0
@@ -1233,7 +1250,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: RunTime::Limb
   LimbPrefab: {fileID: 0}
   Anchor: {fileID: 430533088}
-  DamageService: {fileID: 0}
+  DamageService: {fileID: 720808609}
   Dismembered: 0
 --- !u!1 &441077187
 GameObject:
@@ -1646,6 +1663,7 @@ GameObject:
   - component: {fileID: 767208347}
   - component: {fileID: 767208348}
   - component: {fileID: 767208349}
+  - component: {fileID: 767208350}
   m_Layer: 8
   m_Name: LegUpper_Front
   m_TagString: Untagged
@@ -1748,6 +1766,22 @@ MonoBehaviour:
     m_Extent: {x: 0.73501587, y: 1.3251953, z: 0}
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
+--- !u!114 &767208350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 767208346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d635e0a64e7472448d8535fed1dbc6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RunTime::Limb
+  LimbPrefab: {fileID: 0}
+  Anchor: {fileID: 767208347}
+  DamageService: {fileID: 571805721}
+  Dismembered: 0
 --- !u!1 &793306376
 GameObject:
   m_ObjectHideFlags: 0
@@ -2652,6 +2686,7 @@ GameObject:
   - component: {fileID: 1224434682}
   - component: {fileID: 1224434683}
   - component: {fileID: 1224434684}
+  - component: {fileID: 1224434685}
   m_Layer: 8
   m_Name: LegUpper_Back
   m_TagString: Untagged
@@ -2754,6 +2789,22 @@ MonoBehaviour:
     m_Extent: {x: 1.606828, y: 1.0202265, z: 0}
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
+--- !u!114 &1224434685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1224434681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d635e0a64e7472448d8535fed1dbc6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RunTime::Limb
+  LimbPrefab: {fileID: 0}
+  Anchor: {fileID: 1224434682}
+  DamageService: {fileID: 124060077}
+  Dismembered: 0
 --- !u!1 &1246882072
 GameObject:
   m_ObjectHideFlags: 0
@@ -3906,10 +3957,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: RunTime::PlayerWeapon
   currentWeapon: {fileID: 6805761842341076841, guid: 24c5f12f811a044689c5ab3088dc78b1, type: 3}
-  attachTo: {fileID: 0}
+  attachTo: {fileID: 1568366553}
   animationController: {fileID: 2006600986943206874}
-  frontArmTarget: {fileID: 0}
-  backArmTarget: {fileID: 0}
+  frontArmTarget: {fileID: 928505793}
+  backArmTarget: {fileID: 1278435245}
 --- !u!114 &498370697258061538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5008,10 +5059,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae5873befc5dda448bffceb851ede1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: RunTime::PlayerLimbManager
-  FrontArm: {fileID: 0}
-  BackArm: {fileID: 0}
-  FrontLeg: {fileID: 0}
-  BackLeg: {fileID: 0}
+  FrontArm: {fileID: 430533091}
+  BackArm: {fileID: 20871775}
+  FrontLeg: {fileID: 767208350}
+  BackLeg: {fileID: 1224434685}
 --- !u!114 &7158190000335380607
 MonoBehaviour:
   m_ObjectHideFlags: 0
