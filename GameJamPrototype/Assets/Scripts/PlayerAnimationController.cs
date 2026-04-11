@@ -2,6 +2,7 @@ using UnityEngine;
 public struct PlayerAnimatorParameters
 {
     public int  MovementAction;
+    public bool IsGrounded;
 }
 [RequireComponent(typeof(Animator))]
 public class PlayerAnimationController : MonoBehaviour
@@ -17,6 +18,7 @@ public class PlayerAnimationController : MonoBehaviour
     public void UpdateAnimator(PlayerAnimatorParameters parameters)
     {
         animator.SetInteger("MovementAction", parameters.MovementAction);
+        animator.SetBool("IsGrounded", parameters.IsGrounded);
     }
 
     // Arm Weapon Animations

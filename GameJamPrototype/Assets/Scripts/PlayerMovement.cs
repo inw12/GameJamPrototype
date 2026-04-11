@@ -73,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
         var animParameters = new PlayerAnimatorParameters
         {
             MovementAction = (int)state,
+            IsGrounded = IsGrounded
         };
         animationController.UpdateAnimator(animParameters);
     }
@@ -142,6 +143,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!DebugLog) return;
         GUILayout.Label($"Move: {inputs.MovePressed}");
+        GUILayout.Label($"Velocity: {rb.linearVelocity.magnitude}");
     }
 
     private void FlipCharacter()
