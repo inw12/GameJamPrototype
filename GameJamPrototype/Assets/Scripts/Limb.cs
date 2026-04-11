@@ -7,7 +7,7 @@ public class Limb : MonoBehaviour
     [SerializeField] private Damageable DamageService;
     public bool Dismembered = false;
 
-    void Start()
+    void Awake()
     {
         DamageService.OnDeath += Dismember;
     }

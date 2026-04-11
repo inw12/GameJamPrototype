@@ -826,6 +826,7 @@ GameObject:
   - component: {fileID: 5995499348743230233}
   - component: {fileID: 260890768665450227}
   - component: {fileID: 7055396593010835520}
+  - component: {fileID: 7397116701155992094}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -940,12 +941,10 @@ MonoBehaviour:
   GroundRayLength: 0.7
   JumpForce: 10
   GravityForce: 3
-  GroundLayer:
-    serializedVersion: 2
-    m_Bits: 1088
-  IsGrounded: 0
-  Debug: 0
-  animationController: {fileID: 2006600985979183361}
+  platforms: {fileID: 0}
+  stairs: {fileID: 0}
+  DebugLog: 0
+  Animator: {fileID: 0}
 --- !u!114 &2506894617132388105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -991,7 +990,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: RunTime::PlayerWeapon
   currentWeapon: {fileID: 6805761842341076841, guid: 24c5f12f811a044689c5ab3088dc78b1, type: 3}
   attachTo: {fileID: 7739164946291811902}
-  animationController: {fileID: 2006600985979183361}
+  animationController: {fileID: 0}
   frontArmTarget: {fileID: 5819015762584232178}
   backArmTarget: {fileID: 4807991183500794143}
 --- !u!114 &7055396593010835520
@@ -1010,6 +1009,19 @@ MonoBehaviour:
   BackArm: {fileID: 1848176577026735406}
   FrontLeg: {fileID: 9130529541238649736}
   BackLeg: {fileID: 4928712485249243091}
+--- !u!114 &7397116701155992094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2346196285163339432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d3287d78aacf42848580b937cd4cbec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RunTime::PlayerAnimator
+  Animator: {fileID: 3869784866286963455}
 --- !u!1 &2617979108862854758
 GameObject:
   m_ObjectHideFlags: 0
@@ -2120,7 +2132,6 @@ GameObject:
   - component: {fileID: 6098491984087966106}
   - component: {fileID: 3869784866286963455}
   - component: {fileID: 9061705095810262869}
-  - component: {fileID: 2006600985979183361}
   m_Layer: 8
   m_Name: Root
   m_TagString: Untagged
@@ -2199,18 +2210,6 @@ MonoBehaviour:
     showGizmo: 1
   - color: {r: 0, g: 1, b: 0, a: 1}
     showGizmo: 1
---- !u!114 &2006600985979183361
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6377830931221917346}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d3287d78aacf42848580b937cd4cbec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: RunTime::PlayerAnimationController
 --- !u!1 &6433184338216460616
 GameObject:
   m_ObjectHideFlags: 0
