@@ -169,8 +169,8 @@ TextureImporter:
       - name: armUpper_Front
         guid: edcebeef583c0491e8003f54c58718dd
         position: {x: 127.01441, y: 79.305725, z: 0}
-        rotation: {x: 0, y: 0, z: -0.96702045, w: 0.25469884}
-        length: 129.62169
+        rotation: {x: 0, y: 0, z: -0.97507375, w: 0.22188103}
+        length: 127.25746
         parentId: -1
         color:
           serializedVersion: 2
@@ -469,9 +469,9 @@ TextureImporter:
       bones:
       - name: legUpper_Front
         guid: 28762af62d30d4f5bb842b07af94ec09
-        position: {x: 54.030304, y: 149.28915, z: 0}
-        rotation: {x: 0, y: 0, z: -0.7808249, w: 0.62474996}
-        length: 137.72282
+        position: {x: 57.012833, y: 149.56033, z: 0}
+        rotation: {x: 0, y: 0, z: -0.77291423, w: 0.6345105}
+        length: 133.15784
         parentId: -1
         color:
           serializedVersion: 2
@@ -750,9 +750,9 @@ TextureImporter:
       bones:
       - name: neck
         guid: f80353822b8c44a078f697db1c6993ea
-        position: {x: 35.394592, y: 6.9621277, z: 0}
-        rotation: {x: 0, y: 0, z: 0.52115035, w: 0.8534649}
-        length: 60.034508
+        position: {x: 61.768036, y: 17.492249, z: 0}
+        rotation: {x: 0, y: 0, z: 0.7264559, w: 0.68721306}
+        length: 44.94372
         parentId: -1
         color:
           serializedVersion: 2
@@ -1031,9 +1031,9 @@ TextureImporter:
       bones:
       - name: head
         guid: 73c9119021f924d02a0960e9fa71c90d
-        position: {x: 8.632111, y: 44.262115, z: 0}
-        rotation: {x: 0, y: 0, z: 0.28978425, w: 0.95709205}
-        length: 72.69446
+        position: {x: 3.2291565, y: 49.20526, z: 0}
+        rotation: {x: 0, y: 0, z: 0.39803588, w: 0.9173699}
+        length: 65.96176
         parentId: -1
         color:
           serializedVersion: 2
@@ -1312,9 +1312,9 @@ TextureImporter:
       bones:
       - name: legUpper_Back
         guid: b127cbf5387f04e5e89b06ef9ea5006b
-        position: {x: 51.759888, y: 114.32834, z: 0}
-        rotation: {x: 0, y: 0, z: -0.30344006, w: 0.9528506}
-        length: 170.24606
+        position: {x: 83.34357, y: 121.96954, z: 0}
+        rotation: {x: 0, y: 0, z: -0.3283733, w: 0.944548}
+        length: 150.09782
         parentId: -1
         color:
           serializedVersion: 2
@@ -1613,9 +1613,9 @@ TextureImporter:
       bones:
       - name: armUpper_Back
         guid: 13a39a32b536445b2a88384c0a58f5cf
-        position: {x: 38.299133, y: 129.45068, z: -4}
-        rotation: {x: 0, y: 0, z: -0.5053098, w: 0.862938}
-        length: 136.79813
+        position: {x: 35.174377, y: 132.57544, z: -4}
+        rotation: {x: 0, y: 0, z: -0.49326575, w: 0.8698787}
+        length: 143.25963
         parentId: -1
         color:
           serializedVersion: 2
@@ -1904,9 +1904,9 @@ TextureImporter:
       bones:
       - name: armLower_Front
         guid: 4a6dd52f8f8854a8c8c3bf5d220488d8
-        position: {x: 24.49054, y: 113.233826, z: 0}
-        rotation: {x: 0, y: 0, z: -0.74812865, w: 0.6635537}
-        length: 90.93705
+        position: {x: 25.614578, y: 116.60602, z: 0}
+        rotation: {x: 0, y: 0, z: -0.764946, w: 0.64409447}
+        length: 95.00105
         parentId: -1
         color:
           serializedVersion: 2
@@ -2185,9 +2185,9 @@ TextureImporter:
       bones:
       - name: legLower_Front
         guid: d0dd4d11873d94443a98ccf9b31223dd
-        position: {x: 86.27521, y: 139.72774, z: 0}
-        rotation: {x: 0, y: 0, z: -0.8463838, w: 0.53257346}
-        length: 139.07468
+        position: {x: 88.364105, y: 137.88934, z: 0}
+        rotation: {x: 0, y: 0, z: -0.86705965, w: 0.49820432}
+        length: 128.10193
         parentId: -1
         color:
           serializedVersion: 2
@@ -2506,18 +2506,18 @@ TextureImporter:
       bones:
       - name: chest_Lower
         guid: 1e224a2cd125f4c0182bffc603613f11
-        position: {x: 38.866608, y: 27.766663, z: 0}
-        rotation: {x: 0, y: 0, z: 0.4393506, w: 0.89831567}
-        length: 63.78641
+        position: {x: 45.56729, y: 34.467346, z: 0}
+        rotation: {x: 0, y: 0, z: 0.37504706, w: 0.92700577}
+        length: 58.60752
         parentId: -1
         color:
           serializedVersion: 2
           rgba: 4278190335
       - name: chest_Upper
         guid: b40da99d111434a3089e453c71ad9fb1
-        position: {x: 63.78641, y: -0.0000044991875, z: 0}
-        rotation: {x: 0, y: 0, z: -0.1354149, w: 0.99078906}
-        length: 77.483444
+        position: {x: 58.60752, y: -0.0000013073, z: 0}
+        rotation: {x: 0, y: 0, z: -0.065883234, w: 0.9978274}
+        length: 77.40794
         parentId: 0
         color:
           serializedVersion: 2
@@ -2816,9 +2816,9 @@ TextureImporter:
       bones:
       - name: legLower_Back
         guid: 1695348ad277b4d778e99a08e6a339b3
-        position: {x: 54.865234, y: 176.90707, z: 0}
-        rotation: {x: 0, y: 0, z: -0.7036491, w: 0.7105476}
-        length: 156.4551
+        position: {x: 54.7688, y: 180.66687, z: 0}
+        rotation: {x: 0, y: 0, z: -0.68322146, w: 0.7302113}
+        length: 147.17017
         parentId: -1
         color:
           serializedVersion: 2
@@ -3138,8 +3138,8 @@ TextureImporter:
       - name: armLower_Back
         guid: 247f132d6aac048df8a29d5e760e0a72
         position: {x: 10.16803, y: 8.178589, z: -3}
-        rotation: {x: 0, y: 0, z: 0.35506588, w: 0.9348413}
-        length: 101.24745
+        rotation: {x: 0, y: 0, z: 0.34603006, w: 0.9382235}
+        length: 95.82033
         parentId: -1
         color:
           serializedVersion: 2
@@ -3699,9 +3699,9 @@ TextureImporter:
       bones:
       - name: hip
         guid: 33c1b97ebe7174a5ca2a387265355bd3
-        position: {x: 50.831665, y: 30.221012, z: 0}
-        rotation: {x: 0, y: 0, z: 0.8105818, w: 0.58562547}
-        length: 97.96461
+        position: {x: 58.321594, y: 40.348267, z: 0}
+        rotation: {x: 0, y: 0, z: 0.85555845, w: 0.5177063}
+        length: 88.49808
         parentId: -1
         color:
           serializedVersion: 2
@@ -3980,9 +3980,9 @@ TextureImporter:
       bones:
       - name: foot_Back
         guid: 6e50f2dd171c2422396e927b2d75ffed
-        position: {x: 27.154724, y: 40.196213, z: 0}
-        rotation: {x: 0, y: 0, z: -0.1983472, w: 0.98013186}
-        length: 90.28851
+        position: {x: 32.580566, y: 40.196213, z: 0}
+        rotation: {x: 0, y: 0, z: -0.21045157, w: 0.97760427}
+        length: 85.315735
         parentId: -1
         color:
           serializedVersion: 2
@@ -4281,9 +4281,9 @@ TextureImporter:
       bones:
       - name: hand_Back
         guid: e96f0ec63d02e43c2abbcae680e37d41
-        position: {x: 9.318115, y: 15.166904, z: -2}
-        rotation: {x: 0, y: 0, z: 0.19144301, w: 0.9815037}
-        length: 67.89563
+        position: {x: 13.123413, y: 22.420418, z: -2}
+        rotation: {x: 0, y: 0, z: 0.1492559, w: 0.9887986}
+        length: 61.87012
         parentId: -1
         color:
           serializedVersion: 2
