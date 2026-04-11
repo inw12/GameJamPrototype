@@ -22,8 +22,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float GroundRayLength;
     [SerializeField] private float JumpForce;
     [SerializeField] private float GravityForce;
-    [SerializeField] private PlatformEffector2D platforms;
-    [SerializeField] private PlatformEffector2D stairs;
 
     private LayerMask GroundLayer => LayerMask.GetMask("Ground");
     private LayerMask PlatformLayer => LayerMask.GetMask("Platform");
@@ -104,7 +102,7 @@ public class PlayerMovement : MonoBehaviour
             if (inputs.MovePressed.y < 0f && !dropDownTriggered && groundHit.collider.TryGetComponent(out PlatformEffector2D p))
             {
                 isJumping = true;
-                StartCoroutine(PlatformDropdown());
+                StartCoroutine(PlatformDropdown(groundHit.collider));
             }
             // jump up
             else
@@ -115,17 +113,16 @@ public class PlayerMovement : MonoBehaviour
         }
     }
     
-    private IEnumerator PlatformDropdown()
+    private IEnumerator PlatformDropdown(Collider2D ground)
     {
         dropDownTriggered = true;
         var playerLayer = 1 << gameObject.layer;
-        platforms.colliderMask &= ~playerLayer;
-        stairs.colliderMask &= ~playerLayer;
+        var platform = ground.GetComponent<PlatformEffector2D>();
+        platform.colliderMask &= ~playerLayer;
 
-        yield return new WaitForSeconds(0.35f);
+        yield return new WaitForSeconds(0.4f);
 
-        platforms.colliderMask |= playerLayer;
-        stairs.colliderMask |= playerLayer;
+        platform.colliderMask |= playerLayer;
         dropDownTriggered = false;
     }
 

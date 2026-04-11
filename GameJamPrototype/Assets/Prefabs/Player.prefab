@@ -159,9 +159,9 @@ MonoBehaviour:
   Speed: 5
   SprintSpeed: 10
   Acceleration: 1
-  GroundRayLength: 0.7
+  GroundRayLength: 2.275
   JumpForce: 10
-  GravityForce: 3
+  GravityForce: 20
   platforms: {fileID: 0}
   stairs: {fileID: 0}
   IsGrounded: 0
