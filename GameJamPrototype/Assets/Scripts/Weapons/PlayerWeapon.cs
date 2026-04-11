@@ -28,7 +28,7 @@ public class PlayerWeapon : MonoBehaviour
             _weapon = _weaponObjectInstance.GetComponent<Weapon>();
 
             _weaponEquipped = CheckWeaponType(_weapon);
-            animationController.UpdateAnimator(_weaponEquipped);
+            //animationController.UpdateAnimator(_weaponEquipped);
         }
     }
 
