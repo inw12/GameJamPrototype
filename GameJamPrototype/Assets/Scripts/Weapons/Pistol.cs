@@ -1,4 +1,5 @@
 using UnityEngine;
+
 [RequireComponent(typeof(ProjectilePool))]
 public class Pistol : RangedWeapon
 {
@@ -22,12 +23,12 @@ public class Pistol : RangedWeapon
             var direction = transform.right;
             var projectile = new ProjectileContext
             {
-                ObjectPool  = _pool,
-                Origin      = bulletSpawn.position,
-                Direction   = direction,
+                ObjectPool = _pool,
+                Origin = bulletSpawn.position,
+                Direction = direction,
                 BulletSpeed = bulletSpeed,
-                HitMask     = targetLayer,
-                Damage = damage             
+                HitMask = targetLayer,
+                Damage = damage
             };
             _pool.Get(projectile);
 

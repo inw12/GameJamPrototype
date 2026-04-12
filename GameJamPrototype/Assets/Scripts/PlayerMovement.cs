@@ -1,12 +1,12 @@
 using UnityEngine;
-using System.Collections;
 
-public enum MovementState { Idle = 0, Walk = 1, Sprint = 2, Crawl = 3 }
+public enum MovementState { Idle = 0, Walk = 1, Sprint = 2, Crawl = 3, Grappling = 4 }
 
 [RequireComponent(typeof(PlayerControls))]
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(PlayerLimbManager))]
 [RequireComponent(typeof(PlayerAnimator))]
+[RequireComponent(typeof(PlayerGrapple))]
 public class PlayerMovement : MonoBehaviour
 {
     // Public state
@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public bool IsGrounded { get; private set; }
     public bool CanDropDown { get; private set; }
     public bool IsFacingRight { get; private set; }
+    public bool CanMove { get; private set; }
     public RaycastHit2D LastGroundHit { get; private set; }
     public MovementState MoveState { get; private set; }
 
@@ -23,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float GroundRayLength;
     private PlayerLimbManager _limbManager;
     private PlayerAnimator _animator;
+    private PlayerGrapple _grapple;
     private LayerMask GroundMask => LayerMask.GetMask("Ground", "Platform");
 
     // Locomotion state machine 
@@ -43,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
         Rb = GetComponent<Rigidbody2D>();
         _limbManager = GetComponent<PlayerLimbManager>();
         _animator = GetComponent<PlayerAnimator>();
+        _grapple = GetComponent<PlayerGrapple>();
 
         _bothLegs = GetComponent<BothLegsLocomotion>();
         _oneLeg = GetComponent<OneLegLocomotion>();
@@ -98,10 +101,15 @@ public class PlayerMovement : MonoBehaviour
     // Shared Behaviour
     private void UpdateShared()
     {
+        // Can Move?
+        CanMove = !_grapple.IsGrappling;
+
         // Update Movement State
-        if (PlayerControls.Instance.MovePressed.sqrMagnitude == 0f)
+        if (_grapple.IsGrappling)
+            MoveState = MovementState.Grappling;
+        else if (PlayerControls.Instance.MovePressed.sqrMagnitude == 0f)
             MoveState = MovementState.Idle;
-        else 
+        else
             MoveState = PlayerControls.Instance.SprintPressed ? MovementState.Sprint : MovementState.Walk;
 
         // Ground check

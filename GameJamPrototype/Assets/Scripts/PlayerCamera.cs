@@ -31,6 +31,7 @@ public class PlayerCamera : MonoBehaviour
 
     void FixedUpdate()
     {
+        cameraPos = Vector3.Lerp(cameraPos, targetPos, CameraSmooth * Time.deltaTime);
         camera.transform.position = cameraPos;
     }
 
@@ -39,7 +40,7 @@ public class PlayerCamera : MonoBehaviour
         Vector3 mouseViewPos = camera.ScreenToViewportPoint(MousePosition);
 
         Vector3 playerPos = transform.position + new Vector3(Offset.x, Offset.y, 0f);
-        
+
         camera.orthographicSize = Size;
 
         // If within scroll range
@@ -53,10 +54,8 @@ public class PlayerCamera : MonoBehaviour
                 targetPos = playerPos + CameraMaxRange * Vector3.right;
             else
                 targetPos = playerPos - CameraMaxRange * Vector3.right;
-  
         }
 
-        cameraPos = Vector3.Lerp(cameraPos, targetPos, CameraSmooth * Time.deltaTime);
     }
 
     void OnDrawGizmos()

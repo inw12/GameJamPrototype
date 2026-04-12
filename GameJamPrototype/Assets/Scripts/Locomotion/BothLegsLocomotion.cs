@@ -13,17 +13,21 @@ public class BothLegsLocomotion : LocomotionBase
     [Header("Gravity/Ground/Jump")]
     [SerializeField] private PlatformEffector2D platforms;
     [SerializeField] private PlatformEffector2D stairs;
+
+    private PlayerGrapple grapple;
     private bool isJumping;
     private bool dropDownTriggered;
 
 
     public override void OnUpdate()
     {
-        JumpLogic();
+        //JumpLogic();
     }
 
     public override void OnFixedUpdate()
     {
+        if (!Owner.CanMove) return;
+
         var targetSpeed = Inputs.SprintPressed ? SprintSpeed : Speed;
 
         Rb.linearVelocity = new Vector2(
@@ -32,35 +36,35 @@ public class BothLegsLocomotion : LocomotionBase
         );
     }
 
-    private void JumpLogic()
-    {
-        if (Owner.IsGrounded && Rb.linearVelocity.y <= 0)
-            isJumping = false;
+    // private void JumpLogic()
+    // {
+    //     if (Owner.IsGrounded && Rb.linearVelocity.y <= 0)
+    //         isJumping = false;
 
-        // Drop through platform
-        if (Inputs.MovePressed.y < 0f && !dropDownTriggered && Owner.LastGroundHit.collider.TryGetComponent(out PlatformEffector2D _))
-        {
-            isJumping = true;
-            StartCoroutine(PlatformDropdown());
-        }
-        else if (Inputs.JumpPressed && !isJumping && Owner.IsGrounded)
-        {
-            isJumping = true;
-            Rb.AddForce(JumpForce * Vector3.up, ForceMode2D.Impulse);
-        }
-    }
+    //     //Drop through platform
+    //     if (Inputs.MovePressed.y < 0f && !dropDownTriggered && Owner.LastGroundHit.collider.TryGetComponent(out PlatformEffector2D _))
+    //     {
+    //         isJumping = true;
+    //         StartCoroutine(PlatformDropdown());
+    //     }
+    //     else if (Inputs.JumpPressed && !isJumping && Owner.IsGrounded)
+    //     {
+    //         isJumping = true;
+    //         Rb.AddForce(JumpForce * Vector3.up, ForceMode2D.Impulse);
+    //     }
+    // }
 
-    private IEnumerator PlatformDropdown()
-    {
-        dropDownTriggered = true;
-        var playerLayer = 1 << gameObject.layer;
-        platforms.colliderMask &= ~playerLayer;
-        //stairs.colliderMask &= ~playerLayer;
+    // private IEnumerator PlatformDropdown()
+    // {
+    //     dropDownTriggered = true;
+    //     var playerLayer = 1 << gameObject.layer;
+    //     platforms.colliderMask &= ~playerLayer;
+    //     //stairs.colliderMask &= ~playerLayer;
 
-        yield return new WaitForSeconds(0.35f);
+    //     yield return new WaitForSeconds(0.35f);
 
-        platforms.colliderMask |= playerLayer;
-        //stairs.colliderMask |= playerLayer;
-        dropDownTriggered = false;
-    }
+    //     platforms.colliderMask |= playerLayer;
+    //     //stairs.colliderMask |= playerLayer;
+    //     dropDownTriggered = false;
+    // }
 }
