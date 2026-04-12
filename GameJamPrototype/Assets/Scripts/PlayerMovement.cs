@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public enum MovementState { Idle = 0, Walk = 1, Sprint = 2, Crawl = 3 }
 
@@ -24,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerLimbManager _limbManager;
     private PlayerAnimator _animator;
     private LayerMask GroundMask => LayerMask.GetMask("Ground", "Platform");
+    private float _isMovingForward; // -1 = false | 1 = true
 
     // Locomotion state machine 
     private BothLegsLocomotion _bothLegs;
@@ -109,12 +109,23 @@ public class PlayerMovement : MonoBehaviour
         IsGrounded = LastGroundHit;
 
         // Flip to face mouse cursor
-        var x = PlayerControls.GetMouseWorldPosition().x > transform.position.x ? 1f : -1f;
+        var mousePos = PlayerControls.GetMouseWorldPosition();
+        var x = mousePos.x > transform.position.x ? 1f : -1f;
         if (x > 0f && !IsFacingRight) FlipCharacter();
         if (x < 0f && IsFacingRight) FlipCharacter();
 
+        // "Is the player moving in the same direction they're facing?"
+        var direction = ((Vector3)mousePos - transform.position).normalized;
+        _isMovingForward = Vector3.Dot(PlayerControls.Instance.MovePressed, direction) > 0f ? 1f : -1f;
+
         // Update Animator
-        _animator.UpdateGroundAnim(IsGrounded, MoveState);
+        var p = new PlayerAnimatorParameters
+        {
+            MovementAction = (int)MoveState,
+            IsGrounded = IsGrounded,
+            IsMovingForward = _isMovingForward
+        };
+        _animator.UpdateGroundAnim(p);
     }
 
     // Helpers
