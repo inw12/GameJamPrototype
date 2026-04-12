@@ -30,6 +30,9 @@ public class PlayerMovement : MonoBehaviour
     private bool isJumping;
     private bool dropDownTriggered; // down + jump input for falling through platforms
 
+    private float inputMouseDotProd;
+    private int isMovingForward;
+
     [Header("DebugLog")]
     public bool DebugLog;
     [Header("Animation Control")]
@@ -73,7 +76,8 @@ public class PlayerMovement : MonoBehaviour
         var animParameters = new PlayerAnimatorParameters
         {
             MovementAction = (int)state,
-            IsGrounded = IsGrounded
+            IsGrounded = IsGrounded,
+            IsMovingForward = isMovingForward
         };
         animationController.UpdateAnimator(animParameters);
     }
@@ -95,6 +99,11 @@ public class PlayerMovement : MonoBehaviour
         var x = inputs.GetMouseWorldPosition().x > transform.position.x ? 1f : -1f;
         if (x > 0f && facingRight) FlipCharacter();
         if (x < 0f && !facingRight) FlipCharacter();
+
+        // "is the character moving in the same direction they're facing?"
+        var mouseDirection = ((Vector3)inputs.GetMouseWorldPosition() - transform.position).normalized;
+        inputMouseDotProd = Vector2.Dot(mouseDirection, inputs.MovePressed);
+        isMovingForward = inputMouseDotProd > 0 ? 1 : -1;
 
         // Jump Action
         if (inputs.JumpPressed && IsGrounded && !isJumping)
@@ -143,7 +152,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!DebugLog) return;
         GUILayout.Label($"Move: {inputs.MovePressed}");
-        GUILayout.Label($"Velocity: {rb.linearVelocity.magnitude}");
     }
 
     private void FlipCharacter()

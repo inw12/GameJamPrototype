@@ -3,6 +3,7 @@ public struct PlayerAnimatorParameters
 {
     public int  MovementAction;
     public bool IsGrounded;
+    public float IsMovingForward;   // -1: False | 1: True
 }
 [RequireComponent(typeof(Animator))]
 public class PlayerAnimationController : MonoBehaviour
@@ -19,6 +20,7 @@ public class PlayerAnimationController : MonoBehaviour
     {
         animator.SetInteger("MovementAction", parameters.MovementAction);
         animator.SetBool("IsGrounded", parameters.IsGrounded);
+        animator.SetFloat("IsMovingForward", parameters.IsMovingForward);
     }
 
     // Arm Weapon Animations
