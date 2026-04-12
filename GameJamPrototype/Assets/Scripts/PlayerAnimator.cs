@@ -4,9 +4,9 @@ public class PlayerAnimator : MonoBehaviour
 {
     [SerializeField] private Animator Animator;
 
-    // Movement Animations
-    public void UpdateLocAnim(MovementState MoveState)
+    public void UpdateGroundAnim(bool IsGrounded, MovementState MoveState)
     {
+        Animator.SetBool("IsGrounded", IsGrounded);
         Animator.SetInteger("MovementAction", (int)MoveState);
     }
 
