@@ -17,8 +17,6 @@ public class OneLegLocomotion : LocomotionBase
 
     public override void OnFixedUpdate()
     {
-        Owner.State = MovementState.Walk;
-
         Rb.linearVelocity = new Vector2(
             Inputs.MovePressed.x * Speed,
             Rb.linearVelocity.y

@@ -15,11 +15,11 @@ public class Pistol : RangedWeapon
         _fireTimer += Time.deltaTime;
     }
 
-    public override void Attack(Vector2 mousePos)
+    public override void Attack()
     {
         if (_fireTimer >= fireRate)
         {
-            var direction = ((Vector3)mousePos - bulletSpawn.position).normalized;
+            var direction = transform.right;
             var projectile = new ProjectileContext
             {
                 ObjectPool  = _pool,

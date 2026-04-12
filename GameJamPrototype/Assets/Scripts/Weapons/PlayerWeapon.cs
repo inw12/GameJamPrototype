@@ -1,17 +1,19 @@
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerMovement))]
+[RequireComponent(typeof(PlayerAnimator))]
 public class PlayerWeapon : MonoBehaviour
 {
     [SerializeField] private GameObject currentWeapon;
     [SerializeField] private Transform attachTo;
     [Space]
-    [SerializeField] private PlayerAnimator animationController;
     [SerializeField] private Transform frontArmTarget;
     [SerializeField] private Transform backArmTarget;
+    
+    
+    // References
     private PlayerMovement playerMovement;
-    private PlayerControls playerControls;
-
+    private PlayerAnimator Animator;
     private GameObject _weaponObjectInstance;
     private Weapon _weapon;
     private bool _weaponEquipped;
@@ -19,7 +21,7 @@ public class PlayerWeapon : MonoBehaviour
     void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
-        playerControls = GetComponent<PlayerControls>();
+        Animator = GetComponent<PlayerAnimator>();
 
         if (currentWeapon)
         {
@@ -28,7 +30,7 @@ public class PlayerWeapon : MonoBehaviour
             _weapon = _weaponObjectInstance.GetComponent<Weapon>();
 
             _weaponEquipped = CheckWeaponType(_weapon);
-            animationController.UpdateWeaponAnim(_weaponEquipped);
+            Animator.UpdateWeaponAnim(_weaponEquipped);
         }
     }
 
@@ -37,7 +39,7 @@ public class PlayerWeapon : MonoBehaviour
         // Read attack input
         if (PlayerControls.Instance.Mouse1)
         {
-            _weapon.Attack(PlayerControls.GetMouseWorldPosition());
+            _weapon.Attack();//PlayerControls.GetMouseWorldPosition());
         }
     }
 
@@ -70,12 +72,12 @@ public class PlayerWeapon : MonoBehaviour
         {
             // position
             var mousePos = PlayerControls.GetMouseWorldPosition();
-            frontArmTarget.position = mousePos;
+            backArmTarget.position = mousePos;
 
             // rotation
             var angle = Mathf.Atan2(mousePos.y - transform.position.y, mousePos.x - transform.position.x) * Mathf.Rad2Deg;
             angle = playerMovement.IsFacingRight ? angle + 180f : angle;
-            frontArmTarget.rotation = Quaternion.Euler(0f, 0f, angle);
+            backArmTarget.rotation = Quaternion.Euler(0f, 0f, angle);
         }
     }
 

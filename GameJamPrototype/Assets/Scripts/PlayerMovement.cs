@@ -1,11 +1,7 @@
 using UnityEngine;
+using System.Collections;
 
-public enum MovementState
-{
-    Idle = 0,
-    Walk = 1,
-    Sprint = 2
-}
+public enum MovementState { Idle = 0, Walk = 1, Sprint = 2, Crawl = 3 }
 
 [RequireComponent(typeof(PlayerControls))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -15,14 +11,19 @@ public class PlayerMovement : MonoBehaviour
 {
     // Public state
     public Rigidbody2D Rb { get; private set; }
-    public MovementState State { get; set; }
-    public bool IsFacingRight => _facingRight;
+    public bool IsGrounded { get; private set; }
+    public bool CanDropDown { get; private set; }
+    public bool IsFacingRight { get; private set; }
+    public RaycastHit2D LastGroundHit { get; private set; }
+    public MovementState MoveState { get; private set; }
 
     // Private shared state
-
-    private PlayerAnimator _playerAnimator;
+    [Min(1f)]
+    [SerializeField] private float GravityScale;
+    [SerializeField] private float GroundRayLength;
     private PlayerLimbManager _limbManager;
-    private bool _facingRight;
+    private PlayerAnimator _animator;
+    private LayerMask GroundMask => LayerMask.GetMask("Ground", "Platform");
 
     // Locomotion state machine 
     private BothLegsLocomotion _bothLegs;
@@ -31,20 +32,27 @@ public class PlayerMovement : MonoBehaviour
     private LocomotionBase _active;
     private PlayerLimbManager.LegState _lastLegState;
 
+    // Debug
+    [Header("Debug Log")]
+    public bool DebugLog;
+
     // Locomotion State Machine
 
     void Awake()
     {
         Rb = GetComponent<Rigidbody2D>();
         _limbManager = GetComponent<PlayerLimbManager>();
-        _playerAnimator = GetComponent<PlayerAnimator>();
-        State = MovementState.Idle;
+        _animator = GetComponent<PlayerAnimator>();
 
         _bothLegs = GetComponent<BothLegsLocomotion>();
         _oneLeg = GetComponent<OneLegLocomotion>();
         _noLegs = GetComponent<NoLegsLocomotion>();
 
         SwitchLocomotion(_limbManager.CurrentLegState);
+
+        IsFacingRight = true;
+
+        Rb.gravityScale = GravityScale;
     }
 
     void Update()
@@ -64,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
 
     void LateUpdate()
     {
-        _playerAnimator.UpdateLocAnim(State);
+        _active.OnLateUpdate();
     }
 
     private void SwitchLocomotion(PlayerLimbManager.LegState legState)
@@ -90,25 +98,45 @@ public class PlayerMovement : MonoBehaviour
     // Shared Behaviour
     private void UpdateShared()
     {
-        // Idle override
+        // Update Movement State
         if (PlayerControls.Instance.MovePressed.sqrMagnitude == 0f)
-            State = MovementState.Idle;
+            MoveState = MovementState.Idle;
+        else 
+            MoveState = PlayerControls.Instance.SprintPressed ? MovementState.Sprint : MovementState.Walk;
+
+        // Ground check
+        LastGroundHit = Physics2D.Raycast(transform.position, Vector2.down, GroundRayLength, GroundMask);
+        IsGrounded = LastGroundHit;
 
         // Flip to face mouse cursor
         var x = PlayerControls.GetMouseWorldPosition().x > transform.position.x ? 1f : -1f;
-        if (x > 0f && !_facingRight) FlipCharacter();
-        if (x < 0f && _facingRight) FlipCharacter();
+        if (x > 0f && !IsFacingRight) FlipCharacter();
+        if (x < 0f && IsFacingRight) FlipCharacter();
+
+        // Update Animator
+        _animator.UpdateGroundAnim(IsGrounded, MoveState);
     }
 
     // Helpers
     private void FlipCharacter()
     {
-        _facingRight = !_facingRight;
+        IsFacingRight = !IsFacingRight;
         var scale = transform.localScale;
         scale.x *= -1f;
         transform.localScale = scale;
     }
 
+    void OnDrawGizmos()
+    {
+        if (!DebugLog) return;
 
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position, Vector2.down * GroundRayLength);
+    }
 
+    void OnGUI()
+    {
+        if (!DebugLog) return;
+        GUILayout.Label($"Move: {PlayerControls.Instance.MovePressed}");
+    }
 }
