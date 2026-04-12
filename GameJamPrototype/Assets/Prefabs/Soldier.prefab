@@ -446,7 +446,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2464988198974642858}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.053637058, w: 0.99856055}
+  m_LocalRotation: {x: -0, y: -0, z: 0.053636905, w: 0.99856055}
   m_LocalPosition: {x: 0.263063, y: -0.000000010595573, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -891,7 +891,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7455905622141854314}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.012272657, w: 0.9999248}
+  m_LocalRotation: {x: 0, y: 0, z: 0.012273132, w: 0.9999247}
   m_LocalPosition: {x: 0.29572636, y: 0.0072604045, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1021,7 +1021,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db615d0e9c70c114681cd339d4341c53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: RunTime::Damageable
-  CurrentState: 0
   Health: 100
 --- !u!114 &7488886088532189718
 MonoBehaviour:
@@ -1035,11 +1034,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d6cbd1ae6e9d8145ad9240b9bfb85c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: RunTime::Soldier
+  ShowDebug: 0
   detectionRange: 5
   attackRange: 1.5
   moveSpeed: 3
   weapon: {fileID: 3539992810712732244}
-  ShowDebug: 0
+  AimTime: 0
 --- !u!1 &8007870915590378308
 GameObject:
   m_ObjectHideFlags: 0
@@ -1096,7 +1096,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8583010922849159027}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.9977593, w: 0.06690607}
+  m_LocalRotation: {x: 0, y: 0, z: 0.9977593, w: 0.0669064}
   m_LocalPosition: {x: 0.30754837, y: 0.1603342, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1241,6 +1241,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2580922995025551427}
     m_Modifications:
+    - target: {fileID: 940113781175139083, guid: 24c5f12f811a044689c5ab3088dc78b1, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4252547307336924942, guid: 24c5f12f811a044689c5ab3088dc78b1, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.05
