@@ -1,0 +1,559 @@
+fileFormatVersion: 2
+guid: b3422dc137a9d6142ac3a2d93f72b77d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7366044118207934243
+    second: spritesheet_Bruiser_0
+  - first:
+      213: 8667118157819067982
+    second: spritesheet_Bruiser_1
+  - first:
+      213: -8369799628532383102
+    second: spritesheet_Bruiser_2
+  - first:
+      213: -541960009290648353
+    second: spritesheet_Bruiser_3
+  - first:
+      213: -406874660520190946
+    second: spritesheet_Bruiser_4
+  - first:
+      213: 26046715707241289
+    second: spritesheet_Bruiser_5
+  - first:
+      213: 5045076059606152768
+    second: spritesheet_Bruiser_6
+  - first:
+      213: -9028676466810137651
+    second: spritesheet_Bruiser_7
+  - first:
+      213: 1444490158449823521
+    second: spritesheet_Bruiser_8
+  - first:
+      213: -677426448387409980
+    second: spritesheet_Bruiser_9
+  - first:
+      213: 4715706730997525802
+    second: spritesheet_Bruiser_10
+  - first:
+      213: -7717826927775659346
+    second: spritesheet_Bruiser_11
+  - first:
+      213: -2359658112220963020
+    second: spritesheet_Bruiser_12
+  - first:
+      213: -6041755021771494854
+    second: spritesheet_Bruiser_13
+  - first:
+      213: -5863254902781143981
+    second: spritesheet_Bruiser_14
+  - first:
+      213: 827594510527670629
+    second: spritesheet_Bruiser_15
+  - first:
+      213: 3764608116586208601
+    second: spritesheet_Bruiser_16
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: spritesheet_Bruiser_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 278
+        width: 167
+        height: 158
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd05c56c6ed86c990800000000000000
+      internalID: -7366044118207934243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_Bruiser_1
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 261
+        width: 126
+        height: 162
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4eb42f4b0ac74870800000000000000
+      internalID: 8667118157819067982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_Bruiser_2
+      rect:
+        serializedVersion: 2
+        x: 411
+        y: 382
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 282812c359f78db80800000000000000
+      internalID: -8369799628532383102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_Bruiser_3
+      rect:
+        serializedVersion: 2
+        x: 413
+        y: 332
+        width: 97
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd473c33e329a78f0800000000000000
+      internalID: -541960009290648353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_Bruiser_4
+      rect:
+        serializedVersion: 2
+        x: 620
+        y: 327
+        width: 163
+        height: 120
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1c1697e6ad7a5af0800000000000000
+      internalID: -406874660520190946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_Bruiser_5
+      rect:
+        serializedVersion: 2
+        x: 824
+        y: 227
+        width: 169
+        height: 233
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 943bb4599598c5000800000000000000
+      internalID: 26046715707241289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_Bruiser_6
+      rect:
+        serializedVersion: 2
+        x: 412
+        y: 309
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 046f6ad32f5b30640800000000000000
+      internalID: 5045076059606152768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_Bruiser_7
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 107
+        width: 82
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc35ad3e692b3b280800000000000000
+      internalID: -9028676466810137651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_Bruiser_8
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 121
+        width: 109
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12f03f7552cdb0410800000000000000
+      internalID: 1444490158449823521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_Bruiser_9
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 22
+        width: 191
+        height: 258
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c7f96efb3c4996f0800000000000000
+      internalID: -677426448387409980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_Bruiser_10
+      rect:
+        serializedVersion: 2
+        x: 650
+        y: 177
+        width: 86
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2da606794e817140800000000000000
+      internalID: 4715706730997525802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_Bruiser_11
+      rect:
+        serializedVersion: 2
+        x: 862
+        y: 105
+        width: 86
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eaaccfbcc45c4e490800000000000000
+      internalID: -7717826927775659346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_Bruiser_12
+      rect:
+        serializedVersion: 2
+        x: 253
+        y: 0
+        width: 73
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43f53bde27fc04fd0800000000000000
+      internalID: -2359658112220963020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_Bruiser_13
+      rect:
+        serializedVersion: 2
+        x: 665
+        y: 75
+        width: 73
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3aa06b71df572ca0800000000000000
+      internalID: -6041755021771494854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_Bruiser_14
+      rect:
+        serializedVersion: 2
+        x: 862
+        y: 14
+        width: 112
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35499241bb881aea0800000000000000
+      internalID: -5863254902781143981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_Bruiser_15
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 14
+        width: 115
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 569a01292d43c7b00800000000000000
+      internalID: 827594510527670629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_Bruiser_16
+      rect:
+        serializedVersion: 2
+        x: 953
+        y: 4
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95d5ca3e2239e3430800000000000000
+      internalID: 3764608116586208601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      spritesheet_Bruiser_0: -7366044118207934243
+      spritesheet_Bruiser_1: 8667118157819067982
+      spritesheet_Bruiser_10: 4715706730997525802
+      spritesheet_Bruiser_11: -7717826927775659346
+      spritesheet_Bruiser_12: -2359658112220963020
+      spritesheet_Bruiser_13: -6041755021771494854
+      spritesheet_Bruiser_14: -5863254902781143981
+      spritesheet_Bruiser_15: 827594510527670629
+      spritesheet_Bruiser_16: 3764608116586208601
+      spritesheet_Bruiser_2: -8369799628532383102
+      spritesheet_Bruiser_3: -541960009290648353
+      spritesheet_Bruiser_4: -406874660520190946
+      spritesheet_Bruiser_5: 26046715707241289
+      spritesheet_Bruiser_6: 5045076059606152768
+      spritesheet_Bruiser_7: -9028676466810137651
+      spritesheet_Bruiser_8: 1444490158449823521
+      spritesheet_Bruiser_9: -677426448387409980
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

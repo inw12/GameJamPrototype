@@ -1,0 +1,533 @@
+fileFormatVersion: 2
+guid: c8ac3a7fdbe067a41ac876dbbfb95a96
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3508015041329816690
+    second: spritesheet_Gunner_0
+  - first:
+      213: -7145434860800777842
+    second: spritesheet_Gunner_1
+  - first:
+      213: 2665770721779758039
+    second: spritesheet_Gunner_2
+  - first:
+      213: -3907126042856953527
+    second: spritesheet_Gunner_3
+  - first:
+      213: 1078356053674671801
+    second: spritesheet_Gunner_4
+  - first:
+      213: -72681123276251285
+    second: spritesheet_Gunner_5
+  - first:
+      213: 2443168111311595206
+    second: spritesheet_Gunner_6
+  - first:
+      213: -7417308247623564475
+    second: spritesheet_Gunner_7
+  - first:
+      213: -2514973826276654115
+    second: spritesheet_Gunner_8
+  - first:
+      213: -641953099671981020
+    second: spritesheet_Gunner_9
+  - first:
+      213: 5832465675357906105
+    second: spritesheet_Gunner_10
+  - first:
+      213: 4622852782858961462
+    second: spritesheet_Gunner_11
+  - first:
+      213: 5348083776024906866
+    second: spritesheet_Gunner_12
+  - first:
+      213: 6900957215311790787
+    second: spritesheet_Gunner_13
+  - first:
+      213: 5332315440106159730
+    second: spritesheet_Gunner_14
+  - first:
+      213: 8741566100615033802
+    second: spritesheet_Gunner_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: spritesheet_Gunner_0
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 359
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 274e0350819fea030800000000000000
+      internalID: 3508015041329816690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_Gunner_1
+      rect:
+        serializedVersion: 2
+        x: 375
+        y: 289
+        width: 87
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e81e64c2ad056dc90800000000000000
+      internalID: -7145434860800777842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_Gunner_2
+      rect:
+        serializedVersion: 2
+        x: 728
+        y: 220
+        width: 89
+        height: 168
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d3b15cf858bef420800000000000000
+      internalID: 2665770721779758039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_Gunner_3
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 206
+        width: 116
+        height: 149
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94965da909917c9c0800000000000000
+      internalID: -3907126042856953527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_Gunner_4
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 262
+        width: 135
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9bebba01e1717fe00800000000000000
+      internalID: 1078356053674671801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_Gunner_5
+      rect:
+        serializedVersion: 2
+        x: 361
+        y: 139
+        width: 144
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6f1e3947e8cdfef0800000000000000
+      internalID: -72681123276251285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_Gunner_6
+      rect:
+        serializedVersion: 2
+        x: 555
+        y: 245
+        width: 137
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c62a49e370e7e120800000000000000
+      internalID: 2443168111311595206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_Gunner_7
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 65
+        width: 71
+        height: 135
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54382d6827d601990800000000000000
+      internalID: -7417308247623564475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_Gunner_8
+      rect:
+        serializedVersion: 2
+        x: 190
+        y: 153
+        width: 117
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd3006141a4091dd0800000000000000
+      internalID: -2514973826276654115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_Gunner_9
+      rect:
+        serializedVersion: 2
+        x: 581
+        y: 139
+        width: 111
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 424379b9e035717f0800000000000000
+      internalID: -641953099671981020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_Gunner_10
+      rect:
+        serializedVersion: 2
+        x: 739
+        y: 65
+        width: 86
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b4ed5841a411f050800000000000000
+      internalID: 5832465675357906105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_Gunner_11
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 51
+        width: 78
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6320c33fc1ca72040800000000000000
+      internalID: 4622852782858961462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_Gunner_12
+      rect:
+        serializedVersion: 2
+        x: 388
+        y: 0
+        width: 95
+        height: 132
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27c8ef2ebd5383a40800000000000000
+      internalID: 5348083776024906866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_Gunner_13
+      rect:
+        serializedVersion: 2
+        x: 590
+        y: 31
+        width: 79
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c204d4460025cf50800000000000000
+      internalID: 6900957215311790787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_Gunner_14
+      rect:
+        serializedVersion: 2
+        x: 712
+        y: 0
+        width: 120
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27ebbd514a0300a40800000000000000
+      internalID: 5332315440106159730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spritesheet_Gunner_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 101
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac371cfbd08405970800000000000000
+      internalID: 8741566100615033802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      spritesheet_Gunner_0: 3508015041329816690
+      spritesheet_Gunner_1: -7145434860800777842
+      spritesheet_Gunner_10: 5832465675357906105
+      spritesheet_Gunner_11: 4622852782858961462
+      spritesheet_Gunner_12: 5348083776024906866
+      spritesheet_Gunner_13: 6900957215311790787
+      spritesheet_Gunner_14: 5332315440106159730
+      spritesheet_Gunner_15: 8741566100615033802
+      spritesheet_Gunner_2: 2665770721779758039
+      spritesheet_Gunner_3: -3907126042856953527
+      spritesheet_Gunner_4: 1078356053674671801
+      spritesheet_Gunner_5: -72681123276251285
+      spritesheet_Gunner_6: 2443168111311595206
+      spritesheet_Gunner_7: -7417308247623564475
+      spritesheet_Gunner_8: -2514973826276654115
+      spritesheet_Gunner_9: -641953099671981020
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
