@@ -25,6 +25,8 @@ public class RangedWeapon : Weapon
     [SerializeField] protected float fireRate;
     [SerializeField] protected float maxAmmo;
     [SerializeField] protected float bulletSpeed;
+    [SerializeField] protected bool isFullAuto;
+    [SerializeField] protected bool isTwoHanded;
     [SerializeField] protected Transform gunTip;
     protected ProjectilePool _pool;
     protected float _fireTimer;
