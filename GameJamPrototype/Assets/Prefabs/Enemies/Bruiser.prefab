@@ -1926,6 +1926,8 @@ GameObject:
   - component: {fileID: 1161225705758364192}
   - component: {fileID: 439511004780387552}
   - component: {fileID: 6785729029564407790}
+  - component: {fileID: 4190534221602460514}
+  - component: {fileID: 6798634076566765893}
   m_Layer: 9
   m_Name: Bruiser
   m_TagString: Untagged
@@ -2022,6 +2024,32 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 3.1921425, y: 4.9458647}
   m_EdgeRadius: 0
+--- !u!114 &4190534221602460514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8741503337589273223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db615d0e9c70c114681cd339d4341c53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RunTime::Damageable
+  Health: 100
+--- !u!114 &6798634076566765893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8741503337589273223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd64f648a1cb5a4479706e9fee9633fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RunTime::Swordsman
+  ShowDebug: 0
 --- !u!1 &8788114993776258903
 GameObject:
   m_ObjectHideFlags: 0

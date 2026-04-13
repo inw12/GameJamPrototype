@@ -7,7 +7,7 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField] protected LayerMask targetLayer;
 
     //public virtual void Attack() {}
-    public virtual void Attack() {}
+    public virtual void Attack() { }
 }
 
 // * Ranged Weapons
@@ -20,8 +20,10 @@ public class RangedWeapon : Weapon
     [SerializeField] protected float bulletSpeed;
     [SerializeField] protected bool isFullAuto;
     [SerializeField] protected bool isTwoHanded;
+    [SerializeField] protected Transform gunTip;
     protected ProjectilePool _pool;
     protected float _fireTimer;
+    public Transform GunTip => gunTip;
 }
 
 // * Melee Weapons
@@ -37,15 +39,15 @@ public class MeleeWeapon : Weapon
 #region *-- Weapon Attack Context Structs ---------------*
 public struct ProjectileContext
 {
-    public ProjectilePool   ObjectPool;
-    public Vector2          Origin;
-    public Vector2          Direction;
-    public float            BulletSpeed;
-    public LayerMask        HitMask;
-    public float            Damage;
+    public ProjectilePool ObjectPool;
+    public Vector2 Origin;
+    public Vector2 Direction;
+    public float BulletSpeed;
+    public LayerMask HitMask;
+    public float Damage;
 }
 public struct MeleeAttackContext
 {
-    
+
 }
 #endregion
