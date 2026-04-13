@@ -4,8 +4,9 @@ public class Pistol : RangedWeapon
 {
     [SerializeField] private Transform bulletSpawn;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         _pool = GetComponent<ProjectilePool>();
         _fireTimer = fireRate;
     }
