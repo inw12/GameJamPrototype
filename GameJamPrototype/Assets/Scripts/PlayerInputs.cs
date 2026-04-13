@@ -138,6 +138,15 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Mouse2"",
+                    ""type"": ""Button"",
+                    ""id"": ""f2a04aa7-e430-469e-be96-2df5eba7f166"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Sprint"",
                     ""type"": ""Button"",
                     ""id"": ""a1fd1fd4-f47f-48b4-a069-9d0b3ee563b6"",
@@ -277,6 +286,17 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""action"": ""StatusMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""012cb3c6-5281-410d-84c5-d36090a9e467"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Mouse2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -290,6 +310,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         m_General_Interact = m_General.FindAction("Interact", throwIfNotFound: true);
         m_General_Mouse = m_General.FindAction("Mouse", throwIfNotFound: true);
         m_General_Mouse1 = m_General.FindAction("Mouse1", throwIfNotFound: true);
+        m_General_Mouse2 = m_General.FindAction("Mouse2", throwIfNotFound: true);
         m_General_Sprint = m_General.FindAction("Sprint", throwIfNotFound: true);
         m_General_StatusMenu = m_General.FindAction("StatusMenu", throwIfNotFound: true);
     }
@@ -377,6 +398,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_General_Interact;
     private readonly InputAction m_General_Mouse;
     private readonly InputAction m_General_Mouse1;
+    private readonly InputAction m_General_Mouse2;
     private readonly InputAction m_General_Sprint;
     private readonly InputAction m_General_StatusMenu;
     /// <summary>
@@ -410,6 +432,10 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "General/Mouse1".
         /// </summary>
         public InputAction @Mouse1 => m_Wrapper.m_General_Mouse1;
+        /// <summary>
+        /// Provides access to the underlying input action "General/Mouse2".
+        /// </summary>
+        public InputAction @Mouse2 => m_Wrapper.m_General_Mouse2;
         /// <summary>
         /// Provides access to the underlying input action "General/Sprint".
         /// </summary>
@@ -459,6 +485,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @Mouse1.started += instance.OnMouse1;
             @Mouse1.performed += instance.OnMouse1;
             @Mouse1.canceled += instance.OnMouse1;
+            @Mouse2.started += instance.OnMouse2;
+            @Mouse2.performed += instance.OnMouse2;
+            @Mouse2.canceled += instance.OnMouse2;
             @Sprint.started += instance.OnSprint;
             @Sprint.performed += instance.OnSprint;
             @Sprint.canceled += instance.OnSprint;
@@ -491,6 +520,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @Mouse1.started -= instance.OnMouse1;
             @Mouse1.performed -= instance.OnMouse1;
             @Mouse1.canceled -= instance.OnMouse1;
+            @Mouse2.started -= instance.OnMouse2;
+            @Mouse2.performed -= instance.OnMouse2;
+            @Mouse2.canceled -= instance.OnMouse2;
             @Sprint.started -= instance.OnSprint;
             @Sprint.performed -= instance.OnSprint;
             @Sprint.canceled -= instance.OnSprint;
@@ -572,6 +604,13 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMouse1(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Mouse2" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMouse2(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Sprint" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
