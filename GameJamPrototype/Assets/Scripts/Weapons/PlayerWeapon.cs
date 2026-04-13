@@ -1,25 +1,27 @@
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerMovement))]
+[RequireComponent(typeof(PlayerAnimator))]
 public class PlayerWeapon : MonoBehaviour
 {
     [SerializeField] private GameObject currentWeapon;
     [SerializeField] private Transform attachTo;
     [Space]
-    [SerializeField] private PlayerAnimationController animationController;
-
-    [Header("IK Targets")]
     [SerializeField] private Transform frontArmTarget;
     [SerializeField] private Transform backArmTarget;
+    
+    
+    // References
     private PlayerMovement playerMovement;
-
+    private PlayerAnimator Animator;
     private GameObject _weaponObjectInstance;
     private Weapon _weapon;
     private bool _weaponEquipped;
 
-    void Start()
+    void Awake()
     {
         playerMovement = GetComponent<PlayerMovement>();
+        Animator = GetComponent<PlayerAnimator>();
 
         if (currentWeapon)
         {
@@ -28,22 +30,15 @@ public class PlayerWeapon : MonoBehaviour
             _weapon = _weaponObjectInstance.GetComponent<Weapon>();
 
             _weaponEquipped = CheckWeaponType(_weapon);
-            animationController.UpdateAnimator(_weaponEquipped);
         }
     }
 
     void Update()
     {
-        // Read input for attack
-        if (PlayerControls.Instance)
+        // Read attack input
+        if (PlayerControls.Instance.Mouse1)
         {
-            var input = PlayerControls.Instance;
-
-            // Read attack input
-            if (input.Mouse1)
-            {
-                _weapon.Attack(input.GetMouseWorldPosition());
-            }
+            _weapon.Attack();//PlayerControls.GetMouseWorldPosition());
         }
     }
 
@@ -58,9 +53,9 @@ public class PlayerWeapon : MonoBehaviour
             if (_weaponEquipped)
             {
                 // rotation
-                var targetPosition = PlayerControls.Instance.GetMouseWorldPosition();
+                var targetPosition = PlayerControls.GetMouseWorldPosition();
                 var angle = Mathf.Atan2(targetPosition.y - attachTo.position.y, targetPosition.x - attachTo.position.x) * Mathf.Rad2Deg;
-                angle = playerMovement.IsFacingRight() ? angle + 180f : angle;
+                angle = playerMovement.IsFacingRight ? angle : angle + 180f;
                 _weaponObjectInstance.transform.rotation = Quaternion.Euler(0f, 0f, angle);
             }
         }
@@ -75,12 +70,12 @@ public class PlayerWeapon : MonoBehaviour
         if (_weaponEquipped)
         {
             // position
-            var mousePos = PlayerControls.Instance.GetMouseWorldPosition();
+            var mousePos = PlayerControls.GetMouseWorldPosition();
             backArmTarget.position = mousePos;
 
             // rotation
             var angle = Mathf.Atan2(mousePos.y - transform.position.y, mousePos.x - transform.position.x) * Mathf.Rad2Deg;
-            angle = playerMovement.IsFacingRight() ? angle + 180f : angle;
+            angle = playerMovement.IsFacingRight ? angle + 180f : angle;
             backArmTarget.rotation = Quaternion.Euler(0f, 0f, angle);
         }
     }

@@ -1,139 +1,146 @@
 using UnityEngine;
-using System.Collections;
-using System;
-public enum MovementState
-{
-    Idle = 0,
-    Walk = 1,
-    Sprint = 2
-}
+
+public enum MovementState { Idle = 0, Walk = 1, Sprint = 2, Crawl = 3 }
+
 [RequireComponent(typeof(PlayerControls))]
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(PlayerLimbManager))]
+[RequireComponent(typeof(PlayerAnimator))]
 public class PlayerMovement : MonoBehaviour
 {
-    [Header("Move")]
-    [SerializeField] private float Speed;
-    [SerializeField] private float SprintSpeed;
-    [SerializeField] private float Acceleration;
-    private Rigidbody2D rb;
-    private PlayerControls inputs;
+    // Public state
+    public Rigidbody2D Rb { get; private set; }
+    public bool IsGrounded { get; private set; }
+    public bool CanDropDown { get; private set; }
+    public bool IsFacingRight { get; private set; }
+    public RaycastHit2D LastGroundHit { get; private set; }
+    public MovementState MoveState { get; private set; }
 
-    [Header("Gravity/Ground/Jump")]
+    // Private shared state
+    [Min(1f)]
+    [SerializeField] private float GravityScale;
     [SerializeField] private float GroundRayLength;
-    [SerializeField] private float JumpForce;
-    [SerializeField] private float GravityForce;
+    private PlayerLimbManager _limbManager;
+    private PlayerAnimator _animator;
+    private LayerMask GroundMask => LayerMask.GetMask("Ground", "Platform");
+    private float _isMovingForward; // -1 = false | 1 = true
 
-    private LayerMask GroundLayer => LayerMask.GetMask("Ground");
-    private LayerMask PlatformLayer => LayerMask.GetMask("Platform");
+    // Locomotion state machine 
+    private BothLegsLocomotion _bothLegs;
+    private OneLegLocomotion _oneLeg;
+    private NoLegsLocomotion _noLegs;
+    private LocomotionBase _active;
+    private PlayerLimbManager.LegState _lastLegState;
 
-    public bool IsGrounded = false;
-    private bool isJumping;
-    private bool dropDownTriggered; // down + jump input for falling through platforms
-
-    [Header("DebugLog")]
+    // Debug
+    [Header("Debug Log")]
     public bool DebugLog;
-    [Header("Animation Control")]
-    [SerializeField] private PlayerAnimationController animationController;
 
-    // state machine
-    private MovementState state;
+    // Locomotion State Machine
 
-    // character flipping
-    private bool facingRight;
-
-    void Start()
+    void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        rb.gravityScale = GravityForce;
-        inputs = PlayerControls.Instance;
+        Rb = GetComponent<Rigidbody2D>();
+        _limbManager = GetComponent<PlayerLimbManager>();
+        _animator = GetComponent<PlayerAnimator>();
 
-        state = MovementState.Idle;
+        _bothLegs = GetComponent<BothLegsLocomotion>();
+        _oneLeg = GetComponent<OneLegLocomotion>();
+        _noLegs = GetComponent<NoLegsLocomotion>();
+
+        SwitchLocomotion(_limbManager.CurrentLegState);
+
+        IsFacingRight = true;
+
+        Rb.gravityScale = GravityScale;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        UpdateMove();
+        var currentLegState = _limbManager.CurrentLegState;
+        if (currentLegState != _lastLegState)
+            SwitchLocomotion(currentLegState);
+
+        UpdateShared();
+        _active.OnUpdate();
     }
 
     void FixedUpdate()
     {
-        // Apply Movement
-        var targetSpeed = inputs.SprintPressed ? SprintSpeed : Speed;
-        state = inputs.SprintPressed ? MovementState.Sprint : MovementState.Walk;
-        rb.linearVelocity = new Vector2
-        (
-            inputs.MovePressed.x * targetSpeed,
-            rb.linearVelocity.y
-        );
+        _active.OnFixedUpdate();
     }
 
     void LateUpdate()
     {
-        var animParameters = new PlayerAnimatorParameters
+        _active.OnLateUpdate();
+    }
+
+    private void SwitchLocomotion(PlayerLimbManager.LegState legState)
+    {
+        _active?.OnExit();
+        _lastLegState = legState;
+
+        _active = legState switch
         {
-            MovementAction = (int)state,
+            PlayerLimbManager.LegState.BothLegs => _bothLegs,
+            PlayerLimbManager.LegState.OneLeg => _oneLeg,
+            PlayerLimbManager.LegState.NoLegs => _noLegs,
+            _ => _bothLegs
         };
-        animationController.UpdateAnimator(animParameters);
+
+        _bothLegs.enabled = _active == _bothLegs;
+        _oneLeg.enabled = _active == _oneLeg;
+        _noLegs.enabled = _active == _noLegs;
+
+        _active.OnEnter();
     }
 
-    void UpdateMove()
+    // Shared Behaviour
+    private void UpdateShared()
     {
-        // Ground 
-        var groundLayer = dropDownTriggered ? GroundLayer : (LayerMask)(GroundLayer | PlatformLayer);
-        var groundHit = Physics2D.Raycast(transform.position, Vector2.down, GroundRayLength, groundLayer);
-        IsGrounded = groundHit;
+        // Update Movement State
+        if (PlayerControls.Instance.MovePressed.sqrMagnitude == 0f)
+            MoveState = MovementState.Idle;
+        else 
+            MoveState = PlayerControls.Instance.SprintPressed ? MovementState.Sprint : MovementState.Walk;
 
-        if (IsGrounded && rb.linearVelocity.y <= 0)
-            isJumping = false;
+        // Ground check
+        LastGroundHit = Physics2D.Raycast(transform.position, Vector2.down, GroundRayLength, GroundMask);
+        IsGrounded = LastGroundHit;
 
-        // Update State Machine
-        state = inputs.MovePressed.sqrMagnitude == 0f ? MovementState.Idle : state;
+        // Flip to face mouse cursor
+        var mousePos = PlayerControls.GetMouseWorldPosition();
+        var x = mousePos.x > transform.position.x ? 1f : -1f;
+        if (x > 0f && !IsFacingRight) FlipCharacter();
+        if (x < 0f && IsFacingRight) FlipCharacter();
 
-        // Character Left/Right Flipping
-        var x = inputs.GetMouseWorldPosition().x > transform.position.x ? 1f : -1f;
-        if (x > 0f && facingRight) FlipCharacter();
-        if (x < 0f && !facingRight) FlipCharacter();
+        // "Is the player moving in the same direction they're facing?"
+        var direction = ((Vector3)mousePos - transform.position).normalized;
+        _isMovingForward = Vector3.Dot(PlayerControls.Instance.MovePressed, direction) > 0f ? 1f : -1f;
 
-        // Jump Action
-        if (inputs.JumpPressed && IsGrounded && !isJumping)
+        // Update Animator
+        var p = new PlayerAnimatorParameters
         {
-            // drop through platform
-            if (inputs.MovePressed.y < 0f && !dropDownTriggered && groundHit.collider.TryGetComponent(out PlatformEffector2D p))
-            {
-                isJumping = true;
-                StartCoroutine(PlatformDropdown(groundHit.collider));
-            }
-            // jump up
-            else
-            {
-                isJumping = true;
-                rb.AddForce(JumpForce * Vector3.up, ForceMode2D.Impulse);
-            }
-        }
-    }
-    
-    private IEnumerator PlatformDropdown(Collider2D ground)
-    {
-        dropDownTriggered = true;
-        var playerLayer = 1 << gameObject.layer;
-        var platform = ground.GetComponent<PlatformEffector2D>();
-        platform.colliderMask &= ~playerLayer;
-
-        yield return new WaitForSeconds(0.4f);
-
-        platform.colliderMask |= playerLayer;
-        dropDownTriggered = false;
+            MovementAction = (int)MoveState,
+            IsGrounded = IsGrounded,
+            IsMovingForward = _isMovingForward
+        };
+        _animator.UpdateGroundAnim(p);
     }
 
-    private void OneLegMovement()
+    // Helpers
+    private void FlipCharacter()
     {
-
+        IsFacingRight = !IsFacingRight;
+        var scale = transform.localScale;
+        scale.x *= -1f;
+        transform.localScale = scale;
     }
 
     void OnDrawGizmos()
     {
         if (!DebugLog) return;
+
         Gizmos.color = Color.red;
         Gizmos.DrawRay(transform.position, Vector2.down * GroundRayLength);
     }
@@ -141,16 +148,6 @@ public class PlayerMovement : MonoBehaviour
     void OnGUI()
     {
         if (!DebugLog) return;
-        GUILayout.Label($"Move: {inputs.MovePressed}");
+        GUILayout.Label($"Move: {PlayerControls.Instance.MovePressed}");
     }
-
-    private void FlipCharacter()
-    {
-        facingRight = !facingRight;
-        var scale = transform.localScale;
-        scale.x *= -1f;
-        transform.localScale = scale;
-    }
-
-    public bool IsFacingRight() => facingRight;
 }

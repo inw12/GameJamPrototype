@@ -92,7 +92,7 @@ public class Soldier : EnemyAI
     BTState Attack()
     {
         Debug.Log("Attacking player");
-        weapon.Attack(player.position);
+        weapon.Attack();
         return _attack = BTState.Running;
     }
 

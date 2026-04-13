@@ -20,10 +20,10 @@ public class PlayerControls : MonoBehaviour
         }
 
         // returns mouse position as world position
-        public Vector2 GetMouseWorldPosition()
+        public static Vector2 GetMouseWorldPosition()
         {
-                Vector3 screenPos = Mouse;
+                Vector3 screenPos = Instance.Mouse;
                 screenPos.z = -Camera.main.transform.position.z;
                 return Camera.main.ScreenToWorldPoint(screenPos);
-        }       
+        }
 }

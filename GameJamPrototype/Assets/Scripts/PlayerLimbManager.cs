@@ -14,6 +14,11 @@ public class PlayerLimbManager : MonoBehaviour
 
     void Update()
     {
+        UpdateLimbStates();
+    }
+
+    void UpdateLimbStates()
+    {
         CanBlock = CanShoot = !FrontArm.Dismembered;
         CanMelee = !BackArm.Dismembered;
 
