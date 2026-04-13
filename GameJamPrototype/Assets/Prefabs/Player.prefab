@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 6786295637725427926}
   - component: {fileID: 7834815987203389937}
   - component: {fileID: 382144125140046073}
+  - component: {fileID: 7674565806417201145}
   m_Layer: 11
   m_Name: Player
   m_TagString: Untagged
@@ -44,6 +45,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 584471347989543917}
+  - {fileID: 19671449002547306}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &1892962194336175837
@@ -301,6 +303,26 @@ MonoBehaviour:
   JumpForce: 15
   platforms: {fileID: 0}
   stairs: {fileID: 0}
+--- !u!114 &7674565806417201145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 298164141482292486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92f5fd552da324533971d5c3aee15ebd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RunTime::PlayerMelee
+  animator: {fileID: 0}
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  meleeHitbox: {fileID: 5344595904501865607, guid: 7d961554b4f3e4da087d374259517ebd, type: 3}
+  meleeSpawn: {fileID: 19671449002547306}
+  damage: 5
+  meleeCooldown: 0.5
 --- !u!1 &383105438247913308
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,7 +561,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d635e0a64e7472448d8535fed1dbc6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: RunTime::Limb
-  LimbPrefab: {fileID: 0}
+  LimbPrefab: {fileID: 7069385396914476849, guid: fd4c1a55fbd974e72912e53c5014aabc, type: 3}
   Anchor: {fileID: 431179157056407929}
   DamageService: {fileID: 2689115357601016691}
   Dismembered: 0
@@ -940,7 +962,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d635e0a64e7472448d8535fed1dbc6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: RunTime::Limb
-  LimbPrefab: {fileID: 0}
+  LimbPrefab: {fileID: 5661591537159460820, guid: dc5ad7318e8be4016a32f42ff523b7d0, type: 3}
   Anchor: {fileID: 7854221640440521226}
   DamageService: {fileID: 7519160890748698755}
   Dismembered: 0
@@ -1568,7 +1590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d635e0a64e7472448d8535fed1dbc6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: RunTime::Limb
-  LimbPrefab: {fileID: 0}
+  LimbPrefab: {fileID: 5661591537159460820, guid: dc5ad7318e8be4016a32f42ff523b7d0, type: 3}
   Anchor: {fileID: 7252032517211419555}
   DamageService: {fileID: 5390521836432812694}
   Dismembered: 0
@@ -2182,6 +2204,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: RunTime::Damageable
   Health: 50
+--- !u!1 &5341130264831926560
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 19671449002547306}
+  m_Layer: 11
+  m_Name: Melee Spawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &19671449002547306
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5341130264831926560}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0.30070576, w: 0.953717}
+  m_LocalPosition: {x: 1.75, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8928971422708902861}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 35}
 --- !u!1 &5355176945641932002
 GameObject:
   m_ObjectHideFlags: 0
@@ -3094,7 +3147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d635e0a64e7472448d8535fed1dbc6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: RunTime::Limb
-  LimbPrefab: {fileID: 0}
+  LimbPrefab: {fileID: 7069385396914476849, guid: fd4c1a55fbd974e72912e53c5014aabc, type: 3}
   Anchor: {fileID: 2653678699899814406}
   DamageService: {fileID: 6990830231522263744}
   Dismembered: 0
