@@ -9,6 +9,7 @@ public class WeaponPickup : MonoBehaviour
     [SerializeField] private float pickupRadius;
 
     private CircleCollider2D _collider;
+    private float _highlightTimer;
 
     void Start()
     {
@@ -20,6 +21,16 @@ public class WeaponPickup : MonoBehaviour
         highlightSprite.enabled = false;
     }
 
+    void Update()
+    {
+        if (highlightSprite) _highlightTimer += Time.deltaTime;
+
+        if (_highlightTimer >= 0.1f)
+        {
+            highlightSprite.enabled = false;
+        }
+    }
+
     // returns GameObject to be collected 
     public GameObject GetItem() => weaponCounterpart;
     public void DestroyObject() => Destroy(transform.parent.gameObject);
@@ -28,5 +39,6 @@ public class WeaponPickup : MonoBehaviour
     public void TogglePrompt()
     {
         highlightSprite.enabled = true;
+        _highlightTimer = 0f;
     }
 }

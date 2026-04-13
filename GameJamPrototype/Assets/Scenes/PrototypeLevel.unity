@@ -14142,7 +14142,7 @@ CapsuleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2048
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -14350,7 +14350,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: RunTime::WeaponPickup
   weaponCounterpart: {fileID: 1806344568624661769, guid: 913a2d645efc3478280c3d0be2983930, type: 3}
   highlightSprite: {fileID: 568701038}
-  pickupRadius: 4
+  pickupRadius: 5
 --- !u!1 &530412882
 GameObject:
   m_ObjectHideFlags: 0
@@ -14812,7 +14812,7 @@ GameObject:
   m_Component:
   - component: {fileID: 568701037}
   - component: {fileID: 568701038}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Pickup Highlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
