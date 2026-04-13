@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6066326301406779775}
   m_Layer: 0
-  m_Name: Bullet Spawn
+  m_Name: GunTip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -105,7 +105,9 @@ MonoBehaviour:
   fireRate: 0.33
   maxAmmo: 24
   bulletSpeed: 65
-  bulletSpawn: {fileID: 6066326301406779775}
+  isFullAuto: 0
+  isTwoHanded: 0
+  gunTip: {fileID: 6066326301406779775}
 --- !u!1 &4678524696529570025
 GameObject:
   m_ObjectHideFlags: 0

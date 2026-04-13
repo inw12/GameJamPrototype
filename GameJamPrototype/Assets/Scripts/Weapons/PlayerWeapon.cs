@@ -29,8 +29,7 @@ public class PlayerWeapon : MonoBehaviour
 
         if (currentWeapon)
         {
-            _weaponObjectInstance = Instantiate(currentWeapon, transform);
-            _weaponObjectInstance.transform.SetPositionAndRotation(attachTo.position, currentWeapon.transform.rotation);
+            _weaponObjectInstance = Instantiate(currentWeapon, attachTo);
             _weapon = _weaponObjectInstance.GetComponent<Weapon>();
 
             _weaponEquipped = CheckWeaponType(_weapon);
@@ -69,20 +68,20 @@ public class PlayerWeapon : MonoBehaviour
     void LateUpdate()
     {
         // update weapon position/rotation
-        if (_weaponObjectInstance)
-        {
-            // position
-            _weaponObjectInstance.transform.position = attachTo.position;
+        // if (_weaponObjectInstance)
+        // {
+        //     // position
+        //     _weaponObjectInstance.transform.position = attachTo.position;
 
-            if (_weaponEquipped)
-            {
-                // rotation
-                var targetPosition = PlayerControls.GetMouseWorldPosition();
-                var angle = Mathf.Atan2(targetPosition.y - attachTo.position.y, targetPosition.x - attachTo.position.x) * Mathf.Rad2Deg;
-                angle = playerMovement.IsFacingRight ? angle : angle + 180f;
-                _weaponObjectInstance.transform.rotation = Quaternion.Euler(0f, 0f, angle);
-            }
-        }
+        //     if (_weaponEquipped)
+        //     {
+        //         // rotation
+        //         var targetPosition = PlayerControls.GetMouseWorldPosition();
+        //         var angle = Mathf.Atan2(targetPosition.y - attachTo.position.y, targetPosition.x - attachTo.position.x) * Mathf.Rad2Deg;
+        //         angle = playerMovement.IsFacingRight ? angle : angle + 180f;
+        //         _weaponObjectInstance.transform.rotation = Quaternion.Euler(0f, 0f, angle);
+        //     }
+        // }
 
         // update weapon arms (if active)
         UpdateArms();

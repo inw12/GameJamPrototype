@@ -101,7 +101,7 @@ public class PlayerMovement : MonoBehaviour
         // Update Movement State
         if (PlayerControls.Instance.MovePressed.sqrMagnitude == 0f)
             MoveState = MovementState.Idle;
-        else 
+        else
             MoveState = PlayerControls.Instance.SprintPressed ? MovementState.Sprint : MovementState.Walk;
 
         // Ground check
