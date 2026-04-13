@@ -3,6 +3,7 @@ public class PlayerMelee : MonoBehaviour
 {
     [SerializeField] private Animator animator;
     [Space]
+    [SerializeField] private LayerMask targetLayer;
     [SerializeField] private GameObject meleeHitbox;
     [SerializeField] private Transform meleeSpawn;
     [Space]
@@ -21,12 +22,13 @@ public class PlayerMelee : MonoBehaviour
         if (PlayerControls.Instance.Mouse2 && _meleeTimer >= meleeCooldown && !_meleeTriggered)
         {
             _meleeTriggered = true;
+            animator.SetTrigger("MeleeTrigger");
 
             var melee = Instantiate(meleeHitbox, meleeSpawn);
-            //if (melee.TryGetComponent(out MeleeHitbox m))
-            //{
-            //    m.Initialize(hurtbox.gameObject, meleeDamage, Enemy);
-            //}
+            if (melee.TryGetComponent(out MeleeHitbox m))
+            {
+                m.Initialize(damage, targetLayer);
+            }
 
             _meleeTimer = 0f;
             _meleeTriggered = false;

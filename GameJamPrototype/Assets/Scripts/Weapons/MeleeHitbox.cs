@@ -17,10 +17,8 @@ public class MeleeHitbox : MonoBehaviour
 
     private readonly HashSet<Collider2D> _hits = new();
 
-    public void Initialize(GameObject source, float damage, LayerMask targetLayer)
+    public void Initialize(float damage, LayerMask targetLayer)
     {
-        _source = source;
-
         _damage = damage;
         _targetLayer = targetLayer;
 
