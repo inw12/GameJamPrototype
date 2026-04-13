@@ -413,8 +413,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c63c60ac5d48f40df9935d2a140fbf15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: RunTime::PlayerLimb
-  upperSegment: {fileID: 0}
-  lowerSegment: {fileID: 7703892267991009477}
+  upperSegment: {fileID: 7703892267991009477}
+  lowerSegment: {fileID: 548396557764432544}
   _launchForce: 5
   _launchTorque: 25
   _jointFlailTorque: 10
