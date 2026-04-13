@@ -5,8 +5,15 @@ using UnityEngine;
 public abstract class Weapon : MonoBehaviour
 {
     [SerializeField] protected LayerMask targetLayer;
+    [SerializeField] protected SpriteRenderer weaponSpriteRenderer;
+    [SerializeField] protected Sprite[] sprites;    // should hold only 2 sprites: red for player, green for enemy
+    public bool EquippedByPlayer;
 
-    //public virtual void Attack() {}
+    protected virtual void Start()
+    {
+        weaponSpriteRenderer.sprite = EquippedByPlayer ? sprites[0] : sprites [1];
+    }
+
     public virtual void Attack() {}
 }
 
@@ -18,8 +25,6 @@ public class RangedWeapon : Weapon
     [SerializeField] protected float fireRate;
     [SerializeField] protected float maxAmmo;
     [SerializeField] protected float bulletSpeed;
-    [SerializeField] protected bool isFullAuto;
-    [SerializeField] protected bool isTwoHanded;
     protected ProjectilePool _pool;
     protected float _fireTimer;
 }

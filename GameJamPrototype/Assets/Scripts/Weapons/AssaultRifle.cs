@@ -1,6 +1,6 @@
 using UnityEngine;
 [RequireComponent(typeof(ProjectilePool))]
-public class Pistol : RangedWeapon
+public class AssaultRifle : RangedWeapon
 {
     [SerializeField] private Transform bulletSpawn;
 
