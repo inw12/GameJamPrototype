@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a359c74b6e9618e44b09881918648562
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 272733
+  packageName: UIFX - Drop Shadow Filter
+  packageVersion: 1.10.1
+  assetPath: Assets/ChocDino/UIFX/Demos/Prefabs/Demo-DropShadowFilter-Styles.prefab
+  uploadId: 895238

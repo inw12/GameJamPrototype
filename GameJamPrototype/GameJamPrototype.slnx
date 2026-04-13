@@ -1,4 +1,10 @@
 ﻿<Solution>
+  <Project Path="ChocDino.UIFX.csproj" />
+  <Project Path="RunTime.csproj" />
+  <Project Path="ChocDino.UIFX.Demos.csproj" />
+  <Project Path="ChocDino.UIFX.TMP.csproj" />
+  <Project Path="ChocDino.UIFX.TMP.Editor.csproj" />
+  <Project Path="ChocDino.UIFX.Editor.csproj" />
   <Project Path="Unity.Timeline.csproj" />
   <Project Path="Unity.PlasticSCM.Editor.csproj" />
   <Project Path="Unity.2D.Aseprite.Editor.csproj" />
