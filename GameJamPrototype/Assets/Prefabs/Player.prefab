@@ -20,6 +20,9 @@ GameObject:
   - component: {fileID: 8713872462198225203}
   - component: {fileID: 5640783838431568811}
   - component: {fileID: 5127038277790721104}
+  - component: {fileID: 6786295637725427926}
+  - component: {fileID: 7834815987203389937}
+  - component: {fileID: 382144125140046073}
   m_Layer: 11
   m_Name: Player
   m_TagString: Untagged
@@ -253,6 +256,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: RunTime::OneLegLocomotion
   Speed: 0
+--- !u!114 &6786295637725427926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 298164141482292486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f11e997adf0ae8498dc19d621bcdcaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RunTime::OneLegLocomotion
+  Speed: 0
+--- !u!114 &7834815987203389937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 298164141482292486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a45baa8bafd15b24c98da639f43a604e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RunTime::NoLegsLocomotion
+  Speed: 0
+  CrawlMultiplier: 0.3
+--- !u!114 &382144125140046073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 298164141482292486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4587a7472cc79554ca5089335dff8869, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RunTime::BothLegsLocomotion
+  Speed: 10
+  SprintSpeed: 5
+  Acceleration: 5
+  JumpForce: 15
+  platforms: {fileID: 0}
+  stairs: {fileID: 0}
 --- !u!1 &383105438247913308
 GameObject:
   m_ObjectHideFlags: 0
@@ -728,11 +776,11 @@ Transform:
   m_GameObject: {fileID: 1958349054877211806}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.632, y: 0.035, z: 0}
+  m_LocalPosition: {x: 2.099841, y: -0.1950438, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5151472573060651825}
+  m_Father: {fileID: 49553822128345770}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2101680101121259236
 GameObject:
@@ -1653,7 +1701,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30ae93fb156fc6d4c828c64571fc3edd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.2D.IK.Runtime::UnityEngine.U2D.IK.LimbSolver2D
-  m_ConstrainRotation: 1
+  m_ConstrainRotation: 0
   m_SolveFromDefaultPose: 1
   m_Weight: 1
   m_Chain:
@@ -3116,6 +3164,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5151472573060651825}
+  - {fileID: 6654565274917018940}
   m_Father: {fileID: 2718581817258695185}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!70 &6675214502909128927
@@ -3649,11 +3698,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9076680221550966331}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.16952746, w: 0.9855255}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.4924691, y: -0.016849041, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 6654565274917018940}
+  m_Children: []
   m_Father: {fileID: 49553822128345770}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

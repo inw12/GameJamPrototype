@@ -16,7 +16,7 @@ public class EnemyAI : MonoBehaviour
 
     public virtual void Start()
     {
-        
+
     }
 
     public virtual void Update()
@@ -28,25 +28,32 @@ public class EnemyAI : MonoBehaviour
     private BTState Selector(params Func<BTState>[] nodes)
     {
         foreach (var node in nodes)
-            if (node() != BTState.Failure) return BTState.Success;
+        {
+            var result = node();
+            if (result != BTState.Failure) return result; // stop on Success OR Running
+        }
         return BTState.Failure;
     }
 
     protected Func<BTState> Sequence(params Func<BTState>[] nodes) => () =>
     {
         foreach (var node in nodes)
-            if (node() != BTState.Success) return BTState.Failure;
+        {
+            var result = node();
+            if (result == BTState.Failure) return BTState.Failure;
+            if (result == BTState.Running) return BTState.Running;
+        }
         return BTState.Success;
     };
 
     void OnGUI()
     {
         if (!ShowDebug) return;
-        
+
         GUILayout.BeginArea(new Rect(10, 10, 220, 300));
         GUILayout.Label("Behavior Tree");
 
-        foreach(var d in DebugNodes)
+        foreach (var d in DebugNodes)
         {
             DrawNode(d.Item1, d.Item2);
         }
