@@ -19,11 +19,12 @@ public class Pistol : RangedWeapon
     {
         if (_fireTimer >= fireRate)
         {
+            var direction = ((Vector3)PlayerControls.GetMouseWorldPosition() - GunTip.position).normalized;
             var projectile = new ProjectileContext
             {
                 ObjectPool = _pool,
                 Origin = GunTip.position,
-                Direction = GunTip.right,
+                Direction = direction,
                 BulletSpeed = bulletSpeed,
                 HitMask = targetLayer,
                 Damage = damage
