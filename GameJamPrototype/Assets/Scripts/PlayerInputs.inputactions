@@ -52,6 +52,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Mouse2",
+                    "type": "Button",
+                    "id": "f2a04aa7-e430-469e-be96-2df5eba7f166",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Sprint",
                     "type": "Button",
                     "id": "a1fd1fd4-f47f-48b4-a069-9d0b3ee563b6",
@@ -189,6 +198,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "StatusMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "012cb3c6-5281-410d-84c5-d36090a9e467",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mouse2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
