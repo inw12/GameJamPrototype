@@ -50,7 +50,13 @@ public class PlayerWeapon : MonoBehaviour
         if (item && item.TryGetComponent(out WeaponPickup weapon))
         {
             weapon.TogglePrompt();
-            Debug.Log(weapon.PromptText);
+
+            // weapon change interaction
+            if (PlayerControls.Instance.InteractPressed)
+            {
+                ChangeWeapon(weapon.GetItem());
+                weapon.DestroyObject();
+            }
         }
     }
 

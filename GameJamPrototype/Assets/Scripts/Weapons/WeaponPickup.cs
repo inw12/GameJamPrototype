@@ -22,9 +22,9 @@ public class WeaponPickup : MonoBehaviour
 
     // returns GameObject to be collected 
     public GameObject GetItem() => weaponCounterpart;
+    public void DestroyObject() => Destroy(transform.parent.gameObject);
 
-    // turns on/off highlight around sprite to let player know
-    // that the object is/isn't pick up-able
+    // interactable feedback toggle (highlight + prompt text)
     public void TogglePrompt()
     {
         highlightSprite.enabled = true;
