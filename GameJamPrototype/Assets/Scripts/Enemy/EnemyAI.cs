@@ -28,14 +28,21 @@ public class EnemyAI : MonoBehaviour
     private BTState Selector(params Func<BTState>[] nodes)
     {
         foreach (var node in nodes)
-            if (node() != BTState.Failure) return BTState.Success;
+        {
+            var result = node();
+            if (result != BTState.Failure) return result; // stop on Success OR Running
+        }
         return BTState.Failure;
     }
 
     protected Func<BTState> Sequence(params Func<BTState>[] nodes) => () =>
     {
         foreach (var node in nodes)
-            if (node() != BTState.Success) return BTState.Failure;
+        {
+            var result = node();
+            if (result == BTState.Failure) return BTState.Failure;
+            if (result == BTState.Running) return BTState.Running;
+        }
         return BTState.Success;
     };
 
