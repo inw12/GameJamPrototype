@@ -331,6 +331,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b2cd4356af04455d935b6e53c84bf35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: RunTime::WeaponPickup
-  weaponCounterpart: {fileID: 1806344568624661769, guid: 913a2d645efc3478280c3d0be2983930, type: 3}
+  weaponCounterpart: {fileID: 9026339860551999382, guid: bd6e16ba2ac3640689bf17b4b08ae25f, type: 3}
   highlightSprite: {fileID: 164188272639853239}
   pickupRadius: 6
