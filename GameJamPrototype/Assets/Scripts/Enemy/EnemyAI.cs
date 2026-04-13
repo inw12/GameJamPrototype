@@ -16,7 +16,7 @@ public class EnemyAI : MonoBehaviour
 
     public virtual void Start()
     {
-        
+
     }
 
     public virtual void Update()
@@ -42,11 +42,11 @@ public class EnemyAI : MonoBehaviour
     void OnGUI()
     {
         if (!ShowDebug) return;
-        
+
         GUILayout.BeginArea(new Rect(10, 10, 220, 300));
         GUILayout.Label("Behavior Tree");
 
-        foreach(var d in DebugNodes)
+        foreach (var d in DebugNodes)
         {
             DrawNode(d.Item1, d.Item2);
         }

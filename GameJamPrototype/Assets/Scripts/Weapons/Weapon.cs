@@ -11,10 +11,10 @@ public abstract class Weapon : MonoBehaviour
 
     protected virtual void Start()
     {
-        weaponSpriteRenderer.sprite = EquippedByPlayer ? sprites[0] : sprites [1];
+        weaponSpriteRenderer.sprite = EquippedByPlayer ? sprites[0] : sprites[1];
     }
 
-    public virtual void Attack() {}
+    public virtual void Attack() { }
 }
 
 // * Ranged Weapons
@@ -25,8 +25,10 @@ public class RangedWeapon : Weapon
     [SerializeField] protected float fireRate;
     [SerializeField] protected float maxAmmo;
     [SerializeField] protected float bulletSpeed;
+    [SerializeField] protected Transform gunTip;
     protected ProjectilePool _pool;
     protected float _fireTimer;
+    public Transform GunTip => gunTip;
 }
 
 // * Melee Weapons
@@ -42,15 +44,15 @@ public class MeleeWeapon : Weapon
 #region *-- Weapon Attack Context Structs ---------------*
 public struct ProjectileContext
 {
-    public ProjectilePool   ObjectPool;
-    public Vector2          Origin;
-    public Vector2          Direction;
-    public float            BulletSpeed;
-    public LayerMask        HitMask;
-    public float            Damage;
+    public ProjectilePool ObjectPool;
+    public Vector2 Origin;
+    public Vector2 Direction;
+    public float BulletSpeed;
+    public LayerMask HitMask;
+    public float Damage;
 }
 public struct MeleeAttackContext
 {
-    
+
 }
 #endregion

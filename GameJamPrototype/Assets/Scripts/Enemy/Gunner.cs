@@ -1,11 +1,14 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Damageable))]
-public class Soldier : EnemyAI
+[RequireComponent(typeof(LineRenderer))]
+public class Gunner : EnemyAI
 {
     #region References
     private Transform player;
     private Damageable damageable;
+    private LineRenderer lr;
+    private LayerMask playerLayer => LayerMask.GetMask("PlayerHurtbox");
     #endregion
 
     [Header("Stats")]
@@ -14,10 +17,10 @@ public class Soldier : EnemyAI
     [SerializeField] float moveSpeed = 3f;
 
     [Header("Weapons")]
-    [SerializeField] private Weapon weapon;
+    [SerializeField] private RangedWeapon weapon;
     [SerializeField] private float AimTime;
     private float aimTimer;
-    private BTState _visible, _moveToAttackRange, _attack, _aim, _isDead;
+    private BTState _visible, _inAttackRange, _moveToAttackRange, _attack, _aim, _isDead;
 
     public override void Start()
     {
@@ -26,12 +29,16 @@ public class Soldier : EnemyAI
         player = GameManager.Instance.Player;
         damageable = GetComponent<Damageable>();
 
+        lr = GetComponent<LineRenderer>();
+
         BTNodes.Add(Sequence(IsDead));
-        BTNodes.Add(Sequence(IsPlayerVisible, MoveToAttackRange, Aim, Attack));
+        //BTNodes.Add(Sequence(IsPlayerVisible, MoveToAttackRange, Aim, Attack));
+        BTNodes.Add(Sequence(IsInAttackRange, MoveToAttackRange, Aim, Attack));
 
         DebugNodes.Add(("IsDead", _isDead));
         DebugNodes.Add(("IsVisible", _visible));
-        DebugNodes.Add(("MovingToAttackRange", _moveToAttackRange));
+        DebugNodes.Add(("InAttackRange", _inAttackRange));
+        //DebugNodes.Add(("MovingToAttackRange", _moveToAttackRange));
         DebugNodes.Add(("Aiming", _aim));
         DebugNodes.Add(("Attacking", _attack));
     }
@@ -46,6 +53,12 @@ public class Soldier : EnemyAI
     {
         float dist = Vector2.Distance(transform.position, player.position);
         return _visible = dist <= detectionRange ? BTState.Success : BTState.Failure;
+    }
+
+    BTState IsInAttackRange()
+    {
+        float dist = Vector2.Distance(transform.position, player.position);
+        return _inAttackRange = dist <= attackRange ? BTState.Success : BTState.Failure;
     }
 
     BTState IsDead()
@@ -78,8 +91,19 @@ public class Soldier : EnemyAI
 
     BTState Aim()
     {
-        weapon.transform.right = -(player.position - weapon.transform.position).normalized;
+        Vector3 direction = -(player.position - weapon.transform.position).normalized;
+        weapon.transform.right = direction;
         aimTimer += Time.deltaTime;
+
+        RaycastHit2D laserHit = Physics2D.Raycast(weapon.GunTip.position, direction, 100f, playerLayer);
+
+        lr.positionCount = 2;
+        lr.SetPosition(0, weapon.GunTip.position);
+
+        if (laserHit.collider != null)
+            lr.SetPosition(1, laserHit.point);
+        else
+            lr.SetPosition(1, weapon.GunTip.position + direction * 100f);
 
         if (aimTimer >= AimTime)
         {

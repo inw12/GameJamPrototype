@@ -1225,6 +1225,8 @@ GameObject:
   - component: {fileID: 7283121050760912010}
   - component: {fileID: 4964017134353843408}
   - component: {fileID: 8339556113970134696}
+  - component: {fileID: 2958272521408081673}
+  - component: {fileID: 128929752372351005}
   m_Layer: 9
   m_Name: Gunner
   m_TagString: Untagged
@@ -1321,6 +1323,37 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 4.302294, y: 8.395636}
   m_EdgeRadius: 0
+--- !u!114 &2958272521408081673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4675107856781329801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db615d0e9c70c114681cd339d4341c53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RunTime::Damageable
+  Health: 100
+--- !u!114 &128929752372351005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4675107856781329801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d6cbd1ae6e9d8145ad9240b9bfb85c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RunTime::Soldier
+  ShowDebug: 0
+  detectionRange: 5
+  attackRange: 1.5
+  moveSpeed: 3
+  weapon: {fileID: 0}
+  AimTime: 0
 --- !u!1 &4822611320780752705
 GameObject:
   m_ObjectHideFlags: 0

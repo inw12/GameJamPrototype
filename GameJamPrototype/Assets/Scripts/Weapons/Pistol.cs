@@ -2,7 +2,6 @@ using UnityEngine;
 [RequireComponent(typeof(ProjectilePool))]
 public class Pistol : RangedWeapon
 {
-    [SerializeField] private Transform bulletSpawn;
 
     protected override void Start()
     {
@@ -20,15 +19,14 @@ public class Pistol : RangedWeapon
     {
         if (_fireTimer >= fireRate)
         {
-            var direction = transform.right;
             var projectile = new ProjectileContext
             {
-                ObjectPool  = _pool,
-                Origin      = bulletSpawn.position,
-                Direction   = direction,
+                ObjectPool = _pool,
+                Origin = GunTip.position,
+                Direction = GunTip.right,
                 BulletSpeed = bulletSpeed,
-                HitMask     = targetLayer,
-                Damage = damage             
+                HitMask = targetLayer,
+                Damage = damage
             };
             _pool.Get(projectile);
 
