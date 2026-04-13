@@ -5,6 +5,7 @@ public class WeaponPickup : MonoBehaviour
     public string PromptText { get; private set; }
 
     [SerializeField] private GameObject weaponCounterpart;
+    [SerializeField] private SpriteRenderer highlightSprite;
     [SerializeField] private float pickupRadius;
 
     private CircleCollider2D _collider;
@@ -15,6 +16,8 @@ public class WeaponPickup : MonoBehaviour
 
         _collider = GetComponent<CircleCollider2D>();
         _collider.radius = pickupRadius;
+
+        highlightSprite.enabled = false;
     }
 
     // returns GameObject to be collected 
@@ -24,6 +27,6 @@ public class WeaponPickup : MonoBehaviour
     // that the object is/isn't pick up-able
     public void TogglePrompt()
     {
-        
+        highlightSprite.enabled = true;
     }
 }
