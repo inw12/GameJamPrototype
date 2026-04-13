@@ -121,8 +121,7 @@ public class PlayerWeapon : MonoBehaviour
 
         // Update current weapon
         currentWeapon = newWeapon;
-        _weaponObjectInstance = Instantiate(currentWeapon, transform);
-        _weaponObjectInstance.transform.SetPositionAndRotation(attachTo.position, currentWeapon.transform.rotation);
+        _weaponObjectInstance = Instantiate(currentWeapon, attachTo);
         _weapon = _weaponObjectInstance.GetComponent<Weapon>();
 
         _weaponEquipped = CheckWeaponType(_weapon);
