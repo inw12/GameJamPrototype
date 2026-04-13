@@ -29,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 3290441172223890215}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.077716514, w: 0.99697554}
-  m_LocalPosition: {x: -0.194, y: -1.09, z: 0}
-  m_LocalScale: {x: 0.74999994, y: 0.74999994, z: 0.74999994}
+  m_LocalPosition: {x: -0.21, y: -1.14, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1527549470997850829}
@@ -131,13 +131,13 @@ HingeJoint2D:
   m_Enabled: 1
   serializedVersion: 4
   m_EnableCollision: 0
-  m_ConnectedRigidBody: {fileID: 0}
+  m_ConnectedRigidBody: {fileID: 4554999704203536113}
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0.11171727, y: 0.43192455}
-  m_ConnectedAnchor: {x: -0.7810676, y: -1.5777392}
+  m_ConnectedAnchor: {x: -0.16656448, y: -0.6959809}
   m_UseConnectedAnchor: 1
   m_UseMotor: 0
   m_Motor:
