@@ -5,7 +5,7 @@ public class WeaponPickup : MonoBehaviour
     public string PromptText { get; private set; }
 
     [SerializeField] private GameObject weaponCounterpart;
-    [SerializeField] private SpriteRenderer highlightSprite;
+    [SerializeField] private GameObject pickupPrompt;
     [SerializeField] private float pickupRadius;
 
     private CircleCollider2D _collider;
@@ -18,16 +18,16 @@ public class WeaponPickup : MonoBehaviour
         _collider = GetComponent<CircleCollider2D>();
         _collider.radius = pickupRadius;
 
-        highlightSprite.enabled = false;
+        pickupPrompt.SetActive(false);
     }
 
     void Update()
     {
-        if (highlightSprite) _highlightTimer += Time.deltaTime;
+        if (pickupPrompt.activeInHierarchy) _highlightTimer += Time.deltaTime;
 
         if (_highlightTimer >= 0.1f)
         {
-            highlightSprite.enabled = false;
+            pickupPrompt.SetActive(false);
         }
     }
 
@@ -38,7 +38,7 @@ public class WeaponPickup : MonoBehaviour
     // interactable feedback toggle (highlight + prompt text)
     public void TogglePrompt()
     {
-        highlightSprite.enabled = true;
+        pickupPrompt.SetActive(true);
         _highlightTimer = 0f;
     }
 }
