@@ -22,7 +22,7 @@ public class WeaponPickup : MonoBehaviour
 
     // turns on/off highlight around sprite to let player know
     // that the object is/isn't pick up-able
-    public void ToggleHighlight()
+    public void TogglePrompt()
     {
         
     }

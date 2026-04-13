@@ -13958,6 +13958,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3770926759225398580, guid: 7fe36a3c5f00f4cf58c410b102df000a, type: 3}
+      propertyPath: pickupOrigin
+      value: 
+      objectReference: {fileID: 236545478}
+    - target: {fileID: 3770926759225398580, guid: 7fe36a3c5f00f4cf58c410b102df000a, type: 3}
+      propertyPath: pickupRadius
+      value: 2.75
+      objectReference: {fileID: 0}
     - target: {fileID: 8713872462198225203, guid: 7fe36a3c5f00f4cf58c410b102df000a, type: 3}
       propertyPath: platforms
       value: 
@@ -14012,11 +14020,45 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8928971422708902861, guid: 7fe36a3c5f00f4cf58c410b102df000a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1836779243}
+    - targetCorrespondingSourceObject: {fileID: 8928971422708902861, guid: 7fe36a3c5f00f4cf58c410b102df000a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 236545478}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 298164141482292486, guid: 7fe36a3c5f00f4cf58c410b102df000a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1662974328}
   m_SourcePrefab: {fileID: 100100000, guid: 7fe36a3c5f00f4cf58c410b102df000a, type: 3}
+--- !u!1 &236545477
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 236545478}
+  m_Layer: 11
+  m_Name: Pickup Origin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &236545478
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 236545477}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1662974327}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &344683220
 GameObject:
   m_ObjectHideFlags: 0
@@ -14030,7 +14072,7 @@ GameObject:
   - component: {fileID: 344683223}
   - component: {fileID: 344683222}
   m_Layer: 0
-  m_Name: Model
+  m_Name: Pistol_Pickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14044,12 +14086,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 344683220}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 11.00422, y: 5.34752, z: 0}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 1
-  m_Children: []
-  m_Father: {fileID: 443868385}
+  m_Children:
+  - {fileID: 443868385}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &344683222
 Rigidbody2D:
@@ -14113,7 +14156,7 @@ CapsuleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 2.73, y: 1.27}
+  m_Size: {x: 3.31, y: 2.14}
   m_Direction: 1
 --- !u!212 &344683224
 SpriteRenderer:
@@ -14231,7 +14274,7 @@ GameObject:
   - component: {fileID: 443868386}
   - component: {fileID: 443868387}
   m_Layer: 12
-  m_Name: Pistol_Pickup
+  m_Name: Pickup Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14245,13 +14288,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 443868384}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.00422, y: 5.34752, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 344683221}
-  m_Father: {fileID: 0}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 344683221}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &443868386
 CircleCollider2D:
@@ -14288,7 +14330,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 1
+  m_Radius: 4
 --- !u!114 &443868387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14302,7 +14344,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: RunTime::WeaponPickup
   weaponCounterpart: {fileID: 1806344568624661769, guid: 913a2d645efc3478280c3d0be2983930, type: 3}
-  pickupRadius: 3
+  pickupRadius: 4
 --- !u!1 &530412882
 GameObject:
   m_ObjectHideFlags: 0
@@ -65070,4 +65112,4 @@ SceneRoots:
   - {fileID: 122915805}
   - {fileID: 1860488340818726861}
   - {fileID: 8241204995318125862}
-  - {fileID: 443868385}
+  - {fileID: 344683221}
