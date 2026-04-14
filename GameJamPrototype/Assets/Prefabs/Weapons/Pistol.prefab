@@ -101,7 +101,7 @@ MonoBehaviour:
   sprites:
   - {fileID: 4825900828809420858, guid: 0be2f77d5e4e56646bd1a006d5fa253e, type: 3}
   - {fileID: -7071909199823851172, guid: 46af0cce60bce9c409855d298005ff6f, type: 3}
-  src: {fileID: 1319713709106820742}
+  audioSource: {fileID: 1319713709106820742}
   EquippedByPlayer: 1
   damage: 5
   fireRate: 0.33

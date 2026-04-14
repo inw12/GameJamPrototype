@@ -10,9 +10,6 @@ public class AudioManager : MonoBehaviour
     [Space]
     [SerializeField] private AudioLibrary musicLibrary;
     [SerializeField] private AudioLibrary sfxLibrary;
-    [Space]
-    public float musicVolume;
-    public float sfxVolume;
 
     private const string MusicVolume = "MusicVolume";
     private const string SFXVolume = "SFXVolume";
@@ -28,14 +25,11 @@ public class AudioManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        // Volume
-        SetMusicVolume(musicVolume);
-        SetSFXVolume(sfxVolume);
-
         // Intro Song
         // ** DELETE LATER **
         PlayMusic(musicLibrary.GetClip("IntroA"));
     }
+
 
     #region *-- Music ------------------------------*
     public void PlayMusic(AudioClip clip, bool loop = true)

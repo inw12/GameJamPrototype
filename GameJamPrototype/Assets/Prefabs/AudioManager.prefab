@@ -180,8 +180,6 @@ MonoBehaviour:
   sfxSource: {fileID: 6572151088030898370}
   musicLibrary: {fileID: 11400000, guid: ec6d49aa6eb604b4f92e394ad25199fe, type: 2}
   sfxLibrary: {fileID: 11400000, guid: 3a0ae6ea97aca4f4bb3337101ff49081, type: 2}
-  musicVolume: 0.25
-  sfxVolume: 0.5
 --- !u!1 &8056230468738436907
 GameObject:
   m_ObjectHideFlags: 0
@@ -227,7 +225,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
