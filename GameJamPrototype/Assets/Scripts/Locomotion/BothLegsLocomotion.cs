@@ -61,7 +61,7 @@ public class BothLegsLocomotion : LocomotionBase
         var playerLayer = 1 << gameObject.layer;
         p.colliderMask &= ~playerLayer;
 
-        yield return new WaitForSeconds(0.35f);
+        yield return new WaitForSeconds(0.5f);
 
         p.colliderMask |= playerLayer;
         dropDownTriggered = false;

@@ -167,10 +167,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: RunTime::PlayerMovement
   GravityScale: 5
-  GroundRayLength: 2.25
   DebugLog: 1
   groundDetection: {fileID: 8162284408117728353}
   groundDetectionRadius: 0.1
+  groundAngleLimit: 45
 --- !u!114 &3770926759225398580
 MonoBehaviour:
   m_ObjectHideFlags: 0

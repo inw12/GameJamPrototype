@@ -19,7 +19,6 @@ public class PlayerMovement : MonoBehaviour
     // Private shared state
     [Min(1f)]
     [SerializeField] private float GravityScale;
-    [SerializeField] private float GroundRayLength;
     private PlayerLimbManager _limbManager;
     private PlayerAnimator _animator;
     private LayerMask GroundMask => LayerMask.GetMask("Ground", "Platform");
@@ -37,8 +36,10 @@ public class PlayerMovement : MonoBehaviour
     public bool DebugLog;
 
     // ground detection
+    [Header("Ground Detection")]
     [SerializeField] private Transform groundDetection;
     [SerializeField] private float groundDetectionRadius;
+    [SerializeField] private float groundAngleLimit;
 
     void Awake()
     {
@@ -107,8 +108,7 @@ public class PlayerMovement : MonoBehaviour
             MoveState = PlayerControls.Instance.SprintPressed ? MovementState.Sprint : MovementState.Walk;
 
         // Ground check
-        LastGroundHit = Physics2D.OverlapCircle(groundDetection.position, groundDetectionRadius, GroundMask);
-        IsGrounded = LastGroundHit;
+        CheckGroundingStatus();
 
         // Flip to face mouse cursor
         var mousePos = PlayerControls.GetMouseWorldPosition();
@@ -138,14 +138,38 @@ public class PlayerMovement : MonoBehaviour
         scale.x *= -1f;
         transform.localScale = scale;
     }
+    private void CheckGroundingStatus()
+    {
+        var hit = Physics2D.CircleCast
+        (
+            groundDetection.position,
+            groundDetectionRadius,
+            Vector2.down,
+            groundDetectionRadius * 0.05f,
+            GroundMask
+        );
+        if (hit)
+        {
+            var angle = Vector2.Angle(hit.normal, Vector2.up);
+            if (angle <= groundAngleLimit)
+            {
+                LastGroundHit = hit.collider;
+                IsGrounded = LastGroundHit;
+                return;
+            }
+        }
+        else
+        {
+            LastGroundHit = null;
+            IsGrounded = false;
+        }
+    }
 
     void OnDrawGizmos()
     {
         if (!DebugLog) return;
 
         Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position, Vector2.down * GroundRayLength);
-        Gizmos.color = Color.orangeRed;
         Gizmos.DrawWireSphere(groundDetection.position, groundDetectionRadius);
     }
 
@@ -153,6 +177,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!DebugLog) return;
         GUILayout.Label($"Move: {PlayerControls.Instance.MovePressed}");
+        GUILayout.Label($"Is Grounded: {IsGrounded}");
         if (LastGroundHit) GUILayout.Label($"LastGround: {LastGroundHit.name}");
     }
 }
