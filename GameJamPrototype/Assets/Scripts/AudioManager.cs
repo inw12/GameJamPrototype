@@ -10,6 +10,8 @@ public class AudioManager : MonoBehaviour
     [Space]
     [SerializeField] private AudioLibrary musicLibrary;
     [SerializeField] private AudioLibrary sfxLibrary;
+    [Space]
+    [SerializeField] [Range(0f, 1f)] private float defaultVolume = 0.5f;
 
     private const string MusicVolume = "MusicVolume";
     private const string SFXVolume = "SFXVolume";
@@ -24,6 +26,10 @@ public class AudioManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        // Initialize Volume
+        SetMusicVolume(defaultVolume);
+        SetSFXVolume(defaultVolume);
 
         // Intro Song
         // ** DELETE LATER **
@@ -61,6 +67,7 @@ public class AudioManager : MonoBehaviour
 
 
     #region *-- Volume ------------------------------*
+    // Setters
     public void SetMusicVolume(float value)
     {
         mixer.SetFloat(MusicVolume, LinearToDecibel(value));
@@ -69,9 +76,21 @@ public class AudioManager : MonoBehaviour
     {
         mixer.SetFloat(SFXVolume, LinearToDecibel(value));
     }
-    private float LinearToDecibel(float linear)
+
+    // Getters
+    public float GetMusicVolume() 
     {
-        return linear > 0.0001f ? Mathf.Log10(linear) * 20f : -80f;
+        mixer.GetFloat(MusicVolume, out float volume);
+        return DecibalToLinear(volume);
     }
+    public float GetSFXVolume() 
+    {
+        mixer.GetFloat(SFXVolume, out float volume);
+        return DecibalToLinear(volume);
+    }
+
+    // Helper Functions
+    private float LinearToDecibel(float linear) => linear > 0.0001f ? Mathf.Log10(linear) * 20f : -80f;
+    private float DecibalToLinear(float decibal) => decibal > -80f ? Mathf.Pow(10f, decibal / 20f) : 0.0001f;
     #endregion
 }
