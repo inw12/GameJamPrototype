@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 #region *-- Weapon Classes ------------------------------*
@@ -7,6 +8,8 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField] protected LayerMask targetLayer;
     [SerializeField] protected SpriteRenderer weaponSpriteRenderer;
     [SerializeField] protected Sprite[] sprites;    // should hold only 2 sprites: red for player, green for enemy
+    public event Action OnAttack;
+    protected void AttackEvent() { OnAttack?.Invoke(); }
     public bool EquippedByPlayer;
 
     protected virtual void Start()
