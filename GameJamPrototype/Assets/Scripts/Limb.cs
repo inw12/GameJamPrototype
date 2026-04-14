@@ -10,6 +10,7 @@ public class Limb : MonoBehaviour
     void Awake()
     {
         DamageService.OnDeath += Dismember;
+        DamageService.Regenerate += Regenerate;
     }
 
     private void Dismember()
@@ -21,8 +22,9 @@ public class Limb : MonoBehaviour
 
     private void Regenerate()
     {
+        Dismembered = false;
         gameObject.SetActive(true);
 
-        // Regrow logic
+        // blood effect here
     }
 }
