@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public bool IsGrounded { get; private set; }
     public bool CanDropDown { get; private set; }
     public bool IsFacingRight { get; private set; }
-    public RaycastHit2D LastGroundHit { get; private set; }
+    public Collider2D LastGroundHit { get; private set; }
     public MovementState MoveState { get; private set; }
 
     // Private shared state
@@ -36,7 +36,9 @@ public class PlayerMovement : MonoBehaviour
     [Header("Debug Log")]
     public bool DebugLog;
 
-    // Locomotion State Machine
+    // ground detection
+    [SerializeField] private Transform groundDetection;
+    [SerializeField] private float groundDetectionRadius;
 
     void Awake()
     {
@@ -105,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
             MoveState = PlayerControls.Instance.SprintPressed ? MovementState.Sprint : MovementState.Walk;
 
         // Ground check
-        LastGroundHit = Physics2D.Raycast(transform.position, Vector2.down, GroundRayLength, GroundMask);
+        LastGroundHit = Physics2D.OverlapCircle(groundDetection.position, groundDetectionRadius, GroundMask);
         IsGrounded = LastGroundHit;
 
         // Flip to face mouse cursor
@@ -143,11 +145,14 @@ public class PlayerMovement : MonoBehaviour
 
         Gizmos.color = Color.red;
         Gizmos.DrawRay(transform.position, Vector2.down * GroundRayLength);
+        Gizmos.color = Color.orangeRed;
+        Gizmos.DrawWireSphere(groundDetection.position, groundDetectionRadius);
     }
 
     void OnGUI()
     {
         if (!DebugLog) return;
         GUILayout.Label($"Move: {PlayerControls.Instance.MovePressed}");
+        if (LastGroundHit) GUILayout.Label($"LastGround: {LastGroundHit.name}");
     }
 }
