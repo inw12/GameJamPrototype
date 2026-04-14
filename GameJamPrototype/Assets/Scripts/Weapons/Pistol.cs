@@ -30,6 +30,7 @@ public class Pistol : RangedWeapon
             _pool.Get(projectile);
 
             AttackEvent();
+            audioSource.PlayOneShot(audioSource.clip);
 
             _fireTimer = 0f;
         }
