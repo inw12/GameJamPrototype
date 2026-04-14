@@ -10,6 +10,11 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField] private Transform frontArmTarget;
     [SerializeField] private Transform backArmTarget;
 
+    [Header("Pickup Interaction")]
+    [SerializeField] private Transform pickupOrigin;
+    [SerializeField] private float pickupRadius;
+    private LayerMask PickupLayer => LayerMask.GetMask("Pickup");
+    
     // References
     private PlayerMovement playerMovement;
     private PlayerAnimator Animator;
@@ -26,7 +31,7 @@ public class PlayerWeapon : MonoBehaviour
         {
             _weaponObjectInstance = Instantiate(currentWeapon, attachTo);
             _weapon = _weaponObjectInstance.GetComponent<Weapon>();
-            _weapon.OnAttack += Animator.TriggerRanged;
+
             _weaponEquipped = CheckWeaponType(_weapon);
         }
     }
@@ -38,6 +43,26 @@ public class PlayerWeapon : MonoBehaviour
         {
             _weapon.Attack();
         }
+
+        // Scan for interactable objects
+        var item = Physics2D.OverlapCircle(pickupOrigin.position, pickupRadius, PickupLayer);
+        if (item && item.TryGetComponent(out WeaponPickup weapon))
+        {
+            weapon.TogglePrompt();
+
+            // weapon change interaction
+            if (PlayerControls.Instance.InteractPressed)
+            {
+                ChangeWeapon(weapon.GetItem());
+                weapon.DestroyObject();
+            }
+        }
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.orangeRed;
+        Gizmos.DrawWireSphere(pickupOrigin.position, pickupRadius);
     }
 
     void LateUpdate()
@@ -78,6 +103,7 @@ public class PlayerWeapon : MonoBehaviour
         }
     }
 
+    // * idk if we still need this... *
     private bool CheckWeaponType<T>(T weapon)
     {
         return weapon switch
@@ -86,5 +112,18 @@ public class PlayerWeapon : MonoBehaviour
             MeleeWeapon => false,
             _ => false,
         };
+    }
+
+    private void ChangeWeapon(GameObject newWeapon)
+    {
+        // Destroy current weapon instance
+        if (_weaponObjectInstance) Destroy(_weaponObjectInstance);
+
+        // Update current weapon
+        currentWeapon = newWeapon;
+        _weaponObjectInstance = Instantiate(currentWeapon, attachTo);
+        _weapon = _weaponObjectInstance.GetComponent<Weapon>();
+
+        _weaponEquipped = CheckWeaponType(_weapon);
     }
 }

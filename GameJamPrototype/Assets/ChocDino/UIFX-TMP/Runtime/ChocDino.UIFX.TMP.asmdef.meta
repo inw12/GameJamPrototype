@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: f5127da8675163e48a8564b01d8ec264
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 272733
+  packageName: UIFX - Drop Shadow Filter
+  packageVersion: 1.10.1
+  assetPath: Assets/ChocDino/UIFX-TMP/Runtime/ChocDino.UIFX.TMP.asmdef
+  uploadId: 895238
