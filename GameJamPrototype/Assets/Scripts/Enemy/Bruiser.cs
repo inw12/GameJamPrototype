@@ -18,6 +18,7 @@ public class Bruiser : EnemyAI, IKnockable
     [SerializeField] float moveSpeed = 3f;
 
     [Header("Melee")]
+    [SerializeField] private Color EffectColor;
     [SerializeField] private LayerMask targetLayer;
     [SerializeField] private GameObject meleeHitbox;
     [SerializeField] private Transform meleeSpawn;
@@ -143,11 +144,18 @@ public class Bruiser : EnemyAI, IKnockable
     {
         if (damageable.IsDead)
         {
-            animator.TriggerDeath();
-            StopMovement();
+            OnDeath();
             return _isDead = BTState.Success;
         }
         return _isDead = BTState.Failure;
+    }
+
+
+    private void OnDeath()
+    {
+        Rigidbody.simulated = false;
+        StopMovement();
+        animator.TriggerDeath();
     }
 
     // BT Actions
@@ -204,7 +212,7 @@ public class Bruiser : EnemyAI, IKnockable
 
             if (melee.TryGetComponent(out MeleeHitbox m))
             {
-                m.Initialize(damage, targetLayer);
+                m.Initialize(damage, targetLayer, EffectColor);
             }
 
             _meleeTimer = 0f;

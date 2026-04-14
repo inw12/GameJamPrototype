@@ -30,6 +30,9 @@ public class EnemyAnimator : MonoBehaviour
     public void TriggerDeath()
     {
         Animator.SetBool("IsDead", true);
+
+        for (int i = 1; i < Animator.layerCount; i++)
+            Animator.SetLayerWeight(i, 0f);
     }
 
     public void AimAtPlayer(Vector3 PlayerPos)

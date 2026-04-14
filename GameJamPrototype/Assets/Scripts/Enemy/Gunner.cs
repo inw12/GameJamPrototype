@@ -78,7 +78,7 @@ public class Gunner : EnemyAI, IKnockable
     public override void Update()
     {
         base.Update();
-        lr.enabled = _inAttackRange == BTState.Success && _aim != BTState.Success;
+        lr.enabled = _inAttackRange == BTState.Success && _aim != BTState.Success && _isDead != BTState.Success;
     }
 
     private void FixedUpdate()
@@ -185,13 +185,18 @@ public class Gunner : EnemyAI, IKnockable
     {
         if (damageable.IsDead)
         {
-            StopMovement();
-            animator.TriggerDeath();
-            lr.enabled = false;
+            OnDeath();
             return _isDead = BTState.Success;
         }
 
         return _isDead = BTState.Failure;
+    }
+
+    private void OnDeath()
+    {
+        Rigidbody.simulated = false;
+        StopMovement();
+        animator.TriggerDeath();
     }
 
     // BT Actions
@@ -314,7 +319,7 @@ public class Gunner : EnemyAI, IKnockable
 
         // Laser Color
         float t = Mathf.Clamp01(aimTimer / AimTime);
-        Color newColor = Color.Lerp(laserBaseColor, laserBaseColor * LaserColorIntensity, t);
+        Color newColor = Color.Lerp(laserBaseColor, laserBaseColor * LaserColorIntensity, t * t);
 
         lr.GetPropertyBlock(laserMatBlock);
         laserMatBlock.SetColor("_LaserColor", newColor);

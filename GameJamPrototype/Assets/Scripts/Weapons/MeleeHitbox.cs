@@ -25,10 +25,11 @@ public class MeleeHitbox : MonoBehaviour
         _hits.Clear();
     }
 
-    public void Initialize(float damage, LayerMask targetLayer)
+    public void Initialize(float damage, LayerMask targetLayer, Color effectColor)
     {
         _damage = damage;
         _targetLayer = targetLayer;
+        activeColor = effectColor;
 
         _hits.Clear();
     }
