@@ -2,6 +2,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(PlayerMovement))]
 [RequireComponent(typeof(PlayerAnimator))]
+[RequireComponent(typeof(PlayerLimbManager))]
 public class PlayerWeapon : MonoBehaviour
 {
     [SerializeField] private GameObject currentWeapon;
@@ -14,10 +15,11 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField] private Transform pickupOrigin;
     [SerializeField] private float pickupRadius;
     private LayerMask PickupLayer => LayerMask.GetMask("Pickup");
-    
+
     // References
     private PlayerMovement playerMovement;
     private PlayerAnimator Animator;
+    private PlayerLimbManager _limbManager;
     private GameObject _weaponObjectInstance;
     private Weapon _weapon;
     private bool _weaponEquipped;
@@ -26,24 +28,41 @@ public class PlayerWeapon : MonoBehaviour
     {
         playerMovement = GetComponent<PlayerMovement>();
         Animator = GetComponent<PlayerAnimator>();
+        _limbManager = GetComponent<PlayerLimbManager>();
 
         if (currentWeapon)
         {
             _weaponObjectInstance = Instantiate(currentWeapon, attachTo);
             _weapon = _weaponObjectInstance.GetComponent<Weapon>();
-
             _weaponEquipped = CheckWeaponType(_weapon);
         }
     }
 
     void Update()
     {
+        _weapon.gameObject.SetActive(_limbManager.CanShoot);
+        if (!_limbManager.CanShoot) return;
+        AttackLoop();
+        ChangeWeaponLoop();
+    }
+
+    void LateUpdate()
+    {
+        if (!_limbManager.CanShoot) return;
+        UpdateArms();
+    }
+
+    private void AttackLoop()
+    {
         // Read attack input
         if (PlayerControls.Instance.Mouse1)
         {
             _weapon.Attack();
         }
+    }
 
+    private void ChangeWeaponLoop()
+    {
         // Scan for interactable objects
         var item = Physics2D.OverlapCircle(pickupOrigin.position, pickupRadius, PickupLayer);
         if (item && item.TryGetComponent(out WeaponPickup weapon))
@@ -59,36 +78,7 @@ public class PlayerWeapon : MonoBehaviour
         }
     }
 
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.orangeRed;
-        Gizmos.DrawWireSphere(pickupOrigin.position, pickupRadius);
-    }
-
-    void LateUpdate()
-    {
-        // update weapon position/rotation
-        // if (_weaponObjectInstance)
-        // {
-        //     // position
-        //     _weaponObjectInstance.transform.position = attachTo.position;
-
-        //     if (_weaponEquipped)
-        //     {
-        //         // rotation
-        //         var targetPosition = PlayerControls.GetMouseWorldPosition();
-        //         var angle = Mathf.Atan2(targetPosition.y - attachTo.position.y, targetPosition.x - attachTo.position.x) * Mathf.Rad2Deg;
-        //         angle = playerMovement.IsFacingRight ? angle : angle + 180f;
-        //         _weaponObjectInstance.transform.rotation = Quaternion.Euler(0f, 0f, angle);
-        //     }
-        // }
-
-        // update weapon arms (if active)
-        UpdateArms();
-    }
-
-
-    public void UpdateArms()
+    private void UpdateArms()
     {
         if (_weaponEquipped)
         {
@@ -126,4 +116,11 @@ public class PlayerWeapon : MonoBehaviour
 
         _weaponEquipped = CheckWeaponType(_weapon);
     }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.orangeRed;
+        Gizmos.DrawWireSphere(pickupOrigin.position, pickupRadius);
+    }
+
 }

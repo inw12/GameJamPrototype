@@ -9,7 +9,7 @@ public class Damageable : MonoBehaviour, IDamageable
     public float Health;
     private float CurrentHealth;
     public event Action OnDeath; // On limbs, On enemies
-    public event Action Regenerate; 
+    public event Action Regenerate;
     public event Action<IDamageable> OnDealingDamage;
     public event Action OnDamageTaken;
     //public event Action OnKill; // 
@@ -23,7 +23,7 @@ public class Damageable : MonoBehaviour, IDamageable
     public void TakeDamage(float damage)
     {
         if (CurrentState == DamageState.Dead) return;
-        
+
         CurrentHealth -= damage;
         CurrentHealth = Mathf.Clamp(CurrentHealth, 0f, Health);
 
@@ -32,8 +32,8 @@ public class Damageable : MonoBehaviour, IDamageable
         OnDamageTaken?.Invoke();
         if (CurrentHealth <= 0)
         {
-            OnDeath?.Invoke();
             CurrentState = DamageState.Dead;
+            OnDeath?.Invoke();
         }
     }
 
