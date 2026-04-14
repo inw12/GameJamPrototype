@@ -5,6 +5,7 @@ public class Limb : MonoBehaviour
     [SerializeField] private GameObject LimbPrefab;
     [SerializeField] private Transform Anchor;
     [SerializeField] private Damageable DamageService;
+    [SerializeField] private ParticleSystem bloodParticles;
     public bool Dismembered = false;
 
     void Awake()
@@ -15,6 +16,7 @@ public class Limb : MonoBehaviour
 
     private void Dismember()
     {
+        bloodParticles.Play();
         Dismembered = true;
         gameObject.SetActive(false);
         Instantiate(LimbPrefab, Anchor.position, Quaternion.identity);
@@ -26,5 +28,6 @@ public class Limb : MonoBehaviour
         gameObject.SetActive(true);
 
         // blood effect here
+        bloodParticles.Play();
     }
 }
