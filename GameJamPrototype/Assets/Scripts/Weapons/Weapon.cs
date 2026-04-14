@@ -8,6 +8,7 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField] protected LayerMask targetLayer;
     [SerializeField] protected SpriteRenderer weaponSpriteRenderer;
     [SerializeField] protected Sprite[] sprites;    // should hold only 2 sprites: red for player, green for enemy
+    [SerializeField] protected AudioSource audioSource;
     public event Action OnAttack;
     protected void AttackEvent() { OnAttack?.Invoke(); }
     public bool EquippedByPlayer;
