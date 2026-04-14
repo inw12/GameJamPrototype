@@ -129,9 +129,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: RunTime::MeleeHitbox
   hitboxOrigin: {fileID: 172948993663187061}
-  hitboxRadius: 0.5
+  hitboxRadius: 1
   sprite: {fileID: 6535863540161331703}
-  activeColor: {r: 1, g: 1, b: 1, a: 0.7490196}
+  activeColor: {r: 1, g: 0.18430908, b: 0.0141509175, a: 1}
   inactiveColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &7719999341401165620
 GameObject:

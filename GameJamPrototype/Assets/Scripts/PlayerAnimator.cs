@@ -9,6 +9,11 @@ public class PlayerAnimator : MonoBehaviour
 {
     [SerializeField] private Animator Animator;
 
+
+    public void TriggerRanged()
+    {
+        Animator.SetTrigger("RangeTrigger");
+    }
     public void UpdateGroundAnim(PlayerAnimatorParameters p)
     {
         Animator.SetInteger("MovementAction", p.MovementAction);
