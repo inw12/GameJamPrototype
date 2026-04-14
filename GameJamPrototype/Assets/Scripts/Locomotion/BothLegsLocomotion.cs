@@ -24,10 +24,23 @@ public class BothLegsLocomotion : LocomotionBase
     {
         var targetSpeed = Inputs.SprintPressed ? SprintSpeed : Speed;
 
-        Rb.linearVelocity = new Vector2(
-            Inputs.MovePressed.x * targetSpeed,
-            Rb.linearVelocity.y
-        );
+        if (Owner.OnWalkableSlope)
+        {
+            var direction = Vector2.Perpendicular(Owner.SlopeNormal);
+            direction = Inputs.MovePressed.x > 0f ? -direction : direction;
+
+            Rb.linearVelocity = new Vector2(
+                direction.x * targetSpeed * Mathf.Abs(Inputs.MovePressed.x),
+                direction.y * targetSpeed * Mathf.Abs(Inputs.MovePressed.x)
+            );
+        }
+        else
+        {
+            Rb.linearVelocity = new Vector2(
+                Inputs.MovePressed.x * targetSpeed,
+                Rb.linearVelocity.y
+            );
+        }
     }
 
     private void JumpLogic()

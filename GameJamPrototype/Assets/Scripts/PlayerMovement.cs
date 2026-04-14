@@ -42,6 +42,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float groundDetectionRadius;
     [SerializeField] private float groundAngleLimit;
 
+    [Header("Slope Detection")]
+    [SerializeField] private float slopeLimit;
+    public bool OnWalkableSlope { get; private set; }
+    public Vector2 SlopeNormal  { get; private set; }
+    public float SlopeAngle     { get; private set; }
+
+
     // dropdown
     public bool dropdownTriggered;
 
@@ -166,8 +173,41 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             LastGroundHit = null;
-            IsGrounded = false;
+            IsGrounded = false || OnWalkableSlope;
         }
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        CheckSlope(collision);
+    }
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        OnWalkableSlope = false;
+        SlopeAngle = 0f;
+        SlopeNormal = Vector2.up;
+    }
+    private void CheckSlope(Collision2D collision)
+    {
+        var upNormal = Vector2.up;
+        var minAngle = float.MaxValue;
+
+        // evaluate contacted terrain 
+        for (int i = 0; i < collision.contactCount; i++)
+        {
+            var contact = collision.GetContact(i);
+            var angle = Vector2.Angle(contact.normal, Vector2.up);
+
+            if (angle < minAngle)
+            {
+                minAngle = angle;
+                upNormal = contact.normal;
+            }
+        } 
+        
+        // update slope data
+        SlopeAngle = minAngle;
+        SlopeNormal = upNormal;
+        OnWalkableSlope = SlopeAngle > 0.1f && SlopeAngle <= slopeLimit;
     }
 
     void OnDrawGizmos()
