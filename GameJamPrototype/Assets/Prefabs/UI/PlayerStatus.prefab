@@ -693,7 +693,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 181, y: -223}
+  m_AnchoredPosition: {x: 200, y: -250}
   m_SizeDelta: {x: 320.9, y: 415.53}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &959149594865933950
@@ -1895,8 +1895,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: RunTime::PlayerStatusMenu
   container: {fileID: 3266205543775105446}
   activeSize: 1.3
-  activeOffset: {x: 2, y: -2, z: 0}
-  menuSpeed: 17.5
+  activeOffset: {x: 35, y: -70, z: 0}
+  menuSpeed: 18
   head: {fileID: 8489282976012730653}
   body: {fileID: 595176595012586479}
   armL: {fileID: 3087909556637080843}
