@@ -15,13 +15,17 @@ MonoBehaviour:
   audio:
   - name: IntroA
     audioClip: {fileID: 8300000, guid: 2e69e74af609b47c99da7f3e029ffd03, type: 3}
-    volume: 0.3
+    volume: 0.5
+    pitch: 1
+  - name: IntroB
+    audioClip: {fileID: 8300000, guid: fc946771713974814a05054d968f6256, type: 3}
+    volume: 0.5
     pitch: 1
   - name: Main
     audioClip: {fileID: 8300000, guid: a56ab867827d54e5e89fb66bdae61dd5, type: 3}
-    volume: 0.3
+    volume: 0.5
     pitch: 1
   - name: Outro
     audioClip: {fileID: 8300000, guid: 7dddae2cb00104dc6b2183b8aa291995, type: 3}
-    volume: 0.3
+    volume: 0.5
     pitch: 1
