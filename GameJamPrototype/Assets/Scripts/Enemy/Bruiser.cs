@@ -116,13 +116,11 @@ public class Bruiser : EnemyAI, IKnockable
     {
         patrolTimer = 0f;
         waitTimer = 0f;
-        animator.DisableArms();
         RandomizePatrol();
     }
 
     void OnPatrolEnd()
     {
-        animator.EnableArms();
         StopMovement();
     }
 
@@ -143,7 +141,8 @@ public class Bruiser : EnemyAI, IKnockable
 
     BTState IsDead()
     {
-        if (damageable.IsDead){
+        if (damageable.IsDead)
+        {
             animator.TriggerDeath();
             StopMovement();
             return _isDead = BTState.Success;

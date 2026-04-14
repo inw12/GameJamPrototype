@@ -19,10 +19,10 @@ GameObject:
   - component: {fileID: 2455377319712897739}
   - component: {fileID: 8713872462198225203}
   - component: {fileID: 5640783838431568811}
-  - component: {fileID: 5127038277790721104}
   - component: {fileID: 6786295637725427926}
   - component: {fileID: 7834815987203389937}
   - component: {fileID: 382144125140046073}
+  - component: {fileID: 8295647879786080983}
   m_Layer: 11
   m_Name: Player
   m_TagString: Untagged
@@ -44,6 +44,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 584471347989543917}
+  - {fileID: 6034162184331536315}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &1892962194336175837
@@ -224,7 +225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: RunTime::BothLegsLocomotion
   Speed: 10
-  SprintSpeed: 5
+  SprintSpeed: 15
   Acceleration: 5
   JumpForce: 15
   platforms: {fileID: 0}
@@ -243,19 +244,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: RunTime::NoLegsLocomotion
   Speed: 0
   CrawlMultiplier: 0.3
---- !u!114 &5127038277790721104
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 298164141482292486}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f11e997adf0ae8498dc19d621bcdcaa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: RunTime::OneLegLocomotion
-  Speed: 0
 --- !u!114 &6786295637725427926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,6 +289,28 @@ MonoBehaviour:
   JumpForce: 15
   platforms: {fileID: 0}
   stairs: {fileID: 0}
+--- !u!114 &8295647879786080983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 298164141482292486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92f5fd552da324533971d5c3aee15ebd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RunTime::PlayerMelee
+  animator: {fileID: 2688152829477705915}
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  meleeHitbox: {fileID: 5344595904501865607, guid: 7d961554b4f3e4da087d374259517ebd, type: 3}
+  meleeSpawn: {fileID: 6034162184331536315}
+  damage: 5
+  meleeCooldown: 0.5
+  knockback: 10
+  knockbackUpward: 10
 --- !u!1 &383105438247913308
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,7 +549,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d635e0a64e7472448d8535fed1dbc6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: RunTime::Limb
-  LimbPrefab: {fileID: 0}
+  LimbPrefab: {fileID: 7069385396914476849, guid: fd4c1a55fbd974e72912e53c5014aabc, type: 3}
   Anchor: {fileID: 431179157056407929}
   DamageService: {fileID: 2689115357601016691}
   Dismembered: 0
@@ -940,7 +950,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d635e0a64e7472448d8535fed1dbc6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: RunTime::Limb
-  LimbPrefab: {fileID: 0}
+  LimbPrefab: {fileID: 5661591537159460820, guid: dc5ad7318e8be4016a32f42ff523b7d0, type: 3}
   Anchor: {fileID: 7854221640440521226}
   DamageService: {fileID: 7519160890748698755}
   Dismembered: 0
@@ -1568,7 +1578,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d635e0a64e7472448d8535fed1dbc6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: RunTime::Limb
-  LimbPrefab: {fileID: 0}
+  LimbPrefab: {fileID: 5661591537159460820, guid: dc5ad7318e8be4016a32f42ff523b7d0, type: 3}
   Anchor: {fileID: 7252032517211419555}
   DamageService: {fileID: 5390521836432812694}
   Dismembered: 0
@@ -3094,7 +3104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d635e0a64e7472448d8535fed1dbc6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: RunTime::Limb
-  LimbPrefab: {fileID: 0}
+  LimbPrefab: {fileID: 7069385396914476849, guid: fd4c1a55fbd974e72912e53c5014aabc, type: 3}
   Anchor: {fileID: 2653678699899814406}
   DamageService: {fileID: 6990830231522263744}
   Dismembered: 0
@@ -3392,6 +3402,37 @@ MonoBehaviour:
     m_Extent: {x: 0.63898444, y: 0.7946875, z: 0}
   m_AlwaysUpdate: 1
   m_AutoRebind: 0
+--- !u!1 &8590420881620118295
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6034162184331536315}
+  m_Layer: 11
+  m_Name: Melee Spawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6034162184331536315
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8590420881620118295}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0.30070576, w: 0.953717}
+  m_LocalPosition: {x: 1.75, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8928971422708902861}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 35}
 --- !u!1 &8651240769789548324
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ public class EnemyAnimator : MonoBehaviour
 {
     //[SerializeField] private Transform FrontArm, BackArm;
     [SerializeField] private LimbSolver2D FrontArm, BackArm;
+    [SerializeField] private Vector2 RestingArmPosition;
     private Transform FrontArmTarget, BackArmTarget;
     private Animator Animator;
 
@@ -33,22 +34,20 @@ public class EnemyAnimator : MonoBehaviour
 
     public void AimAtPlayer(Vector3 PlayerPos)
     {
-        FrontArm.weight = 1f;
-        BackArm.weight = 1f;
+        Debug.DrawLine(PlayerPos, transform.position);
 
-        FrontArmTarget.transform.position = PlayerPos;
-        BackArmTarget.transform.position = PlayerPos;
+        FrontArm.transform.position = PlayerPos;
+        BackArm.transform.position = PlayerPos;
     }
 
     public void DisableArms()
     {
-        FrontArm.weight = 0f;
-        BackArm.weight = 0f;
+        Debug.Log("Hello?");
+        FrontArm.transform.position = RestingArmPosition;
+        BackArm.transform.position = RestingArmPosition;
     }
 
     public void EnableArms()
     {
-        FrontArm.weight = 1f;
-        BackArm.weight = 1f;
     }
 }

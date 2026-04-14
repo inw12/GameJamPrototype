@@ -129,13 +129,13 @@ public class Gunner : EnemyAI, IKnockable
     {
         patrolTimer = 0f;
         waitTimer = 0f;
-        animator.DisableArms();
+        animator.EnableArms();
         RandomizePatrol();
     }
 
     void OnPatrolEnd()
     {
-        animator.EnableArms();
+        animator.DisableArms();
         StopMovement();
     }
 
