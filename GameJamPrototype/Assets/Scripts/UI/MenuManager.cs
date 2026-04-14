@@ -6,15 +6,21 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject settingsMenu;
 
     [Header("Things to turn off when paused")]
-    [SerializeField] private PlayerMovement playerMovement;
-    [SerializeField] private PlayerWeapon playerWeapon;
-    [SerializeField] private PlayerMelee playerMelee;
-    [SerializeField] private IKManager2D playerIKManager;
+    [SerializeField] private Transform Player;
+    private PlayerMovement playerMovement;
+    private PlayerWeapon playerWeapon;
+    private PlayerMelee playerMelee;
+    private IKManager2D playerIKManager;
 
     private bool _paused;
 
     void Start()
     {
+        playerMovement = Player.GetComponent<PlayerMovement>();
+        playerWeapon = Player.GetComponent<PlayerWeapon>();
+        playerMelee = Player.GetComponent<PlayerMelee>();
+        playerIKManager = Player.GetComponentInChildren<IKManager2D>();
+
         playerMovement.enabled = playerWeapon.enabled = playerMelee.enabled = true;
         playerIKManager.weight = 1f;
 
