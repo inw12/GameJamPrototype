@@ -10,12 +10,20 @@ public class MeleeHitbox : MonoBehaviour
     [SerializeField] private Color inactiveColor;
 
     // stats
-    private float _damage;
+    private float _damage, _knockback, _knockbackUpward;
     private LayerMask _targetLayer;
 
-    private GameObject _source;
-
     private readonly HashSet<Collider2D> _hits = new();
+
+    public void Initialize(float damage, float knockback, float knockbackUpward, LayerMask targetLayer)
+    {
+        _damage = damage;
+        _knockback = knockback;
+        _knockbackUpward = knockbackUpward;
+        _targetLayer = targetLayer;
+
+        _hits.Clear();
+    }
 
     public void Initialize(float damage, LayerMask targetLayer)
     {
@@ -34,7 +42,18 @@ public class MeleeHitbox : MonoBehaviour
 
         if (hit)
         {
-            // * Hit Effect *
+            bool canDamage = hit.TryGetComponent(out Damageable hittable);
+            bool canKb = hit.TryGetComponent(out IKnockable enemyAI);
+
+            if (canDamage)
+            {
+                hittable.TakeDamage(_damage);
+            }
+
+            if (canKb)
+            {
+                enemyAI.ApplyForce(_knockback, _knockbackUpward);
+            }
         }
     }
 

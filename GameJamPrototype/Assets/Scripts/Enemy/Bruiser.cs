@@ -1,33 +1,31 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Damageable))]
-public class Gunner : EnemyAI, IKnockable
+public class Bruiser : EnemyAI, IKnockable
 {
     [Header("References")]
     [SerializeField] private EnemyAnimator animator;
     private Transform player;
     private Damageable damageable;
-    private Rigidbody2D Rigidbody;
     private LayerMask playerLayer => LayerMask.GetMask("PlayerHurtbox");
     private LayerMask groundPlatLayer => LayerMask.GetMask("Ground", "Platform");
+    private Rigidbody2D Rigidbody;
+    private BTState _visible, _moveToAttackRange, _attack, _isDead, _patroling, _waitAfterCombat;
 
     [Header("Stats")]
     [SerializeField] float detectionRange = 5f;
     [SerializeField] float attackRange = 1.5f;
     [SerializeField] float moveSpeed = 3f;
 
-    [Header("Weapons")]
-    [SerializeField] private RangedWeapon weapon;
-    [SerializeField] private float AimTime;
-    private float aimTimer;
-    private BTState _visible, _inAttackRange, _moveToAttackRange, _attack, _aim, _isDead, _patroling, _waitAfterCombat;
-
-    [Header("Laser")]
-    [Min(1f)]
-    [SerializeField] private float LaserColorIntensity = 1f;
-    private MaterialPropertyBlock laserMatBlock;
-    private Color laserBaseColor;
-    private LineRenderer lr;
+    [Header("Melee")]
+    [SerializeField] private LayerMask targetLayer;
+    [SerializeField] private GameObject meleeHitbox;
+    [SerializeField] private Transform meleeSpawn;
+    [Space]
+    [SerializeField] private float damage;
+    [SerializeField] private float meleeCooldown;
+    private bool _meleeTriggered;
+    private float _meleeTimer;
 
     [Header("Patrol")]
     [SerializeField] private float PatrolSpeed;
@@ -45,32 +43,25 @@ public class Gunner : EnemyAI, IKnockable
     private float combatCooldownTimer;
     private bool playerInRange;
 
-    public void Start()
+    public override void Start()
     {
+        base.Start();
 
         player = GameManager.Instance.Player;
         damageable = GetComponent<Damageable>();
-        lr = GetComponent<LineRenderer>();
         Rigidbody = GetComponent<Rigidbody2D>();
 
         BTNodes.Add(Sequence(IsDead));
-        //BTNodes.Add(Sequence(IsPlayerVisible, MoveToAttackRange,IsInAttackRange, Aim, Attack));
-        BTNodes.Add(Sequence(IsInAttackRange, Aim, Attack));
+        BTNodes.Add(Sequence(IsPlayerVisible, MoveToAttackRange, Attack));
         BTNodes.Add(Sequence(WaitAfterCombat));
         BTNodes.Add(Sequence(Patrol));
 
         DebugNodes.Add(("IsDead", _isDead));
         DebugNodes.Add(("IsVisible", _visible));
-        DebugNodes.Add(("InAttackRange", _inAttackRange));
-        //DebugNodes.Add(("MovingToAttackRange", _moveToAttackRange));
-        DebugNodes.Add(("Aiming", _aim));
+        DebugNodes.Add(("MovingToAttackRange", _moveToAttackRange));
         DebugNodes.Add(("Attacking", _attack));
         DebugNodes.Add(("WaitAfterCombat", _waitAfterCombat));
         DebugNodes.Add(("Patroling", _patroling));
-
-        laserMatBlock = new();
-        lr.GetPropertyBlock(laserMatBlock);
-        laserBaseColor = lr.sharedMaterial.GetColor("_LaserColor");
 
         RandomizePatrol();
     }
@@ -78,13 +69,12 @@ public class Gunner : EnemyAI, IKnockable
     public override void Update()
     {
         base.Update();
-        lr.enabled = _inAttackRange == BTState.Success && _aim != BTState.Success;
     }
 
     private void FixedUpdate()
     {
         Rigidbody.linearVelocity = Velocity + ExternalVelocity;
-        ExternalVelocity = Vector2.Lerp(ExternalVelocity, Vector2.zero, PhysicsSmooth * Time.fixedDeltaTime);
+        ExternalVelocity.x = Mathf.MoveTowards(ExternalVelocity.x, 0f, PhysicsSmooth * Time.fixedDeltaTime);
         ExternalVelocity.y = 0f;
         UpdateFaceDirection();
     }
@@ -105,8 +95,6 @@ public class Gunner : EnemyAI, IKnockable
     // BT State Changes
     void OnEnterAttackRange()
     {
-        aimTimer = 0f;
-
         if (isPatrolling)
         {
             isPatrolling = false;
@@ -121,7 +109,6 @@ public class Gunner : EnemyAI, IKnockable
 
     void OnExitAttackRange()
     {
-        aimTimer = 0f;
         combatCooldownTimer = CombatCooldown;
     }
 
@@ -140,6 +127,7 @@ public class Gunner : EnemyAI, IKnockable
     }
 
     // Shared
+
     private void StopMovement()
     {
         Velocity = new Vector2(0f, Rigidbody.linearVelocityY);
@@ -147,23 +135,34 @@ public class Gunner : EnemyAI, IKnockable
     }
 
     // BT Conditions
-
     BTState IsPlayerVisible()
     {
         float dist = Vector2.Distance(transform.position, player.position);
         return _visible = dist <= detectionRange ? BTState.Success : BTState.Failure;
     }
 
-    BTState IsInAttackRange()
+    BTState IsDead()
+    {
+        if (damageable.IsDead){
+            animator.TriggerDeath();
+            StopMovement();
+            return _isDead = BTState.Success;
+        }
+        return _isDead = BTState.Failure;
+    }
+
+    // BT Actions
+
+    BTState MoveToAttackRange()
     {
         float dist = Vector2.Distance(transform.position, player.position);
         bool inRange = dist <= attackRange;
 
-        // Transition: entered attack range
         if (inRange && !playerInRange)
         {
             playerInRange = true;
             OnEnterAttackRange();
+
         }
         // Transition: left attack range
         else if (!inRange && playerInRange)
@@ -175,66 +174,44 @@ public class Gunner : EnemyAI, IKnockable
         if (inRange)
         {
             WhileInAttackRange();
-            return _inAttackRange = BTState.Success;
-        }
-
-        return _inAttackRange = BTState.Failure;
-    }
-
-    BTState IsDead()
-    {
-        if (damageable.IsDead)
-        {
-            StopMovement();
-            animator.TriggerDeath();
-            lr.enabled = false;
-            return _isDead = BTState.Success;
-        }
-
-        return _isDead = BTState.Failure;
-    }
-
-    // BT Actions
-
-    BTState MoveToAttackRange()
-    {
-        float dist = Vector2.Distance(transform.position, player.position);
-
-        if (dist > attackRange)
-        {
-            transform.position = Vector2.MoveTowards(
-                transform.position, player.position, moveSpeed * Time.deltaTime);
-
-            aimTimer = 0f;
-
-            return _moveToAttackRange = BTState.Running;
+            return _moveToAttackRange = BTState.Success;
         }
         else
         {
-            return _moveToAttackRange = BTState.Success;
+            float sign = Mathf.Sign(transform.position.x - player.position.x);
+            facingRight = sign == -1; // Sprites are reversed.
+
+            Velocity = new Vector2(
+                PatrolSpeed * (facingRight ? 1f : -1f),
+                Rigidbody.linearVelocityY
+            );
         }
-    }
 
-    BTState Aim()
-    {
-        animator.AimAtPlayer(player.position);
-        DrawLaser();
+        animator.UpdateMoveAnim(!inRange);
 
-        float sign = Mathf.Sign(transform.position.x - player.position.x);
-        facingRight = sign == -1; // Sprites are reversed.
-
-        aimTimer += Time.deltaTime;
-
-        if (aimTimer >= AimTime)
-            return _aim = BTState.Success;
-
-        return _aim = BTState.Running;
+        return _moveToAttackRange = BTState.Running;
     }
 
     BTState Attack()
     {
-        weapon.Attack();
-        aimTimer = 0f;
+        _meleeTimer += Time.deltaTime;
+
+        if (_meleeTimer >= meleeCooldown && !_meleeTriggered)
+        {
+            _meleeTriggered = true;
+            animator.TriggerMelee();
+
+            var melee = Instantiate(meleeHitbox, meleeSpawn);
+
+            if (melee.TryGetComponent(out MeleeHitbox m))
+            {
+                m.Initialize(damage, targetLayer);
+            }
+
+            _meleeTimer = 0f;
+            _meleeTriggered = false;
+        }
+
         return _attack = BTState.Success;
     }
 
@@ -262,7 +239,6 @@ public class Gunner : EnemyAI, IKnockable
         if (patrolTimer >= randomPatrolTime)
         {
             waitTimer += Time.deltaTime;
-            StopMovement();
 
             if (waitTimer > randomWaitTime)
             {
@@ -299,28 +275,6 @@ public class Gunner : EnemyAI, IKnockable
         randomWaitTime = Random.Range(0.5f, 3f);
     }
 
-    private void DrawLaser()
-    {
-        // Laser Position
-        RaycastHit2D laserHit = Physics2D.Raycast(weapon.GunTip.position, weapon.GunTip.right * (facingRight ? -1f : 1f), 100f, playerLayer);
-
-        lr.positionCount = 2;
-        lr.SetPosition(0, weapon.GunTip.position);
-
-        if (laserHit.collider != null)
-            lr.SetPosition(1, laserHit.point);
-        else
-            lr.SetPosition(1, weapon.GunTip.position + weapon.GunTip.right * 100f);
-
-        // Laser Color
-        float t = Mathf.Clamp01(aimTimer / AimTime);
-        Color newColor = Color.Lerp(laserBaseColor, laserBaseColor * LaserColorIntensity, t);
-
-        lr.GetPropertyBlock(laserMatBlock);
-        laserMatBlock.SetColor("_LaserColor", newColor);
-        lr.SetPropertyBlock(laserMatBlock);
-    }
-
     void OnDrawGizmos()
     {
         if (!ShowDebug) return;
@@ -333,4 +287,5 @@ public class Gunner : EnemyAI, IKnockable
         Gizmos.DrawRay((Vector2)transform.position + Vector2.right * GroundRayOffset, Vector2.down * GroundRayLength);
         Gizmos.DrawRay((Vector2)transform.position - Vector2.right * GroundRayOffset, Vector2.down * GroundRayLength);
     }
+
 }

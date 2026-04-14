@@ -2,7 +2,6 @@ using UnityEngine;
 [RequireComponent(typeof(ProjectilePool))]
 public class Pistol : RangedWeapon
 {
-
     protected override void Start()
     {
         base.Start();
@@ -30,6 +29,8 @@ public class Pistol : RangedWeapon
                 Damage = damage
             };
             _pool.Get(projectile);
+
+            AttackEvent();
 
             _fireTimer = 0f;
         }

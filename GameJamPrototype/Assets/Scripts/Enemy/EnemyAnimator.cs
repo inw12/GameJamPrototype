@@ -21,6 +21,16 @@ public class EnemyAnimator : MonoBehaviour
         Animator.SetBool("IsMoving", isMoving);
     }
 
+    public void TriggerMelee()
+    {
+        Animator.SetTrigger("MeleeTrigger");
+    }
+
+    public void TriggerDeath()
+    {
+        Animator.SetBool("IsDead", true);
+    }
+
     public void AimAtPlayer(Vector3 PlayerPos)
     {
         FrontArm.weight = 1f;

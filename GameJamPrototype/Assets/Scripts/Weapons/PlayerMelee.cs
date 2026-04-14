@@ -9,6 +9,8 @@ public class PlayerMelee : MonoBehaviour
     [Space]
     [SerializeField] private float damage;
     [SerializeField] private float meleeCooldown;
+    [SerializeField] private float knockback;
+    [SerializeField] private float knockbackUpward;
 
     private bool _meleeTriggered;
     private float _meleeTimer;
@@ -25,9 +27,10 @@ public class PlayerMelee : MonoBehaviour
             animator.SetTrigger("MeleeTrigger");
 
             var melee = Instantiate(meleeHitbox, meleeSpawn);
+
             if (melee.TryGetComponent(out MeleeHitbox m))
             {
-                m.Initialize(damage, targetLayer);
+                m.Initialize(damage, knockback, knockbackUpward, targetLayer);
             }
 
             _meleeTimer = 0f;

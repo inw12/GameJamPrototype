@@ -10,7 +10,6 @@ public class PlayerWeapon : MonoBehaviour
     [SerializeField] private Transform frontArmTarget;
     [SerializeField] private Transform backArmTarget;
 
-
     // References
     private PlayerMovement playerMovement;
     private PlayerAnimator Animator;
@@ -27,7 +26,7 @@ public class PlayerWeapon : MonoBehaviour
         {
             _weaponObjectInstance = Instantiate(currentWeapon, attachTo);
             _weapon = _weaponObjectInstance.GetComponent<Weapon>();
-
+            _weapon.OnAttack += Animator.TriggerRanged;
             _weaponEquipped = CheckWeaponType(_weapon);
         }
     }
