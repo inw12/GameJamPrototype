@@ -33,7 +33,10 @@ public class BothLegsLocomotion : LocomotionBase
     private void JumpLogic()
     {
         if (Owner.IsGrounded && Rb.linearVelocity.y <= 0 && !dropDownTriggered)
+        {
             isJumping = false;
+            Owner.dropdownTriggered = false;
+        }
         //isJumping = (!Owner.IsGrounded || Rb.linearVelocity.y > 0) && isJumping;
 
         // Jump Input
@@ -42,6 +45,7 @@ public class BothLegsLocomotion : LocomotionBase
             // drop through platform
             if (Inputs.MovePressed.y < 0f && !dropDownTriggered && Owner.LastGroundHit != null && Owner.LastGroundHit.TryGetComponent(out PlatformEffector2D p))
             {
+                Owner.dropdownTriggered = true;
                 isJumping = true;
                 StartCoroutine(PlatformDropdown(p));
                 return;

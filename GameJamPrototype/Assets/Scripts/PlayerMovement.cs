@@ -21,7 +21,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float GravityScale;
     private PlayerLimbManager _limbManager;
     private PlayerAnimator _animator;
-    private LayerMask GroundMask => LayerMask.GetMask("Ground", "Platform");
+    private LayerMask GroundMask => LayerMask.GetMask("Ground");
+    private LayerMask PlatformMask => LayerMask.GetMask("Platform");
     private float _isMovingForward; // -1 = false | 1 = true
 
     // Locomotion state machine 
@@ -40,6 +41,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform groundDetection;
     [SerializeField] private float groundDetectionRadius;
     [SerializeField] private float groundAngleLimit;
+
+    // dropdown
+    public bool dropdownTriggered;
 
     void Awake()
     {
@@ -140,13 +144,14 @@ public class PlayerMovement : MonoBehaviour
     }
     private void CheckGroundingStatus()
     {
+        LayerMask targetMask = dropdownTriggered ? GroundMask : GroundMask | PlatformMask;
         var hit = Physics2D.CircleCast
         (
             groundDetection.position,
             groundDetectionRadius,
             Vector2.down,
-            groundDetectionRadius * 0.05f,
-            GroundMask
+            groundDetectionRadius * 0.01f,
+            targetMask
         );
         if (hit)
         {
