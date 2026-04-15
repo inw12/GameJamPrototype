@@ -5,6 +5,7 @@ public class PlayerCamera : MonoBehaviour
     private Vector2 MousePosition => PlayerControls.Instance.Mouse;
     [SerializeField] private Camera Prefab;
     [SerializeField] private Vector2 Offset;
+    [SerializeField] private float z;
     [SerializeField] private float Size;
     [SerializeField] private float CameraSmooth;
     [Range(0f, 1f)]
@@ -54,8 +55,9 @@ public class PlayerCamera : MonoBehaviour
                 targetPos = playerPos + CameraMaxRange * Vector3.right;
             else
                 targetPos = playerPos - CameraMaxRange * Vector3.right;
-
         }
+
+        targetPos += -Vector3.forward * z;
 
         cameraPos = Vector3.Lerp(cameraPos, targetPos, CameraSmooth * Time.deltaTime);
     }
