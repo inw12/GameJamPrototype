@@ -38,6 +38,21 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: BG
+    uniqueID: 2889081847
+    locked: 0
+  - name: Behind MG
+    uniqueID: 2356770761
+    locked: 0
+  - name: MG
+    uniqueID: 42954735
+    locked: 0
+  - name: Terrain
+    uniqueID: 4133602575
+    locked: 0
+  - name: FG
+    uniqueID: 2832295903
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
