@@ -32,13 +32,21 @@ public class AudioManager : MonoBehaviour
 
         // Intro Song
         // ** DELETE LATER **
-        PlayMusic(musicLibrary.GetClip("IntroA"));
+        PlayMusic("IntroA");
     }
 
 
     #region *-- Music ------------------------------*
     public void PlayMusic(AudioClip clip, bool loop = true)
     {
+        if (musicSource.clip == clip) return;
+        musicSource.clip = clip;
+        musicSource.loop = loop;
+        musicSource.Play();
+    }
+    public void PlayMusic(string clipName, bool loop = true)
+    {
+        AudioClip clip = musicLibrary.GetClip(clipName);
         if (musicSource.clip == clip) return;
         musicSource.clip = clip;
         musicSource.loop = loop;

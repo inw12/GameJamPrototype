@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public Transform Player;
     public static GameManager Instance;
+    [SerializeField] private GameObject EndingCutscene;
 
     void Awake()
     {
@@ -22,7 +23,13 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
+        AudioManager.Instance.PlayMusic("IntroA");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 
+    public void Ending()
+    {
+        EndingCutscene.SetActive(true);
+        AudioManager.Instance.PlayMusic("Outro");
     }
 }

@@ -22,7 +22,8 @@ public class PlayerCamera : MonoBehaviour
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
-        camera = Instantiate(Prefab, transform.position, Quaternion.identity);
+        cameraPos = rigidbody.position + new Vector2(Offset.x, Offset.y);
+        camera = Instantiate(Prefab, cameraPos, Quaternion.identity);
         camera.orthographicSize = Size;
     }
 
