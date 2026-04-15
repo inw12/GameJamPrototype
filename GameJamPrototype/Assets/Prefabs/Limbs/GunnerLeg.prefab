@@ -437,6 +437,7 @@ GameObject:
   - component: {fileID: 9084536494598823090}
   - component: {fileID: 2804928853246540287}
   - component: {fileID: 2806962243671034409}
+  - component: {fileID: -1914918406054779151}
   m_Layer: 0
   m_Name: GunnerLeg
   m_TagString: Untagged
@@ -624,3 +625,16 @@ PolygonCollider2D:
       - {x: 0.2890625, y: -1.125}
       - {x: 0.4140625, y: -0.859375}
   m_UseDelaunayMesh: 1
+--- !u!114 &-1914918406054779151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8331856160400374134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: effe207f9004743bc845fc244ca693f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RunTime::DestroyAfterTime
+  timeToDestroy: 6
