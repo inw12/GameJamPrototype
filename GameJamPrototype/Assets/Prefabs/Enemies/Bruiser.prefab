@@ -2519,7 +2519,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: RunTime::Damageable
   Health: 100
-  fillSpeed: 0
   PassiveRegenPerSecond: 0
 --- !u!114 &3958081474976133873
 MonoBehaviour:
@@ -2535,9 +2534,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: RunTime::Bruiser
   ShowDebug: 1
   animator: {fileID: 4354942192605506780}
-  detectionRange: 11.55
+  detectionRange: 25.4
   attackRange: 3.23
-  moveSpeed: 3
+  moveSpeed: 6
   EffectColor: {r: 0.2991723, g: 0.7830189, b: 0.70237774, a: 1}
   targetLayer:
     serializedVersion: 2
@@ -2546,7 +2545,7 @@ MonoBehaviour:
   meleeSpawn: {fileID: 2701580142796690156}
   damage: 10
   meleeCooldown: 0.5
-  PatrolSpeed: 5
+  PatrolSpeed: 10
   WaitFrequency: 0
   GroundRayLength: 2.2
   GroundRayOffset: 1.3

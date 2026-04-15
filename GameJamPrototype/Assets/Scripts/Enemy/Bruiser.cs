@@ -68,6 +68,8 @@ public class Bruiser : EnemyAI, IKnockable
 
         RandomizePatrol();
 
+        _meleeTimer = meleeCooldown;
+
         damageable.OnDeath += OnDeath;
     }
 
