@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SFX_Library
   m_EditorClassIdentifier: RunTime::AudioLibrary
   audio:
-  - name: GunshotPistol
-    audioClip: {fileID: 8300000, guid: e9568dd5a0bf445d6ab5ba902d0c4c13, type: 3}
-    volume: 0.5
+  - name: Footstep
+    audioClip: {fileID: 8300000, guid: 52528edcbaf9946909477d14a1e177c0, type: 3}
+    volume: 0.839
     pitch: 1

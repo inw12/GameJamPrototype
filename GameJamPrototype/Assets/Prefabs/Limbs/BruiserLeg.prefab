@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7636431259558167813}
   - component: {fileID: 1774903647024959303}
   - component: {fileID: 3952593986271484922}
+  - component: {fileID: -7399721113656581446}
   m_Layer: 9
   m_Name: BruiserLeg
   m_TagString: Untagged
@@ -194,6 +195,19 @@ PolygonCollider2D:
       - {x: 1.0078125, y: -1.6640625}
       - {x: 1.0390625, y: -1.6171875}
   m_UseDelaunayMesh: 1
+--- !u!114 &-7399721113656581446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4349907943116142719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: effe207f9004743bc845fc244ca693f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RunTime::DestroyAfterTime
+  timeToDestroy: 6
 --- !u!1 &7063879590675412573
 GameObject:
   m_ObjectHideFlags: 0

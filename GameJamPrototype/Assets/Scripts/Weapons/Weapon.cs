@@ -22,6 +22,9 @@ public abstract class Weapon : MonoBehaviour
     private TextMeshPro text;
     private float highlightTimer = 0f;
 
+    [Header("Audio")]
+    [SerializeField] protected AudioSource audioSource;
+
     // Events
     public event Action OnAttack;
     protected void AttackEvent() { OnAttack?.Invoke(); }
@@ -143,6 +146,7 @@ public class RangedWeapon : Weapon
             _pool.Get(projectile);
 
             AttackEvent();
+            audioSource.PlayOneShot(audioSource.clip);
 
             _fireTimer = 0f;
         }

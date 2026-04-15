@@ -45,9 +45,7 @@ public class Limb : MonoBehaviour
 
     private void Regenerate()
     {
-        TurnOnLimb();
-
-        // blood effect here
         bloodParticles.Play();
+        TurnOnLimb();
     }
 }

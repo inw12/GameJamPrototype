@@ -223,6 +223,7 @@ GameObject:
   - component: {fileID: 765043192589285641}
   - component: {fileID: 5507356276821875209}
   - component: {fileID: 2797053085465952276}
+  - component: {fileID: 6411175633196230286}
   m_Layer: 0
   m_Name: GunnerArm
   m_TagString: Untagged
@@ -396,6 +397,19 @@ PolygonCollider2D:
       - {x: 0.1328125, y: -0.5625}
       - {x: 0.7421875, y: -0.359375}
   m_UseDelaunayMesh: 1
+--- !u!114 &6411175633196230286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6844982477591551004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: effe207f9004743bc845fc244ca693f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RunTime::DestroyAfterTime
+  timeToDestroy: 6
 --- !u!1 &9117418275246494386
 GameObject:
   m_ObjectHideFlags: 0
