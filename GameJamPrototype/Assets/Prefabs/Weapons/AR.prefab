@@ -324,8 +324,7 @@ MonoBehaviour:
   EquippedByPlayer: 1
   TextPrefab: {fileID: 5491792202884083276, guid: bbf49d82bf22d7340915ca8d371c6e41, type: 3}
   HeightOffset: 5
-  audioSource: {fileID: 8467597214851648589}
-  damage: 5
+  damage: 10
   fireRate: 0.18
   maxAmmo: 90
   bulletSpeed: 100

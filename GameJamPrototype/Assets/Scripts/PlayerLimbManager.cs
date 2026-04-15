@@ -9,12 +9,27 @@ public class PlayerLimbManager : MonoBehaviour
     public bool CanBlock { private set; get; }
     public bool CanShoot { private set; get; }
     public bool CanMelee { private set; get; }
+    public bool FullyDismembered { private set; get; }
     public ArmState CurrentArmState { private set; get; }
     public LegState CurrentLegState { private set; get; }
 
+    // References
+    private CircleCollider2D circle;
+    private CapsuleCollider2D collider;
+    private Rigidbody2D Rb;
+
+    void Start()
+    {
+        FullyDismembered = false;
+        circle = GetComponent<CircleCollider2D>();
+        collider = GetComponent<CapsuleCollider2D>();
+        Rb = GetComponent<Rigidbody2D>();
+    }
+
     void Update()
     {
-        UpdateLimbStates();
+        if (!FullyDismembered)
+            UpdateLimbStates();
     }
 
     void UpdateLimbStates()
@@ -49,12 +64,14 @@ public class PlayerLimbManager : MonoBehaviour
         {
             CurrentLegState = LegState.BothLegs;
         }
-    }
 
-
-    void OnGUI()
-    {
-        StringBuilder sb = new();
-
+        if (CurrentArmState == ArmState.NoArms && CurrentLegState == LegState.NoLegs)
+        {
+            collider.enabled = false;
+            circle.enabled = true;
+            Rb.constraints = RigidbodyConstraints2D.None;
+            Rb.AddTorque(50f);
+            FullyDismembered = true;
+        }
     }
 }

@@ -13,8 +13,8 @@ public class Damageable : MonoBehaviour, IDamageable
     public event Action<IDamageable> OnDealingDamage;
     public event Action OnDamageTaken;
 
-    [Header("Player Only - Limb Regeneration")]
-    [SerializeField] private float fillSpeed;
+    //[Header("Player Only - Limb Regeneration")]
+    //[SerializeField] private float fillSpeed;
     public float PassiveRegenPerSecond;
     private float _maxRegen = 100f;
     private float _currentRegen = 0f;

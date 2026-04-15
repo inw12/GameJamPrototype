@@ -12,4 +12,9 @@ public class GameManager : MonoBehaviour
         else
             Debug.LogError("Duplicate GameManager");
     }
+
+    public void GameOver()
+    {
+        
+    }
 }
