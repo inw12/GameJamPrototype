@@ -7,30 +7,42 @@ public class Damageable : MonoBehaviour, IDamageable
     private DamageState CurrentState;
     public bool IsDead => CurrentState == DamageState.Dead;
     public float Health;
-    private float CurrentHealth;
+    private float currentHealth;
     public event Action OnDeath; // On limbs, On enemies
     public event Action Regenerate;
     public event Action<IDamageable> OnDealingDamage;
     public event Action OnDamageTaken;
+
+    [Header("Player Only - Limb Regeneration")]
+    [SerializeField] private float fillSpeed;
+    public float PassiveRegenPerSecond;
+    private float _maxRegen = 100f;
+    private float _currentRegen = 0f;
     //public event Action OnKill; // 
 
     void Start()
     {
-        CurrentHealth = Health;
+        currentHealth = Health;
         CurrentState = DamageState.Alive;
+    }
+
+    void Update()
+    {
+        _currentRegen += PassiveRegenPerSecond * Time.deltaTime;
+        _currentRegen = Mathf.Clamp(_currentRegen, 0f, _maxRegen);
     }
 
     public void TakeDamage(float damage)
     {
         if (CurrentState == DamageState.Dead) return;
 
-        CurrentHealth -= damage;
-        CurrentHealth = Mathf.Clamp(CurrentHealth, 0f, Health);
+        currentHealth -= damage;
+        currentHealth = Mathf.Clamp(currentHealth, 0f, Health);
 
         Debug.Log($"{this.name} is taking {damage} damage.");
 
         OnDamageTaken?.Invoke();
-        if (CurrentHealth <= 0)
+        if (currentHealth <= 0)
         {
             CurrentState = DamageState.Dead;
             OnDeath?.Invoke();
@@ -46,14 +58,19 @@ public class Damageable : MonoBehaviour, IDamageable
             CurrentState = DamageState.Alive;
         }
 
-        CurrentHealth += 10f;
-        CurrentHealth = Mathf.Clamp(CurrentHealth, 0f, Health);
-        Debug.Log(CurrentHealth);
+        currentHealth += 10f;
+        currentHealth = Mathf.Clamp(currentHealth, 0f, Health);
+        //Debug.Log(CurrentHealth);
     }
 
-    public float GetCurrentHealth()
+    public float GetHealth01()
     {
-        return CurrentHealth;
+        return currentHealth / Health;
+    }
+
+    public float GetRegen01()
+    {
+        return _currentRegen / _maxRegen;
     }
 
     public void DealDamage(IDamageable entity, float damage)

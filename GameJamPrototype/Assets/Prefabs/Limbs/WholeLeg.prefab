@@ -118,7 +118,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 2560
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -314,7 +314,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 2560
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -484,7 +484,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2560
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -629,7 +629,7 @@ SortingGroup:
   m_GameObject: {fileID: 7069385396914476849}
   m_Enabled: 1
   m_SortingLayerID: -788514823
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_SortAtRoot: 0
   m_Sort3DAs2D: 0

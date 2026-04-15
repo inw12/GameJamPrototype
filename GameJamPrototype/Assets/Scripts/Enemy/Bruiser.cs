@@ -143,7 +143,6 @@ public class Bruiser : EnemyAI, IKnockable
         AudioManager.Instance.PlaySFXAt("Dismemberment", transform.position);
     }
 
-
     // Shared
 
     private void StopMovement()

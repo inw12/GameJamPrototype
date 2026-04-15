@@ -4,7 +4,7 @@ public class Limb : MonoBehaviour
 {
     [SerializeField] private GameObject LimbPrefab;
     [SerializeField] private Transform Anchor;
-    [SerializeField] private Damageable LimbHitboxUpper, LimbHitboxLower;   // Lower has no utility other than being an extension of the limb.
+    public Damageable LimbHitboxUpper, LimbHitboxLower;   // Lower has no utility other than being an extension of the limb.
     [SerializeField] private ParticleSystem bloodParticles;
     public bool Dismembered => isDismembered;
     private bool isDismembered = false;
@@ -19,6 +19,8 @@ public class Limb : MonoBehaviour
 
     private void Dismember()
     {
+        LimbHitboxUpper.GetComponent<Collider2D>().enabled = !LimbHitboxUpper.IsDead;
+        LimbHitboxLower.GetComponent<Collider2D>().enabled = !LimbHitboxLower.IsDead;
         if (LimbHitboxUpper.IsDead && LimbHitboxLower.IsDead)
         {
             bloodParticles.Play();
@@ -32,8 +34,6 @@ public class Limb : MonoBehaviour
     {
         isDismembered = true;
         gameObject.SetActive(false);
-        LimbHitboxUpper.GetComponent<Collider2D>().enabled = false;
-        LimbHitboxLower.GetComponent<Collider2D>().enabled = false;
     }
 
     private void TurnOnLimb()
