@@ -14,15 +14,12 @@ public class EnemyAI : MonoBehaviour
     protected List<(string, BTState)> DebugNodes = new();
     public bool ShowDebug = false;
 
-    public virtual void Start()
-    {
-
-    }
-
+    public virtual void Start(){}
     public virtual void Update()
     {
         BTRoot();
     }
+
 
     // Tree
     private BTState Selector(params Func<BTState>[] nodes)

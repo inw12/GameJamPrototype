@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     // Range
     [SerializeField] private float maxRange = 100f;
+    [SerializeField] private ParticleSystem BulletHitEffect;
     private float _distanceThisFrame;
     private float _distanceTraveled;
 
@@ -12,6 +14,7 @@ public class Projectile : MonoBehaviour
     public void Initialize(ProjectileContext context)
     {
         _projectileContext = context;
+        transform.right = _projectileContext.Direction;
         transform.position = _projectileContext.Origin;
         _distanceTraveled = 0f;
     }
@@ -41,16 +44,22 @@ public class Projectile : MonoBehaviour
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, _projectileContext.Direction, distanceThisFrame, _projectileContext.HitMask);
         if (hitInfo.collider != null)
         {
-            //Debug.Log(hitInfo.collider.name);
-            bool success = hitInfo.collider.TryGetComponent(out Damageable target);
+            OnHit(hitInfo);
+        }
+    }
 
-            if (success)
-            {
-                Debug.Log($"Projectile hit {target.name}");
-                target.TakeDamage(_projectileContext.Damage);
+    void OnHit(RaycastHit2D hit)
+    {
+        Instantiate(BulletHitEffect, hit.point, Quaternion.Euler(hit.normal));
+        //Debug.Log(hitInfo.collider.name);
+        bool success = hit.collider.TryGetComponent(out Damageable target);
 
-                _projectileContext.ObjectPool.Release(gameObject);
-            }
+        if (success)
+        {
+            Debug.Log($"Projectile hit {target.name}");
+            target.TakeDamage(_projectileContext.Damage);
+
+            _projectileContext.ObjectPool.Release(gameObject);
         }
     }
 

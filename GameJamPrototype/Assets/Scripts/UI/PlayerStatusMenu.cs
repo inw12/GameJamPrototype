@@ -5,6 +5,9 @@ public class PlayerStatusMenu : MonoBehaviour
     // Inputs
     private bool MenuActive => PlayerControls.Instance.StatusMenu;
 
+    [Header("Turn Off when Active")]
+    [SerializeField] private PlayerWeapon playerWeapon;
+
     [Header("Menu Container")]
     [SerializeField] private RectTransform container;
     [SerializeField] private float activeSize;
@@ -40,6 +43,8 @@ public class PlayerStatusMenu : MonoBehaviour
 
     void Update()
     {
+        playerWeapon.enabled = !MenuActive;
+
         var targetPosition  = MenuActive ? _defaultPosition + activeOffset : _defaultPosition;
         var targetScale     = MenuActive ? _defaultSize * activeSize : _defaultSize;
 

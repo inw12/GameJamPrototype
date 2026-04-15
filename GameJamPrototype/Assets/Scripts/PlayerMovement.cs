@@ -13,16 +13,16 @@ public class PlayerMovement : MonoBehaviour
     public bool IsGrounded { get; private set; }
     public bool CanDropDown { get; private set; }
     public bool IsFacingRight { get; private set; }
-    public RaycastHit2D LastGroundHit { get; private set; }
+    public Collider2D LastGroundHit { get; private set; }
     public MovementState MoveState { get; private set; }
 
     // Private shared state
     [Min(1f)]
     [SerializeField] private float GravityScale;
-    [SerializeField] private float GroundRayLength;
     private PlayerLimbManager _limbManager;
     private PlayerAnimator _animator;
-    private LayerMask GroundMask => LayerMask.GetMask("Ground", "Platform");
+    private LayerMask GroundMask => LayerMask.GetMask("Ground");
+    private LayerMask PlatformMask => LayerMask.GetMask("Platform");
     private float _isMovingForward; // -1 = false | 1 = true
 
     // Locomotion state machine 
@@ -31,12 +31,26 @@ public class PlayerMovement : MonoBehaviour
     private NoLegsLocomotion _noLegs;
     private LocomotionBase _active;
     private PlayerLimbManager.LegState _lastLegState;
+    public PlayerLimbManager.LegState debugLegState => _lastLegState;
 
     // Debug
-    [Header("Debug Log")]
-    public bool DebugLog;
+    [Header("Show Debug")]
+    public bool ShowDebug;
 
-    // Locomotion State Machine
+    // ground detection
+    [Header("Ground Detection")]
+    [SerializeField] private Transform groundDetection;
+    [SerializeField] private float groundDetectionRadius;
+    [SerializeField] private float groundAngleLimit;
+
+    [Header("Slope Detection")]
+    [SerializeField] private float slopeLimit;
+    public bool OnWalkableSlope { get; private set; }
+    public Vector2 SlopeNormal { get; private set; }
+    public float SlopeAngle { get; private set; }
+
+    // dropdown
+    public bool dropdownTriggered;
 
     void Awake()
     {
@@ -105,8 +119,7 @@ public class PlayerMovement : MonoBehaviour
             MoveState = PlayerControls.Instance.SprintPressed ? MovementState.Sprint : MovementState.Walk;
 
         // Ground check
-        LastGroundHit = Physics2D.Raycast(transform.position, Vector2.down, GroundRayLength, GroundMask);
-        IsGrounded = LastGroundHit;
+        CheckGroundingStatus();
 
         // Flip to face mouse cursor
         var mousePos = PlayerControls.GetMouseWorldPosition();
@@ -136,18 +149,94 @@ public class PlayerMovement : MonoBehaviour
         scale.x *= -1f;
         transform.localScale = scale;
     }
+    private void CheckGroundingStatus()
+    {
+        LayerMask targetMask = dropdownTriggered ? GroundMask : GroundMask | PlatformMask;
+        var hit = Physics2D.CircleCast
+        (
+            groundDetection.position,
+            groundDetectionRadius,
+            Vector2.down,
+            groundDetectionRadius * 0.01f,
+            targetMask
+        );
+        if (hit)
+        {
+            var angle = Vector2.Angle(hit.normal, Vector2.up);
+            if (angle <= groundAngleLimit)
+            {
+                LastGroundHit = hit.collider;
+                IsGrounded = LastGroundHit;
+                return;
+            }
+        }
+        else
+        {
+            LastGroundHit = null;
+            IsGrounded = false || OnWalkableSlope;
+        }
+    }
+
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        CheckSlope(collision);
+
+        if (!ShowDebug) return;
+
+        for (int i = 0; i < collision.contactCount; i++)
+        {
+            var contact = collision.GetContact(i);
+
+            Vector2 point = contact.point;
+            Vector2 normal = contact.normal;
+
+            Debug.DrawLine(point, point + normal, Color.red);
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        OnWalkableSlope = false;
+        SlopeAngle = 0f;
+        SlopeNormal = Vector2.up;
+    }
+    private void CheckSlope(Collision2D collision)
+    {
+        var upNormal = Vector2.up;
+        var minAngle = float.MaxValue;
+
+        // evaluate contacted terrain 
+        for (int i = 0; i < collision.contactCount; i++)
+        {
+            var contact = collision.GetContact(i);
+            var angle = Vector2.Angle(contact.normal, Vector2.up);
+
+            if (angle < minAngle)
+            {
+                minAngle = angle;
+                upNormal = contact.normal;
+            }
+        }
+
+        // update slope data
+        SlopeAngle = minAngle;
+        SlopeNormal = upNormal;
+        OnWalkableSlope = SlopeAngle > 0.1f && SlopeAngle <= slopeLimit;
+    }
 
     void OnDrawGizmos()
     {
-        if (!DebugLog) return;
+        if (!ShowDebug) return;
 
         Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position, Vector2.down * GroundRayLength);
+        Gizmos.DrawWireSphere(groundDetection.position, groundDetectionRadius);
     }
 
     void OnGUI()
     {
-        if (!DebugLog) return;
+        if (!ShowDebug) return;
         GUILayout.Label($"Move: {PlayerControls.Instance.MovePressed}");
+        GUILayout.Label($"Is Grounded: {IsGrounded}");
+        if (LastGroundHit) GUILayout.Label($"LastGround: {LastGroundHit.name}");
     }
 }
