@@ -137,7 +137,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0.11171727, y: 0.43192455}
-  m_ConnectedAnchor: {x: -0.16656448, y: -0.6959809}
+  m_ConnectedAnchor: {x: -0.16656448, y: -0.69598097}
   m_UseConnectedAnchor: 1
   m_UseMotor: 0
   m_Motor:
@@ -268,7 +268,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.66, y: -1.01, z: 0}
-  m_LocalScale: {x: 0.74999994, y: 0.74999994, z: 0.74999994}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2710541700675550073}
@@ -413,7 +413,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0.0016943812, y: 0.6814089}
-  m_ConnectedAnchor: {x: -0.87830573, y: -0.66525793}
+  m_ConnectedAnchor: {x: -1.0983056, y: -1.0019244}
   m_UseConnectedAnchor: 1
   m_UseMotor: 0
   m_Motor:
@@ -465,7 +465,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.74999994, y: 0.74999994, z: 0.74999994}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 4091831681432874951}

@@ -163,6 +163,15 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SettingsMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""47da4372-a6a0-4803-8ebd-7e0dd7027d09"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -297,6 +306,17 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""action"": ""Mouse2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cfb0f248-08ca-4a44-a916-a6f4e0bdb8e0"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SettingsMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -313,6 +333,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         m_General_Mouse2 = m_General.FindAction("Mouse2", throwIfNotFound: true);
         m_General_Sprint = m_General.FindAction("Sprint", throwIfNotFound: true);
         m_General_StatusMenu = m_General.FindAction("StatusMenu", throwIfNotFound: true);
+        m_General_SettingsMenu = m_General.FindAction("SettingsMenu", throwIfNotFound: true);
     }
 
     ~@PlayerInputs()
@@ -401,6 +422,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_General_Mouse2;
     private readonly InputAction m_General_Sprint;
     private readonly InputAction m_General_StatusMenu;
+    private readonly InputAction m_General_SettingsMenu;
     /// <summary>
     /// Provides access to input actions defined in input action map "General".
     /// </summary>
@@ -444,6 +466,10 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "General/StatusMenu".
         /// </summary>
         public InputAction @StatusMenu => m_Wrapper.m_General_StatusMenu;
+        /// <summary>
+        /// Provides access to the underlying input action "General/SettingsMenu".
+        /// </summary>
+        public InputAction @SettingsMenu => m_Wrapper.m_General_SettingsMenu;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -494,6 +520,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @StatusMenu.started += instance.OnStatusMenu;
             @StatusMenu.performed += instance.OnStatusMenu;
             @StatusMenu.canceled += instance.OnStatusMenu;
+            @SettingsMenu.started += instance.OnSettingsMenu;
+            @SettingsMenu.performed += instance.OnSettingsMenu;
+            @SettingsMenu.canceled += instance.OnSettingsMenu;
         }
 
         /// <summary>
@@ -529,6 +558,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @StatusMenu.started -= instance.OnStatusMenu;
             @StatusMenu.performed -= instance.OnStatusMenu;
             @StatusMenu.canceled -= instance.OnStatusMenu;
+            @SettingsMenu.started -= instance.OnSettingsMenu;
+            @SettingsMenu.performed -= instance.OnSettingsMenu;
+            @SettingsMenu.canceled -= instance.OnSettingsMenu;
         }
 
         /// <summary>
@@ -625,5 +657,12 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnStatusMenu(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SettingsMenu" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSettingsMenu(InputAction.CallbackContext context);
     }
 }

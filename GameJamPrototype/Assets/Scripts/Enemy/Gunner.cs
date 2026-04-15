@@ -1,15 +1,16 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Damageable))]
-public class Gunner : EnemyAI
+public class Gunner : EnemyAI, IKnockable
 {
     [Header("References")]
     [SerializeField] private EnemyAnimator animator;
     private Transform player;
     private Damageable damageable;
+    private Rigidbody2D Rigidbody;
     private LayerMask playerLayer => LayerMask.GetMask("PlayerHurtbox");
     private LayerMask groundPlatLayer => LayerMask.GetMask("Ground", "Platform");
-    private Rigidbody2D rb;
+    private EnemyLimbManager limbManager;
 
     [Header("Stats")]
     [SerializeField] float detectionRange = 5f;
@@ -17,6 +18,7 @@ public class Gunner : EnemyAI
     [SerializeField] float moveSpeed = 3f;
 
     [Header("Weapons")]
+    [SerializeField] private Transform attachTo;
     [SerializeField] private RangedWeapon weapon;
     [SerializeField] private float AimTime;
     private float aimTimer;
@@ -34,26 +36,27 @@ public class Gunner : EnemyAI
     [SerializeField] private float WaitFrequency;
     [SerializeField] private float GroundRayLength;
     [SerializeField] private float GroundRayOffset;
+    [SerializeField] private float PhysicsSmooth;
     private float patrolTimer, waitTimer, randomPatrolTime, randomWaitTime;
     private bool facingRight = false;
     private bool isPatrolling;
+    private Vector2 Velocity, ExternalVelocity;
 
     [Header("Combat Cooldown")]
     [SerializeField] private float CombatCooldown = 2f;
     private float combatCooldownTimer;
     private bool playerInRange;
 
-    public override void Start()
+    public void Start()
     {
-        base.Start();
-
         player = GameManager.Instance.Player;
         damageable = GetComponent<Damageable>();
         lr = GetComponent<LineRenderer>();
-        rb = GetComponent<Rigidbody2D>();
+        Rigidbody = GetComponent<Rigidbody2D>();
+        limbManager = GetComponent<EnemyLimbManager>();
 
         BTNodes.Add(Sequence(IsDead));
-        //BTNodes.Add(Sequence(IsPlayerVisible, MoveToAttackRange, Aim, Attack));
+        //BTNodes.Add(Sequence(IsPlayerVisible, MoveToAttackRange,IsInAttackRange, Aim, Attack));
         BTNodes.Add(Sequence(IsInAttackRange, Aim, Attack));
         BTNodes.Add(Sequence(WaitAfterCombat));
         BTNodes.Add(Sequence(Patrol));
@@ -71,13 +74,32 @@ public class Gunner : EnemyAI
         lr.GetPropertyBlock(laserMatBlock);
         laserBaseColor = lr.sharedMaterial.GetColor("_LaserColor");
 
+        weapon = (RangedWeapon)Weapon.Equip(weapon, attachTo);
+
+        damageable.OnDeath += OnDeath;
+
+        Debug.Log(weapon.gameObject);
+
         RandomizePatrol();
     }
 
     public override void Update()
     {
         base.Update();
-        lr.enabled = _inAttackRange == BTState.Success && _aim != BTState.Success;
+        lr.enabled = _inAttackRange == BTState.Success && _aim != BTState.Success && _isDead != BTState.Success;
+    }
+
+    private void FixedUpdate()
+    {
+        Rigidbody.linearVelocity = Velocity + ExternalVelocity;
+        ExternalVelocity = Vector2.Lerp(ExternalVelocity, Vector2.zero, PhysicsSmooth * Time.fixedDeltaTime);
+        ExternalVelocity.y = 0f;
+        UpdateFaceDirection();
+    }
+
+    void OnDestroy()
+    {
+        damageable.OnDeath -= OnDeath;
     }
 
     // BT State Changes
@@ -107,26 +129,33 @@ public class Gunner : EnemyAI
     {
         patrolTimer = 0f;
         waitTimer = 0f;
-        animator.DisableArms();
+        animator.EnableArms();
         RandomizePatrol();
     }
 
     void OnPatrolEnd()
     {
-        animator.EnableArms();
+        animator.DisableArms();
         StopMovement();
     }
 
-    // Shared
+    private void OnDeath()
+    {
+        Rigidbody.simulated = false;
+        StopMovement();
+        animator.TriggerDeath();
+        weapon.Unequip();
+        limbManager.RandomDismember();
+    }
 
+    // Shared
     private void StopMovement()
     {
-        rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+        Velocity = new Vector2(0f, Rigidbody.linearVelocityY);
         animator.UpdateMoveAnim(false);
     }
 
     // BT Conditions
-
     BTState IsPlayerVisible()
     {
         float dist = Vector2.Distance(transform.position, player.position);
@@ -163,7 +192,9 @@ public class Gunner : EnemyAI
     BTState IsDead()
     {
         if (damageable.IsDead)
+        {
             return _isDead = BTState.Success;
+        }
 
         return _isDead = BTState.Failure;
     }
@@ -193,6 +224,9 @@ public class Gunner : EnemyAI
     {
         animator.AimAtPlayer(player.position);
         DrawLaser();
+
+        float sign = Mathf.Sign(transform.position.x - player.position.x);
+        facingRight = sign == -1; // Sprites are reversed.
 
         aimTimer += Time.deltaTime;
 
@@ -233,6 +267,7 @@ public class Gunner : EnemyAI
         if (patrolTimer >= randomPatrolTime)
         {
             waitTimer += Time.deltaTime;
+            StopMovement();
 
             if (waitTimer > randomWaitTime)
             {
@@ -247,13 +282,13 @@ public class Gunner : EnemyAI
             RaycastHit2D leftEdge = Physics2D.Raycast((Vector2)transform.position - Vector2.right * GroundRayOffset, Vector2.down, GroundRayLength, groundPlatLayer);
 
             if (facingRight && rightEdge.collider == null)
-                FlipCharacter();
+                facingRight = false;
             else if (!facingRight && leftEdge.collider == null)
-                FlipCharacter();
+                facingRight = true;
 
-            rb.linearVelocity = new Vector2(
+            Velocity = new Vector2(
                 PatrolSpeed * (facingRight ? 1f : -1f),
-                rb.linearVelocity.y
+                Rigidbody.linearVelocityY
             );
         }
 
@@ -262,14 +297,18 @@ public class Gunner : EnemyAI
         return _patroling = BTState.Success;
     }
 
-    // Helpers
-
-    private void FlipCharacter()
+    // Functions
+    private void UpdateFaceDirection()
     {
-        facingRight = !facingRight;
+        // Sprites are reversed.
         var scale = transform.localScale;
-        scale.x *= -1f;
-        transform.localScale = scale;
+        transform.localScale = new Vector3(facingRight ? -Mathf.Abs(scale.x) : Mathf.Abs(scale.x), scale.y, scale.z);
+    }
+
+    public void ApplyForce(float knockback, float upward)
+    {
+        Vector2 force = knockback * transform.right * (facingRight ? -1 : 1f) + Vector3.up * upward;
+        ExternalVelocity = force;
     }
 
     private void RandomizePatrol()
@@ -281,7 +320,7 @@ public class Gunner : EnemyAI
     private void DrawLaser()
     {
         // Laser Position
-        RaycastHit2D laserHit = Physics2D.Raycast(weapon.GunTip.position, weapon.GunTip.right, 100f, playerLayer);
+        RaycastHit2D laserHit = Physics2D.Raycast(weapon.GunTip.position, weapon.GunTip.right * (facingRight ? -1f : 1f), 100f, playerLayer);
 
         lr.positionCount = 2;
         lr.SetPosition(0, weapon.GunTip.position);
@@ -293,7 +332,7 @@ public class Gunner : EnemyAI
 
         // Laser Color
         float t = Mathf.Clamp01(aimTimer / AimTime);
-        Color newColor = Color.Lerp(laserBaseColor, laserBaseColor * LaserColorIntensity, t);
+        Color newColor = Color.Lerp(laserBaseColor, laserBaseColor * LaserColorIntensity, t * t);
 
         lr.GetPropertyBlock(laserMatBlock);
         laserMatBlock.SetColor("_LaserColor", newColor);
@@ -311,13 +350,5 @@ public class Gunner : EnemyAI
         Gizmos.color = Color.blue;
         Gizmos.DrawRay((Vector2)transform.position + Vector2.right * GroundRayOffset, Vector2.down * GroundRayLength);
         Gizmos.DrawRay((Vector2)transform.position - Vector2.right * GroundRayOffset, Vector2.down * GroundRayLength);
-    }
-
-    private void DealDamage(IDamageable player)
-    {
-        if (player == (IDamageable)GameManager.Instance.Player)
-        {
-
-        }
     }
 }

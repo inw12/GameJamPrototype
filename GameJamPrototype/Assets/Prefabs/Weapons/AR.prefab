@@ -101,7 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7702061392265406679}
   m_Layer: 0
-  m_Name: Bullet Spawn
+  m_Name: GunTip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -133,6 +133,9 @@ GameObject:
   - component: {fileID: 8284245318349757305}
   - component: {fileID: 8463794268652804892}
   - component: {fileID: 2150831668518465296}
+  - component: {fileID: 8698685212905254203}
+  - component: {fileID: 1122921587838490838}
+  - component: {fileID: 1210493417386136926}
   m_Layer: 0
   m_Name: AR
   m_TagString: Untagged
@@ -184,16 +187,133 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea154847484224f7ab433c00c91baa56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: RunTime::AssaultRifle
-  targetLayer:
-    serializedVersion: 2
-    m_Bits: 512
   weaponSpriteRenderer: {fileID: 5983153280439251598}
   sprites:
   - {fileID: -5536326465059394821, guid: 0be2f77d5e4e56646bd1a006d5fa253e, type: 3}
   - {fileID: -2691557773906723108, guid: 46af0cce60bce9c409855d298005ff6f, type: 3}
   EquippedByPlayer: 1
+  TextPrefab: {fileID: 5491792202884083276, guid: bbf49d82bf22d7340915ca8d371c6e41, type: 3}
   damage: 5
   fireRate: 0.18
   maxAmmo: 90
   bulletSpeed: 100
-  bulletSpawn: {fileID: 7702061392265406679}
+  isFullAuto: 0
+  isTwoHanded: 0
+  gunTip: {fileID: 7702061392265406679}
+--- !u!60 &8698685212905254203
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9026339860551999382}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.91, y: 1}
+      - {x: -1.15, y: 0.64}
+      - {x: -1.08, y: -0.01}
+      - {x: 0.84, y: -0.52}
+      - {x: 2.82, y: 0.38}
+      - {x: 2.82, y: 0.66}
+  m_UseDelaunayMesh: 1
+--- !u!50 &1122921587838490838
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9026339860551999382}
+  m_BodyType: 0
+  m_Simulated: 0
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 2560
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!70 &1210493417386136926
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9026339860551999382}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.86, y: 0.37}
+  m_Size: {x: 4.98, y: 2.61}
+  m_Direction: 1
