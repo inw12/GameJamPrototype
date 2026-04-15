@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerMovement))]
@@ -5,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerLimbManager))]
 public class PlayerWeapon : MonoBehaviour
 {
-    [SerializeField] private GameObject currentWeapon;
+    [SerializeField] private Weapon StartingWeapon;
     [SerializeField] private Transform attachTo;
     [Space]
     [SerializeField] private Transform frontArmTarget;
@@ -14,15 +15,15 @@ public class PlayerWeapon : MonoBehaviour
     [Header("Pickup Interaction")]
     [SerializeField] private Transform pickupOrigin;
     [SerializeField] private float pickupRadius;
-    private LayerMask PickupLayer => LayerMask.GetMask("Pickup");
+
+    // Events
+    public event Action OnWeaponChange;
 
     // References
     private PlayerMovement playerMovement;
     private PlayerAnimator Animator;
     private PlayerLimbManager _limbManager;
-    private GameObject _weaponObjectInstance;
     private Weapon _weapon;
-    private bool _weaponEquipped;
 
     void Awake()
     {
@@ -30,17 +31,18 @@ public class PlayerWeapon : MonoBehaviour
         Animator = GetComponent<PlayerAnimator>();
         _limbManager = GetComponent<PlayerLimbManager>();
 
-        if (currentWeapon)
+        if (StartingWeapon != null)
         {
-            _weaponObjectInstance = Instantiate(currentWeapon, attachTo);
-            _weapon = _weaponObjectInstance.GetComponent<Weapon>();
-            _weaponEquipped = CheckWeaponType(_weapon);
+            _weapon = Weapon.Equip(StartingWeapon, attachTo, true);
+            _weapon.OnAttack += Animator.TriggerRanged;
         }
     }
 
     void Update()
     {
+        if (!_weapon) return;
         _weapon.gameObject.SetActive(_limbManager.CanShoot);
+        
         if (!_limbManager.CanShoot) return;
         AttackLoop();
         ChangeWeaponLoop();
@@ -64,23 +66,30 @@ public class PlayerWeapon : MonoBehaviour
     private void ChangeWeaponLoop()
     {
         // Scan for interactable objects
-        var item = Physics2D.OverlapCircle(pickupOrigin.position, pickupRadius, PickupLayer);
-        if (item && item.TryGetComponent(out WeaponPickup weapon))
-        {
-            weapon.TogglePrompt();
+        Collider2D[] hits = Physics2D.OverlapCircleAll(pickupOrigin.position, pickupRadius);
+        Collider2D[] nearbyWeapons = System.Array.FindAll(hits, h => h.GetComponent<Weapon>() != null);
 
-            // weapon change interaction
-            if (PlayerControls.Instance.InteractPressed)
+        if (nearbyWeapons.Length > 0)
+        {
+            Collider2D closest = Helper.GetClosestCollider(transform.position, nearbyWeapons);
+
+            if (closest.TryGetComponent(out Weapon newWeapon))
             {
-                ChangeWeapon(weapon.GetItem());
-                weapon.DestroyObject();
+                newWeapon.OnPlayerNearby();
+
+                if (PlayerControls.Instance.InteractPressed)
+                {
+                    Animator.TriggerPickup();
+                    ChangeWeapon(newWeapon);
+                }
             }
+
         }
     }
 
     private void UpdateArms()
     {
-        if (_weaponEquipped)
+        if (_weapon != null)
         {
             // position
             var mousePos = PlayerControls.GetMouseWorldPosition();
@@ -93,28 +102,19 @@ public class PlayerWeapon : MonoBehaviour
         }
     }
 
-    // * idk if we still need this... *
-    private bool CheckWeaponType<T>(T weapon)
-    {
-        return weapon switch
-        {
-            RangedWeapon => true,
-            MeleeWeapon => false,
-            _ => false,
-        };
-    }
-
-    private void ChangeWeapon(GameObject newWeapon)
+    private void ChangeWeapon(Weapon newWeapon)
     {
         // Destroy current weapon instance
-        if (_weaponObjectInstance) Destroy(_weaponObjectInstance);
+        if (_weapon != null)
+        {
+            _weapon.OnAttack -= Animator.TriggerRanged;
+            Destroy(_weapon.gameObject);
+            OnWeaponChange?.Invoke();
+        }
 
         // Update current weapon
-        currentWeapon = newWeapon;
-        _weaponObjectInstance = Instantiate(currentWeapon, attachTo);
-        _weapon = _weaponObjectInstance.GetComponent<Weapon>();
-
-        _weaponEquipped = CheckWeaponType(_weapon);
+        _weapon = Weapon.Equip(newWeapon, attachTo, true);
+        _weapon.OnAttack += Animator.TriggerRanged;
     }
 
     void OnDrawGizmos()
@@ -122,5 +122,4 @@ public class PlayerWeapon : MonoBehaviour
         Gizmos.color = Color.orangeRed;
         Gizmos.DrawWireSphere(pickupOrigin.position, pickupRadius);
     }
-
 }

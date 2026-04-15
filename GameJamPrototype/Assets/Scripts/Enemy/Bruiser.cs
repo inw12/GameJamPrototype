@@ -11,7 +11,8 @@ public class Bruiser : EnemyAI, IKnockable
     private LayerMask groundPlatLayer => LayerMask.GetMask("Ground", "Platform");
     private Rigidbody2D Rigidbody;
     private BTState _visible, _moveToAttackRange, _attack, _isDead, _patroling, _waitAfterCombat;
-
+    private EnemyLimbManager limbManager;
+    
     [Header("Stats")]
     [SerializeField] float detectionRange = 5f;
     [SerializeField] float attackRange = 1.5f;
@@ -51,6 +52,7 @@ public class Bruiser : EnemyAI, IKnockable
         player = GameManager.Instance.Player;
         damageable = GetComponent<Damageable>();
         Rigidbody = GetComponent<Rigidbody2D>();
+        limbManager = GetComponent<EnemyLimbManager>();
 
         BTNodes.Add(Sequence(IsDead));
         BTNodes.Add(Sequence(IsPlayerVisible, MoveToAttackRange, Attack));
@@ -65,6 +67,8 @@ public class Bruiser : EnemyAI, IKnockable
         DebugNodes.Add(("Patroling", _patroling));
 
         RandomizePatrol();
+
+        damageable.OnDeath += OnDeath;
     }
 
     public override void Update()
@@ -78,6 +82,11 @@ public class Bruiser : EnemyAI, IKnockable
         ExternalVelocity.x = Mathf.MoveTowards(ExternalVelocity.x, 0f, PhysicsSmooth * Time.fixedDeltaTime);
         ExternalVelocity.y = 0f;
         UpdateFaceDirection();
+    }
+
+    void OnDestroy()
+    {
+        damageable.OnDeath -= OnDeath;
     }
 
     private void UpdateFaceDirection()
@@ -124,6 +133,15 @@ public class Bruiser : EnemyAI, IKnockable
     {
         StopMovement();
     }
+    
+    private void OnDeath()
+    {
+        Rigidbody.simulated = false;
+        StopMovement();
+        animator.TriggerDeath();
+        limbManager.RandomDismember();
+    }
+
 
     // Shared
 
@@ -144,18 +162,9 @@ public class Bruiser : EnemyAI, IKnockable
     {
         if (damageable.IsDead)
         {
-            OnDeath();
             return _isDead = BTState.Success;
         }
         return _isDead = BTState.Failure;
-    }
-
-
-    private void OnDeath()
-    {
-        Rigidbody.simulated = false;
-        StopMovement();
-        animator.TriggerDeath();
     }
 
     // BT Actions

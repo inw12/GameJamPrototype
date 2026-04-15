@@ -19,8 +19,6 @@ public class Limb : MonoBehaviour
 
     private void Dismember()
     {
-        Debug.Log("Dismembered");
-        Debug.Log(LimbHitboxUpper.IsDead + " " + LimbHitboxLower.IsDead);
         if (LimbHitboxUpper.IsDead && LimbHitboxLower.IsDead)
         {
             bloodParticles.Play();

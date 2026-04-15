@@ -9,7 +9,7 @@ public class PlayerControls : MonoBehaviour
         public Vector2 Mouse => inputs.General.Mouse.ReadValue<Vector2>();
         public bool Mouse1 => inputs.General.Mouse1.IsPressed();
         public bool Mouse2 => inputs.General.Mouse2.IsPressed();
-        public bool InteractPressed => inputs.General.Interact.IsPressed();
+        public bool InteractPressed => inputs.General.Interact.WasReleasedThisFrame();
         public bool SprintPressed => inputs.General.Sprint.IsPressed();
         public bool StatusMenu => inputs.General.StatusMenu.IsPressed();
         public bool SettingsMenu => inputs.General.SettingsMenu.WasPressedThisFrame();
