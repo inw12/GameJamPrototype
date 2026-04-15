@@ -72,6 +72,7 @@ public class PlayerLimbManager : MonoBehaviour
             Rb.constraints = RigidbodyConstraints2D.None;
             Rb.AddTorque(50f);
             FullyDismembered = true;
+            GameManager.Instance.GameOver();
         }
     }
 }

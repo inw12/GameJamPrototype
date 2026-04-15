@@ -5,7 +5,6 @@ public class Projectile : MonoBehaviour
     // Range
     [SerializeField] private float maxRange = 100f;
     [SerializeField] private ParticleSystem BulletHitEffect;
-    private float _distanceThisFrame;
     private float _distanceTraveled;
 
     // Stats

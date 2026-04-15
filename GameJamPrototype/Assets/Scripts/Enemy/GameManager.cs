@@ -6,7 +6,10 @@ public class GameManager : MonoBehaviour
 {
     public Transform Player;
     public static GameManager Instance;
+    public bool GameIsOver => _gameOver;
+    private bool _gameOver = false;
     [SerializeField] private GameObject EndingCutscene;
+    [SerializeField] private GameObject DeathScreen;
 
     void Awake()
     {
@@ -18,7 +21,13 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        _gameOver = true;
+        DeathScreen.SetActive(true);
+    }
 
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 
     public void Restart()

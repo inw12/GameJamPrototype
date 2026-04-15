@@ -61,7 +61,7 @@ public abstract class Weapon : MonoBehaviour
         if (!Helper.IsInstance(weapon))
             weapon = Instantiate(weapon);
 
-        weapon.targetLayer = isPlayer ? LayerMask.GetMask("Enemy", "Ground", "Platform") : LayerMask.GetMask("PlayerHurtbox", "Ground", "Platform");
+        weapon.targetLayer = isPlayer ? LayerMask.GetMask("Enemy", "Ground", "Platform") : LayerMask.GetMask("PlayerHurtbox");
         weapon.EquippedByPlayer = isPlayer;
 
         weapon.transform.SetParent(WeaponHandle);

@@ -28,7 +28,7 @@ public class Gunner : EnemyAI, IKnockable
     [Min(1f)]
     [SerializeField] private float LaserColorIntensity = 1f;
     private MaterialPropertyBlock laserMatBlock;
-    private Color laserBaseColor;
+    private Color laserBaseColor, laserBaseAlpha;
     private LineRenderer lr;
 
     [Header("Patrol")]
@@ -73,6 +73,8 @@ public class Gunner : EnemyAI, IKnockable
         laserMatBlock = new();
         lr.GetPropertyBlock(laserMatBlock);
         laserBaseColor = lr.sharedMaterial.GetColor("_LaserColor");
+        laserBaseAlpha = laserBaseColor;
+        laserBaseAlpha.a = 0f;
 
         weapon = (RangedWeapon)Weapon.Equip(weapon, attachTo);
 
@@ -333,7 +335,7 @@ public class Gunner : EnemyAI, IKnockable
 
         // Laser Color
         float t = Mathf.Clamp01(aimTimer / AimTime);
-        Color newColor = Color.Lerp(laserBaseColor, laserBaseColor * LaserColorIntensity, t * t);
+        Color newColor = Color.Lerp(laserBaseAlpha, laserBaseColor * LaserColorIntensity, t * t);
 
         lr.GetPropertyBlock(laserMatBlock);
         laserMatBlock.SetColor("_LaserColor", newColor);

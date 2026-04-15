@@ -71,7 +71,7 @@ Material:
     m_Colors:
     - White: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _LaserColor: {r: 0.74901956, g: 0, b: 0, a: 1}
+    - _LaserColor: {r: 0.17915626, g: 0.6226415, b: 0.31413, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

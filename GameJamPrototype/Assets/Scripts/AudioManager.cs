@@ -32,7 +32,7 @@ public class AudioManager : MonoBehaviour
 
         // Intro Song
         // ** DELETE LATER **
-        PlayMusic("IntroA");
+        PlayMusic("Main");
     }
 
 
