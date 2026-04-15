@@ -146,6 +146,7 @@ public class Gunner : EnemyAI, IKnockable
         animator.TriggerDeath();
         weapon.Unequip();
         limbManager.RandomDismember();
+        AudioManager.Instance.PlaySFXAt("Dismemberment", transform.position);
     }
 
     // Shared

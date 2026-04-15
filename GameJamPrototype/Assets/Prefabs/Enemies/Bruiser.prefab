@@ -362,7 +362,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 874201939771725181}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0, z: -0.1536791, w: 0.98812085}
+  m_LocalRotation: {x: -0, y: 0, z: -0.15367949, w: 0.9881208}
   m_LocalPosition: {x: 1.36, y: -0.02, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -536,7 +536,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1797868426526092176}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.981677, w: -0.19055274}
+  m_LocalRotation: {x: 0, y: 0, z: -0.98167706, w: -0.19055241}
   m_LocalPosition: {x: 1.62, y: 0.85, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1390,7 +1390,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4197265853210311318}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.64799064, w: 0.7616483}
+  m_LocalRotation: {x: -0, y: -0, z: -0.64798915, w: 0.7616496}
   m_LocalPosition: {x: 1.584, y: 0.049, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1633,7 +1633,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4815856373978194789}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.87562174, w: 0.48299763}
+  m_LocalRotation: {x: 0, y: 0, z: -0.8756218, w: 0.48299754}
   m_LocalPosition: {x: 1.61, y: -0.79, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1696,7 +1696,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5630687841010515221}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.084152825, w: 0.9964529}
+  m_LocalRotation: {x: -0, y: -0, z: -0.084152676, w: 0.9964529}
   m_LocalPosition: {x: 1.15, y: 0.06, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1860,7 +1860,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6001195233521747629}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.99905217, w: 0.043530025}
+  m_LocalRotation: {x: 0, y: 0, z: -0.99905217, w: 0.043530904}
   m_LocalPosition: {x: 1.11, y: -1.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2417,6 +2417,7 @@ GameObject:
   - component: {fileID: 4190534221602460514}
   - component: {fileID: 3958081474976133873}
   - component: {fileID: 9210168627613194767}
+  - component: {fileID: 7826770615171334311}
   m_Layer: 9
   m_Name: Bruiser
   m_TagString: Untagged
@@ -2581,6 +2582,19 @@ MonoBehaviour:
   FrontLegAnchor: {fileID: 7379776209689527582}
   BackLegAnchor: {fileID: 2055475244995156107}
   BloodFX: {fileID: 198000011254678926, guid: 4ef50d2e388034a768d8ab7d5593b079, type: 3}
+--- !u!210 &7826770615171334311
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8741503337589273223}
+  m_Enabled: 1
+  m_SortingLayerID: 552341687
+  m_SortingLayer: 4
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
+  m_Sort3DAs2D: 0
 --- !u!1 &8788114993776258903
 GameObject:
   m_ObjectHideFlags: 0
@@ -2670,7 +2684,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8901801651525373186}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.19220407, w: 0.981355}
+  m_LocalRotation: {x: 0, y: -0, z: 0.19220124, w: 0.98135555}
   m_LocalPosition: {x: 2.19, y: 0.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

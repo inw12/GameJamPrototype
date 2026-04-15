@@ -17,3 +17,23 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: 52528edcbaf9946909477d14a1e177c0, type: 3}
     volume: 0.839
     pitch: 1
+  - name: ARShot
+    audioClip: {fileID: 8300000, guid: 48ef823513b2e4ed1968be022dda12c8, type: 3}
+    volume: 0.839
+    pitch: 1
+  - name: PistolShot
+    audioClip: {fileID: 8300000, guid: 78bfd7dd1481846e78ea1d48951646f1, type: 3}
+    volume: 0.839
+    pitch: 1
+  - name: Dismemberment
+    audioClip: {fileID: 8300000, guid: ef250440b0d7343d6aa588b5bbc53497, type: 3}
+    volume: 0.839
+    pitch: 1
+  - name: MeleeHit
+    audioClip: {fileID: 8300000, guid: ed4815fc359e14689ad84f4e04bccb7a, type: 3}
+    volume: 0.839
+    pitch: 1
+  - name: MeleeSwipe
+    audioClip: {fileID: 8300000, guid: 1f85ea7d0f1fc4fb88c93c888a0bb62b, type: 3}
+    volume: 0.839
+    pitch: 1

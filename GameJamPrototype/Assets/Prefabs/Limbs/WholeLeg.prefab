@@ -563,6 +563,7 @@ GameObject:
   - component: {fileID: 1265049045214135792}
   - component: {fileID: 5570552573212037322}
   - component: {fileID: 2382057626475580815}
+  - component: {fileID: 7630401575295097504}
   m_Layer: 7
   m_Name: WholeLeg
   m_TagString: Untagged
@@ -619,3 +620,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: RunTime::DestroyAfterTime
   timeToDestroy: 6
+--- !u!210 &7630401575295097504
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7069385396914476849}
+  m_Enabled: 1
+  m_SortingLayerID: -788514823
+  m_SortingLayer: 3
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
+  m_Sort3DAs2D: 0

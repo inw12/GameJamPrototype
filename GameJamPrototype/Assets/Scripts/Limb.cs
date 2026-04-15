@@ -22,6 +22,7 @@ public class Limb : MonoBehaviour
         if (LimbHitboxUpper.IsDead && LimbHitboxLower.IsDead)
         {
             bloodParticles.Play();
+            AudioManager.Instance.PlaySFXAt("Dismemberment", transform.position);
             TurnOffLimb();
             Instantiate(LimbPrefab, Anchor.position, Quaternion.identity);
         }

@@ -12,7 +12,7 @@ public class Bruiser : EnemyAI, IKnockable
     private Rigidbody2D Rigidbody;
     private BTState _visible, _moveToAttackRange, _attack, _isDead, _patroling, _waitAfterCombat;
     private EnemyLimbManager limbManager;
-    
+
     [Header("Stats")]
     [SerializeField] float detectionRange = 5f;
     [SerializeField] float attackRange = 1.5f;
@@ -133,13 +133,14 @@ public class Bruiser : EnemyAI, IKnockable
     {
         StopMovement();
     }
-    
+
     private void OnDeath()
     {
         Rigidbody.simulated = false;
         StopMovement();
         animator.TriggerDeath();
         limbManager.RandomDismember();
+        AudioManager.Instance.PlaySFXAt("Dismemberment", transform.position);
     }
 
 

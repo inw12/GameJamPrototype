@@ -195,6 +195,7 @@ GameObject:
   - component: {fileID: 4091831681432874951}
   - component: {fileID: 4768865339715258276}
   - component: {fileID: -1258092783095668394}
+  - component: {fileID: -7585932503882543817}
   m_Layer: 7
   m_Name: WholeArm
   m_TagString: Untagged
@@ -251,6 +252,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: RunTime::DestroyAfterTime
   timeToDestroy: 6
+--- !u!210 &-7585932503882543817
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5661591537159460820}
+  m_Enabled: 1
+  m_SortingLayerID: -788514823
+  m_SortingLayer: 3
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
+  m_Sort3DAs2D: 0
 --- !u!1 &7237405176936360209
 GameObject:
   m_ObjectHideFlags: 0

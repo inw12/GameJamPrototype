@@ -6,12 +6,11 @@ public class AudioManager : MonoBehaviour
 
     [SerializeField] private AudioMixer mixer;
     [SerializeField] private AudioSource musicSource;
-    [SerializeField] private AudioSource sfxSource;
     [Space]
     [SerializeField] private AudioLibrary musicLibrary;
     [SerializeField] private AudioLibrary sfxLibrary;
     [Space]
-    [SerializeField] [Range(0f, 1f)] private float defaultVolume = 0.5f;
+    [SerializeField][Range(0f, 1f)] private float defaultVolume = 0.5f;
 
     private const string MusicVolume = "MusicVolume";
     private const string SFXVolume = "SFXVolume";
@@ -54,9 +53,9 @@ public class AudioManager : MonoBehaviour
     {
         var entry = sfxLibrary.GetEntry(name);
         if (!entry.audioClip) return;
-        sfxSource.pitch = entry.pitch;
-        sfxSource.PlayOneShot(entry.audioClip, entry.volume);
+        PlaySFXAt(name, Camera.main.transform.position);
     }
+
     public void PlaySFXAt(string name, Vector2 position)
     {
         var entry = sfxLibrary.GetEntry(name);
@@ -78,12 +77,12 @@ public class AudioManager : MonoBehaviour
     }
 
     // Getters
-    public float GetMusicVolume() 
+    public float GetMusicVolume()
     {
         mixer.GetFloat(MusicVolume, out float volume);
         return DecibalToLinear(volume);
     }
-    public float GetSFXVolume() 
+    public float GetSFXVolume()
     {
         mixer.GetFloat(SFXVolume, out float volume);
         return DecibalToLinear(volume);

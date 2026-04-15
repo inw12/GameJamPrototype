@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 7834815987203389937}
   - component: {fileID: 382144125140046073}
   - component: {fileID: 8295647879786080983}
+  - component: {fileID: 8864099452774317560}
   m_Layer: 11
   m_Name: Player
   m_TagString: Player
@@ -308,6 +309,19 @@ MonoBehaviour:
   meleeCooldown: 0.5
   knockback: 10
   knockbackUpward: 10
+--- !u!210 &8864099452774317560
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 298164141482292486}
+  m_Enabled: 1
+  m_SortingLayerID: 552341687
+  m_SortingLayer: 4
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
+  m_Sort3DAs2D: 0
 --- !u!1 &383105438247913308
 GameObject:
   m_ObjectHideFlags: 0
@@ -3736,7 +3750,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8770124696725616255}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.75048065, w: 0.6608925}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7504807, w: 0.6608924}
   m_LocalPosition: {x: 0.9590838, y: -0.06964802, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

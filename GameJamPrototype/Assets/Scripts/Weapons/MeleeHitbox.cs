@@ -34,6 +34,11 @@ public class MeleeHitbox : MonoBehaviour
         _hits.Clear();
     }
 
+    void Start()
+    {
+        AudioManager.Instance.PlaySFXAt("MeleeSwipe", transform.position);
+    }
+
     // Collision Detection
     void Update()
     {
@@ -45,6 +50,7 @@ public class MeleeHitbox : MonoBehaviour
         {
             bool canDamage = hit.TryGetComponent(out Damageable hittable);
             bool canKb = hit.TryGetComponent(out IKnockable enemyAI);
+            AudioManager.Instance.PlaySFXAt("MeleeHit", transform.position);
 
             if (canDamage)
             {
