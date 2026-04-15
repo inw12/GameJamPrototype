@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.63, y: -1.54, z: 0}
-  m_LocalScale: {x: 0.74999994, y: 0.74999994, z: 0.74999994}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6132064165067864593}
@@ -118,7 +118,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 2560
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -176,7 +176,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0.3869849, y: 0.9166681}
-  m_ConnectedAnchor: {x: -0.45301518, y: -1.1366653}
+  m_ConnectedAnchor: {x: -0.663015, y: -1.6499983}
   m_UseConnectedAnchor: 1
   m_UseMotor: 0
   m_Motor:
@@ -228,7 +228,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.74999994, y: 0.74999994, z: 0.74999994}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1265049045214135792}
@@ -314,7 +314,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 2560
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -484,7 +484,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2560
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -505,7 +505,7 @@ HingeJoint2D:
   m_BreakAction: 3
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: -0.46193022, y: 0.23325199}
-  m_ConnectedAnchor: {x: -0.37193024, y: -1.0967481}
+  m_ConnectedAnchor: {x: -0.37193018, y: -1.0967481}
   m_UseConnectedAnchor: 1
   m_UseMotor: 0
   m_Motor:
@@ -562,6 +562,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1265049045214135792}
   - component: {fileID: 5570552573212037322}
+  - component: {fileID: 2382057626475580815}
+  - component: {fileID: 7630401575295097504}
   m_Layer: 7
   m_Name: WholeLeg
   m_TagString: Untagged
@@ -605,3 +607,29 @@ MonoBehaviour:
   _jointFlailTorque: 10
   timeToDespawn: 2
   despawnDuration: 1
+--- !u!114 &2382057626475580815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7069385396914476849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: effe207f9004743bc845fc244ca693f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RunTime::DestroyAfterTime
+  timeToDestroy: 6
+--- !u!210 &7630401575295097504
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7069385396914476849}
+  m_Enabled: 1
+  m_SortingLayerID: -788514823
+  m_SortingLayer: 4
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
+  m_Sort3DAs2D: 0

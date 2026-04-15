@@ -5,6 +5,9 @@ public class PlayerStatusMenu : MonoBehaviour
     // Inputs
     private bool MenuActive => PlayerControls.Instance.StatusMenu;
 
+    [Header("Turn Off when Active")]
+    [SerializeField] private PlayerWeapon playerWeapon;
+
     [Header("Menu Container")]
     [SerializeField] private RectTransform container;
     [SerializeField] private float activeSize;
@@ -20,28 +23,50 @@ public class PlayerStatusMenu : MonoBehaviour
     [SerializeField] private Button armR;
     [SerializeField] private Button legL;
     [SerializeField] private Button legR;
+    private Image armLImage, armRImage, legLImage, legRImage;
 
     [Header("Regeneration Meter")]
     [SerializeField] private Image fillMeter;
     [SerializeField] private Image regenerationMeter;
-    [SerializeField] private float fillSpeed;
 
-    public float currentRegen;
-    public float maxRegen;
-    private float _regenTimer;
+    [Header("Limbs")]
+    [SerializeField] private Limb LeftArm;
+    [SerializeField] private Limb RightArm;
+    [SerializeField] private Limb LeftLeg;
+    [SerializeField] private Limb RightLeg;
+    [SerializeField] private Color damagedColor;
+    private Color baseColor;
 
     void Start()
     {
-        _defaultSize        = container.localScale;
-        _defaultPosition    = container.position;
+        _defaultSize = container.localScale;
+        _defaultPosition = container.position;
+
+        baseColor = head.GetComponent<Image>().color;
+        armLImage = armL.GetComponent<Image>();
+        armRImage = armR.GetComponent<Image>();
+        legLImage = legL.GetComponent<Image>();
+        legRImage = legR.GetComponent<Image>();
 
         ButtonsActive(MenuActive);
     }
 
     void Update()
     {
-        var targetPosition  = MenuActive ? _defaultPosition + activeOffset : _defaultPosition;
-        var targetScale     = MenuActive ? _defaultSize * activeSize : _defaultSize;
+        MenuInputLoop();
+    }
+
+    void LateUpdate()
+    {
+        UpdateStatus();
+    }
+
+    private void MenuInputLoop()
+    {
+        playerWeapon.enabled = !MenuActive;
+
+        var targetPosition = MenuActive ? _defaultPosition + activeOffset : _defaultPosition;
+        var targetScale = MenuActive ? _defaultSize * activeSize : _defaultSize;
 
         // Update Position
         container.position = Vector3.Lerp
@@ -61,6 +86,22 @@ public class PlayerStatusMenu : MonoBehaviour
 
         // Update Buttons
         ButtonsActive(MenuActive);
+    }
+
+    private void UpdateStatus()
+    {
+        CheckLimb(armLImage, LeftArm);
+        CheckLimb(armRImage, RightArm);
+        CheckLimb(legLImage, LeftLeg);
+        CheckLimb(legRImage, RightLeg);
+    }
+
+    private void CheckLimb(Image sprite, Limb limb)
+    {
+        if (limb.Dismembered)
+            sprite.color = Color.black;
+        else
+            sprite.color = Color.Lerp(baseColor, damagedColor, 2f - limb.LimbHitboxLower.GetHealth01() - limb.LimbHitboxUpper.GetHealth01());
     }
 
     private void ButtonsActive(bool b)

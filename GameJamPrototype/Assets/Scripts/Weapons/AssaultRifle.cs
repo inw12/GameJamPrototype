@@ -1,38 +1,14 @@
 using UnityEngine;
-[RequireComponent(typeof(ProjectilePool))]
 public class AssaultRifle : RangedWeapon
 {
-    [SerializeField] private Transform bulletSpawn;
-
     protected override void Start()
     {
         base.Start();
-        _pool = GetComponent<ProjectilePool>();
-        _fireTimer = fireRate;
+        OnAttack += PistolShot;
     }
 
-    void Update()
+    private void PistolShot()
     {
-        _fireTimer += Time.deltaTime;
-    }
-
-    public override void Attack()
-    {
-        if (_fireTimer >= fireRate)
-        {
-            var direction = transform.right;
-            var projectile = new ProjectileContext
-            {
-                ObjectPool  = _pool,
-                Origin      = bulletSpawn.position,
-                Direction   = direction,
-                BulletSpeed = bulletSpeed,
-                HitMask     = targetLayer,
-                Damage = damage             
-            };
-            _pool.Get(projectile);
-
-            _fireTimer = 0f;
-        }
+        AudioManager.Instance.PlaySFX("PistolShot");
     }
 }
