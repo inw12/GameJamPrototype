@@ -42,7 +42,7 @@ public class PlayerWeapon : MonoBehaviour
     {
         if (!_weapon) return;
         _weapon.gameObject.SetActive(_limbManager.CanShoot);
-        
+
         if (!_limbManager.CanShoot) return;
         AttackLoop();
         ChangeWeaponLoop();

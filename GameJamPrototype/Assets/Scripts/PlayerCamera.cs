@@ -13,12 +13,14 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private float CameraScrollSpeed;
     private Camera camera;
     private Vector3 cameraPos, targetPos;
+    private Rigidbody2D rigidbody;
 
     [Header("Debug")]
     [SerializeField] private bool ShowDebug = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        rigidbody = GetComponent<Rigidbody2D>();
         camera = Instantiate(Prefab);
         camera.orthographicSize = Size;
     }
@@ -29,7 +31,7 @@ public class PlayerCamera : MonoBehaviour
         UpdateCamera();
     }
 
-    void FixedUpdate()
+    void LateUpdate()
     {
         camera.transform.position = cameraPos;
     }
@@ -37,9 +39,8 @@ public class PlayerCamera : MonoBehaviour
     void UpdateCamera()
     {
         Vector3 mouseViewPos = camera.ScreenToViewportPoint(MousePosition);
+        Vector3 playerPos = rigidbody.position + new Vector2(Offset.x, Offset.y);
 
-        Vector3 playerPos = transform.position + new Vector3(Offset.x, Offset.y, 0f);
-        
         camera.orthographicSize = Size;
 
         // If within scroll range
@@ -53,7 +54,7 @@ public class PlayerCamera : MonoBehaviour
                 targetPos = playerPos + CameraMaxRange * Vector3.right;
             else
                 targetPos = playerPos - CameraMaxRange * Vector3.right;
-  
+
         }
 
         cameraPos = Vector3.Lerp(cameraPos, targetPos, CameraSmooth * Time.deltaTime);

@@ -203,7 +203,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 539347907493279613}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.0023695575, w: 0.9999972}
+  m_LocalRotation: {x: 0, y: 0, z: -0.0023695137, w: 0.9999972}
   m_LocalPosition: {x: 1.8502488, y: -0.024956942, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1243,8 +1243,8 @@ GameObject:
   - component: {fileID: 8339556113970134696}
   - component: {fileID: 2958272521408081673}
   - component: {fileID: 128929752372351005}
-  - component: {fileID: 825510012473727983}
   - component: {fileID: 2326902656124122039}
+  - component: {fileID: 825510012473727983}
   m_Layer: 9
   m_Name: Gunner
   m_TagString: Untagged
@@ -1381,6 +1381,29 @@ MonoBehaviour:
   GroundRayOffset: 1.36
   PhysicsSmooth: 5
   CombatCooldown: 2
+--- !u!114 &2326902656124122039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4675107856781329801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d81b3d4e890ad0429a6a3fcbc7eff64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RunTime::EnemyLimbManager
+  ArmPrefab: {fileID: 6844982477591551004, guid: a128df2648f70784b899551a23e70640, type: 3}
+  LegPrefab: {fileID: 8331856160400374134, guid: b16b95dcd9099364685b917ab93fb8fd, type: 3}
+  FrontArmSprite: {fileID: 8051852896202854984}
+  BackArmSprite: {fileID: 600345802783950962}
+  FrontLegSprite: {fileID: 5906540554037024501}
+  BackLegSprite: {fileID: 7061669233116036954}
+  FrontArmAnchor: {fileID: 5159890743536829146}
+  BackArmAnchor: {fileID: 2670358335185083147}
+  FrontLegAnchor: {fileID: 6675751448498713735}
+  BackLegAnchor: {fileID: 2091167022428080329}
+  BloodFX: {fileID: 198000011254678926, guid: 4ef50d2e388034a768d8ab7d5593b079, type: 3}
 --- !u!120 &825510012473727983
 LineRenderer:
   serializedVersion: 3
@@ -1489,29 +1512,6 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
---- !u!114 &2326902656124122039
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4675107856781329801}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d81b3d4e890ad0429a6a3fcbc7eff64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: RunTime::EnemyLimbManager
-  ArmPrefab: {fileID: 6844982477591551004, guid: a128df2648f70784b899551a23e70640, type: 3}
-  LegPrefab: {fileID: 8331856160400374134, guid: b16b95dcd9099364685b917ab93fb8fd, type: 3}
-  FrontArmSprite: {fileID: 8051852896202854984}
-  BackArmSprite: {fileID: 600345802783950962}
-  FrontLegSprite: {fileID: 5906540554037024501}
-  BackLegSprite: {fileID: 7061669233116036954}
-  FrontArmAnchor: {fileID: 5159890743536829146}
-  BackArmAnchor: {fileID: 2670358335185083147}
-  FrontLegAnchor: {fileID: 6675751448498713735}
-  BackLegAnchor: {fileID: 2091167022428080329}
-  BloodFX: {fileID: 198000011254678926, guid: 4ef50d2e388034a768d8ab7d5593b079, type: 3}
 --- !u!1 &4822611320780752705
 GameObject:
   m_ObjectHideFlags: 0
@@ -1601,7 +1601,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5052345444656159112}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.45899436, w: 0.88843924}
+  m_LocalRotation: {x: -0, y: -0, z: -0.4589944, w: 0.8884392}
   m_LocalPosition: {x: 1.6996332, y: -0.0148732215, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1841,7 +1841,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5297982115091882235}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.84927016, w: -0.52795845}
+  m_LocalRotation: {x: 0, y: 0, z: -0.84927064, w: -0.52795786}
   m_LocalPosition: {x: 0.7135549, y: -0.566057, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2923,7 +2923,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8691260118026650519}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.39404202, w: -0.9190924}
+  m_LocalRotation: {x: 0, y: 0, z: 0.39415815, w: -0.91904265}
   m_LocalPosition: {x: 1.6706783, y: 0.013555288, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

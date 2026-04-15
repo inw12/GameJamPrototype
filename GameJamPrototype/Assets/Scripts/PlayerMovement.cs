@@ -31,10 +31,11 @@ public class PlayerMovement : MonoBehaviour
     private NoLegsLocomotion _noLegs;
     private LocomotionBase _active;
     private PlayerLimbManager.LegState _lastLegState;
+    public PlayerLimbManager.LegState debugLegState => _lastLegState;
 
     // Debug
-    [Header("Debug Log")]
-    public bool DebugLog;
+    [Header("Show Debug")]
+    public bool ShowDebug;
 
     // ground detection
     [Header("Ground Detection")]
@@ -45,9 +46,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Slope Detection")]
     [SerializeField] private float slopeLimit;
     public bool OnWalkableSlope { get; private set; }
-    public Vector2 SlopeNormal  { get; private set; }
-    public float SlopeAngle     { get; private set; }
-
+    public Vector2 SlopeNormal { get; private set; }
+    public float SlopeAngle { get; private set; }
 
     // dropdown
     public bool dropdownTriggered;
@@ -176,10 +176,24 @@ public class PlayerMovement : MonoBehaviour
             IsGrounded = false || OnWalkableSlope;
         }
     }
-    private void OnCollisionStay2D(Collision2D collision)
+
+    void OnCollisionStay2D(Collision2D collision)
     {
         CheckSlope(collision);
+
+        if (!ShowDebug) return;
+
+        for (int i = 0; i < collision.contactCount; i++)
+        {
+            var contact = collision.GetContact(i);
+
+            Vector2 point = contact.point;
+            Vector2 normal = contact.normal;
+
+            Debug.DrawLine(point, point + normal, Color.red);
+        }
     }
+
     void OnCollisionExit2D(Collision2D collision)
     {
         OnWalkableSlope = false;
@@ -202,8 +216,8 @@ public class PlayerMovement : MonoBehaviour
                 minAngle = angle;
                 upNormal = contact.normal;
             }
-        } 
-        
+        }
+
         // update slope data
         SlopeAngle = minAngle;
         SlopeNormal = upNormal;
@@ -212,7 +226,7 @@ public class PlayerMovement : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        if (!DebugLog) return;
+        if (!ShowDebug) return;
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(groundDetection.position, groundDetectionRadius);
@@ -220,7 +234,7 @@ public class PlayerMovement : MonoBehaviour
 
     void OnGUI()
     {
-        if (!DebugLog) return;
+        if (!ShowDebug) return;
         GUILayout.Label($"Move: {PlayerControls.Instance.MovePressed}");
         GUILayout.Label($"Is Grounded: {IsGrounded}");
         if (LastGroundHit) GUILayout.Label($"LastGround: {LastGroundHit.name}");

@@ -102,10 +102,11 @@ MonoBehaviour:
   - {fileID: -7071909199823851172, guid: 46af0cce60bce9c409855d298005ff6f, type: 3}
   EquippedByPlayer: 1
   TextPrefab: {fileID: 5491792202884083276, guid: bbf49d82bf22d7340915ca8d371c6e41, type: 3}
+  HeightOffset: 5
   damage: 1000
   fireRate: 0.33
   maxAmmo: 24
-  bulletSpeed: 65
+  bulletSpeed: 125
   isFullAuto: 0
   isTwoHanded: 0
   gunTip: {fileID: 6066326301406779775}

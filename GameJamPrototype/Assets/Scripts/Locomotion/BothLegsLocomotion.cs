@@ -23,6 +23,7 @@ public class BothLegsLocomotion : LocomotionBase
     public override void OnFixedUpdate()
     {
         var targetSpeed = Inputs.SprintPressed ? SprintSpeed : Speed;
+        Debug.Log(Owner.OnWalkableSlope);
 
         if (Owner.OnWalkableSlope)
         {
