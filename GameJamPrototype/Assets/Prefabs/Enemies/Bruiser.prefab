@@ -1390,7 +1390,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4197265853210311318}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.64798933, w: 0.76164937}
+  m_LocalRotation: {x: -0, y: -0, z: -0.64799064, w: 0.7616483}
   m_LocalPosition: {x: 1.584, y: 0.049, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1633,7 +1633,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4815856373978194789}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.8756216, w: 0.48299763}
+  m_LocalRotation: {x: 0, y: 0, z: -0.87562174, w: 0.48299763}
   m_LocalPosition: {x: 1.61, y: -0.79, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1696,7 +1696,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5630687841010515221}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.08415293, w: 0.9964529}
+  m_LocalRotation: {x: -0, y: -0, z: -0.084152825, w: 0.9964529}
   m_LocalPosition: {x: 1.15, y: 0.06, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1835,6 +1835,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: RunTime::EnemyAnimator
   FrontArm: {fileID: 5768324359559440901}
   BackArm: {fileID: 935848420715997752}
+  RestingArmPosition: {x: 0, y: 0}
 --- !u!1 &6001195233521747629
 GameObject:
   m_ObjectHideFlags: 0
@@ -1859,7 +1860,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6001195233521747629}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: -0.99905217, w: 0.043530196}
+  m_LocalRotation: {x: 0, y: 0, z: -0.99905217, w: 0.043530025}
   m_LocalPosition: {x: 1.11, y: -1.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2415,6 +2416,7 @@ GameObject:
   - component: {fileID: 6785729029564407790}
   - component: {fileID: 4190534221602460514}
   - component: {fileID: 3958081474976133873}
+  - component: {fileID: 9210168627613194767}
   m_Layer: 9
   m_Name: Bruiser
   m_TagString: Untagged
@@ -2542,12 +2544,13 @@ MonoBehaviour:
   detectionRange: 11.55
   attackRange: 4.98
   moveSpeed: 3
+  EffectColor: {r: 0.2991723, g: 0.7830189, b: 0.70237774, a: 1}
   targetLayer:
     serializedVersion: 2
     m_Bits: 256
   meleeHitbox: {fileID: 5344595904501865607, guid: 7d961554b4f3e4da087d374259517ebd, type: 3}
   meleeSpawn: {fileID: 2701580142796690156}
-  damage: 5
+  damage: 10
   meleeCooldown: 0.5
   PatrolSpeed: 5
   WaitFrequency: 0
@@ -2555,6 +2558,29 @@ MonoBehaviour:
   GroundRayOffset: 1.3
   PhysicsSmooth: 10
   CombatCooldown: 2
+--- !u!114 &9210168627613194767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8741503337589273223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d81b3d4e890ad0429a6a3fcbc7eff64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: RunTime::EnemyLimbManager
+  ArmPrefab: {fileID: 9137960784177959062, guid: 8f943056690362e4da73bb950c8ef6d5, type: 3}
+  LegPrefab: {fileID: 4349907943116142719, guid: 3dcef21d649586140a58b14f6d1e5d87, type: 3}
+  FrontArmSprite: {fileID: 2901733737268960181}
+  BackArmSprite: {fileID: 7050499952692369598}
+  FrontLegSprite: {fileID: 9029351294424151052}
+  BackLegSprite: {fileID: 2329655834060070400}
+  FrontArmAnchor: {fileID: 4771929617189734633}
+  BackArmAnchor: {fileID: 9041617962982292358}
+  FrontLegAnchor: {fileID: 7379776209689527582}
+  BackLegAnchor: {fileID: 2055475244995156107}
+  BloodFX: {fileID: 198000011254678926, guid: 4ef50d2e388034a768d8ab7d5593b079, type: 3}
 --- !u!1 &8788114993776258903
 GameObject:
   m_ObjectHideFlags: 0
@@ -2644,7 +2670,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8901801651525373186}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.19220218, w: 0.98135537}
+  m_LocalRotation: {x: 0, y: 0, z: 0.19220407, w: 0.981355}
   m_LocalPosition: {x: 2.19, y: 0.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

@@ -10,6 +10,7 @@ public class Gunner : EnemyAI, IKnockable
     private Rigidbody2D Rigidbody;
     private LayerMask playerLayer => LayerMask.GetMask("PlayerHurtbox");
     private LayerMask groundPlatLayer => LayerMask.GetMask("Ground", "Platform");
+    private EnemyLimbManager limbManager;
 
     [Header("Stats")]
     [SerializeField] float detectionRange = 5f;
@@ -17,6 +18,7 @@ public class Gunner : EnemyAI, IKnockable
     [SerializeField] float moveSpeed = 3f;
 
     [Header("Weapons")]
+    [SerializeField] private Transform attachTo;
     [SerializeField] private RangedWeapon weapon;
     [SerializeField] private float AimTime;
     private float aimTimer;
@@ -47,11 +49,11 @@ public class Gunner : EnemyAI, IKnockable
 
     public void Start()
     {
-
         player = GameManager.Instance.Player;
         damageable = GetComponent<Damageable>();
         lr = GetComponent<LineRenderer>();
         Rigidbody = GetComponent<Rigidbody2D>();
+        limbManager = GetComponent<EnemyLimbManager>();
 
         BTNodes.Add(Sequence(IsDead));
         //BTNodes.Add(Sequence(IsPlayerVisible, MoveToAttackRange,IsInAttackRange, Aim, Attack));
@@ -72,6 +74,12 @@ public class Gunner : EnemyAI, IKnockable
         lr.GetPropertyBlock(laserMatBlock);
         laserBaseColor = lr.sharedMaterial.GetColor("_LaserColor");
 
+        weapon = (RangedWeapon)Weapon.Equip(weapon, attachTo);
+
+        damageable.OnDeath += OnDeath;
+
+        Debug.Log(weapon.gameObject);
+
         RandomizePatrol();
     }
 
@@ -89,17 +97,9 @@ public class Gunner : EnemyAI, IKnockable
         UpdateFaceDirection();
     }
 
-    private void UpdateFaceDirection()
+    void OnDestroy()
     {
-        // Sprites are reversed.
-        var scale = transform.localScale;
-        transform.localScale = new Vector3(facingRight ? -Mathf.Abs(scale.x) : Mathf.Abs(scale.x), scale.y, scale.z);
-    }
-
-    public void ApplyForce(float knockback, float upward)
-    {
-        Vector2 force = knockback * transform.right * (facingRight ? -1 : 1f) + Vector3.up * upward;
-        ExternalVelocity = force;
+        damageable.OnDeath -= OnDeath;
     }
 
     // BT State Changes
@@ -139,6 +139,15 @@ public class Gunner : EnemyAI, IKnockable
         StopMovement();
     }
 
+    private void OnDeath()
+    {
+        Rigidbody.simulated = false;
+        StopMovement();
+        animator.TriggerDeath();
+        weapon.Unequip();
+        limbManager.RandomDismember();
+    }
+
     // Shared
     private void StopMovement()
     {
@@ -147,7 +156,6 @@ public class Gunner : EnemyAI, IKnockable
     }
 
     // BT Conditions
-
     BTState IsPlayerVisible()
     {
         float dist = Vector2.Distance(transform.position, player.position);
@@ -185,18 +193,10 @@ public class Gunner : EnemyAI, IKnockable
     {
         if (damageable.IsDead)
         {
-            OnDeath();
             return _isDead = BTState.Success;
         }
 
         return _isDead = BTState.Failure;
-    }
-
-    private void OnDeath()
-    {
-        Rigidbody.simulated = false;
-        StopMovement();
-        animator.TriggerDeath();
     }
 
     // BT Actions
@@ -297,7 +297,20 @@ public class Gunner : EnemyAI, IKnockable
         return _patroling = BTState.Success;
     }
 
-    // Helpers
+    // Functions
+    private void UpdateFaceDirection()
+    {
+        // Sprites are reversed.
+        var scale = transform.localScale;
+        transform.localScale = new Vector3(facingRight ? -Mathf.Abs(scale.x) : Mathf.Abs(scale.x), scale.y, scale.z);
+    }
+
+    public void ApplyForce(float knockback, float upward)
+    {
+        Vector2 force = knockback * transform.right * (facingRight ? -1 : 1f) + Vector3.up * upward;
+        ExternalVelocity = force;
+    }
+
     private void RandomizePatrol()
     {
         randomPatrolTime = Random.Range(0.5f, 5f);
